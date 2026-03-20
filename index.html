@@ -3,1377 +3,303 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Κάλλος Creative Agency</title>
+<title>Κάλλος — Creative Agency</title>
 <link rel="icon" type="image/png" href="logo.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,100;0,300;0,400;0,600;1,300&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Instrument+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
-/* =====================
-   BRAND TOKENS
-   ===================== */
-:root {
-  --navy:   #05213E;
-  --blue:   #3957A7;
-  --red:    #EE2924;
-  --amber:  #F9A11B;
-  --cream:  #EFF4ED;
-
-  /* Typography */
-  --font-display: 'Josefin Sans', 'Century Gothic', sans-serif;
-  --font-serif:   'Libre Baskerville', Georgia, serif;
-
-  /* Transitions */
-  --trans: 0.35s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-/* =====================
-   DARK THEME (default)
-   ===================== */
-[data-theme="dark"] {
-  --bg:          #05213E;
-  --bg-surface:  #071d36;
-  --bg-card:     #08213a;
-  --bg-alt:      #0a2847;
-  --text:        #EFF4ED;
-  --text-muted:  rgba(239,244,237,0.55);
-  --text-faint:  rgba(239,244,237,0.3);
-  --border:      rgba(239,244,237,0.1);
-  --accent:      #EE2924;
-  --accent2:     #F9A11B;
-  --logo-bg:     var(--blue);
-  --nav-bg:      rgba(5,33,62,0.92);
-  --stat-bg:     #EFF4ED;
-  --stat-text:   #05213E;
-  --stat-muted:  rgba(5,33,62,0.55);
-}
-
-/* =====================
-   LIGHT THEME
-   ===================== */
-[data-theme="light"] {
-  --bg:          #EFF4ED;
-  --bg-surface:  #e8ede6;
-  --bg-card:     #ffffff;
-  --bg-alt:      #f5f8f4;
-  --text:        #05213E;
-  --text-muted:  rgba(5,33,62,0.6);
-  --text-faint:  rgba(5,33,62,0.3);
-  --border:      rgba(5,33,62,0.1);
-  --accent:      #EE2924;
-  --accent2:     #F9A11B;
-  --logo-bg:     var(--navy);
-  --nav-bg:      rgba(239,244,237,0.92);
-  --stat-bg:     #05213E;
-  --stat-text:   #EFF4ED;
-  --stat-muted:  rgba(239,244,237,0.6);
-}
-
-/* =====================
-   RESET & BASE
-   ===================== */
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-html { scroll-behavior: smooth; }
-body {
-  font-family: var(--font-display);
-  background: var(--bg);
-  color: var(--text);
-  overflow-x: hidden;
-  cursor: none;
-  transition: background var(--trans), color var(--trans);
-}
-
-/* =====================
-   CUSTOM CURSOR
-   ===================== */
-.cursor {
-  position: fixed; width: 10px; height: 10px;
-  background: var(--red);
-  border-radius: 50%;
-  pointer-events: none; z-index: 9999;
-  transform: translate(-50%,-50%);
-  transition: transform 0.1s, width 0.25s, height 0.25s, background 0.25s;
-}
-.cursor-ring {
-  position: fixed; width: 38px; height: 38px;
-  border: 1.5px solid rgba(238,41,36,0.5);
-  border-radius: 50%;
-  pointer-events: none; z-index: 9998;
-  transform: translate(-50%,-50%);
-  transition: transform 0.4s ease, width 0.3s, height 0.3s, border-color 0.3s;
-}
-body:has(a:hover) .cursor-ring,
-body:has(button:hover) .cursor-ring { width: 54px; height: 54px; border-color: var(--red); }
-body:has(a:hover) .cursor { background: var(--amber); }
-
-/* =====================
-   NAVIGATION
-   ===================== */
-nav {
-  position: fixed; top: 0; left: 0; right: 0; z-index: 200;
-  display: flex; align-items: center; justify-content: space-between;
-  padding: 20px 60px;
-  transition: background var(--trans), border-color var(--trans), padding var(--trans);
-}
-nav.scrolled {
-  background: var(--nav-bg);
-  backdrop-filter: blur(16px);
-  border-bottom: 1px solid var(--border);
-  padding: 14px 60px;
-}
-
-.nav-logo {
-  display: flex; align-items: center; gap: 12px;
-  text-decoration: none;
-}
-.nav-logo-img {
-  width: 36px; height: 36px;
-  object-fit: contain;
-  background: var(--logo-bg);
-  border-radius: 4px;
-  padding: 4px;
-  display: flex; align-items: center; justify-content: center;
-  overflow: hidden;
-  flex-shrink: 0;
-}
-.nav-logo-img img {
-  width: 100%; height: 100%;
-  object-fit: contain;
-  filter: brightness(0) invert(1);
-}
-.logo-placeholder {
-  /* shown when logo.png is missing */
-  width: 100%; height: 100%;
-  display: flex; align-items: center; justify-content: center;
-  font-family: var(--font-serif);
-  font-size: 18px;
-  font-weight: 700;
-  color: #fff;
-  letter-spacing: 0;
-}
-.nav-wordmark {
-  font-family: var(--font-serif);
-  font-size: 20px;
-  font-weight: 700;
-  color: var(--text);
-  letter-spacing: 0.02em;
-  transition: color var(--trans);
-}
-.nav-wordmark span {
-  font-size: 10px;
-  font-family: var(--font-display);
-  font-weight: 400;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  display: block;
-  color: var(--text-muted);
-  margin-top: 1px;
-}
-
-.nav-center {
-  display: flex; gap: 36px; list-style: none;
-}
-.nav-center a {
-  font-size: 12px; font-weight: 400;
-  letter-spacing: 0.14em; text-transform: uppercase;
-  color: var(--text-muted); text-decoration: none;
-  transition: color 0.2s;
-}
-.nav-center a:hover { color: var(--text); }
-
-.nav-right {
-  display: flex; align-items: center; gap: 16px;
-}
-
-/* Theme Toggle */
-.theme-toggle {
-  position: relative;
-  width: 44px; height: 24px;
-  cursor: none;
-  flex-shrink: 0;
-}
-.theme-toggle input { display: none; }
-.toggle-track {
-  width: 100%; height: 100%;
-  background: var(--border);
-  border: 1.5px solid var(--border);
-  border-radius: 12px;
-  position: relative;
-  transition: background 0.3s, border-color 0.3s;
-  display: flex; align-items: center;
-}
-.theme-toggle input:checked + .toggle-track { background: rgba(238,41,36,0.2); border-color: var(--red); }
-.toggle-thumb {
-  position: absolute; left: 3px;
-  width: 16px; height: 16px;
-  border-radius: 50%;
-  background: var(--text-muted);
-  transition: transform 0.3s, background 0.3s;
-  display: flex; align-items: center; justify-content: center;
-}
-.theme-toggle input:checked + .toggle-track .toggle-thumb {
-  transform: translateX(20px);
-  background: var(--red);
-}
-.toggle-icon { font-size: 9px; line-height: 1; }
-
-.nav-cta {
-  font-size: 11px; font-weight: 600;
-  letter-spacing: 0.14em; text-transform: uppercase;
-  color: #fff;
-  background: var(--red);
-  padding: 10px 22px;
-  text-decoration: none;
-  transition: background 0.2s, transform 0.2s;
-}
-.nav-cta:hover { background: #c82020; transform: translateY(-1px); }
-
-/* =====================
-   HERO
-   ===================== */
-.hero {
-  min-height: 100vh;
-  display: flex; flex-direction: column; justify-content: flex-end;
-  padding: 0 60px 72px;
-  position: relative; overflow: hidden;
-}
-
-.hero-bg {
-  position: absolute; inset: 0;
-  background: var(--bg);
-  transition: background var(--trans);
-}
-[data-theme="dark"] .hero-bg::before {
-  content: '';
-  position: absolute; inset: 0;
-  background: radial-gradient(ellipse 60% 60% at 75% 45%, rgba(57,87,167,0.18) 0%, transparent 70%);
-}
-[data-theme="light"] .hero-bg::before {
-  content: '';
-  position: absolute; inset: 0;
-  background: radial-gradient(ellipse 60% 60% at 75% 45%, rgba(57,87,167,0.08) 0%, transparent 70%);
-}
-
-.hero-grid-lines {
-  position: absolute; inset: 0;
-  background-image:
-    linear-gradient(var(--border) 1px, transparent 1px),
-    linear-gradient(90deg, var(--border) 1px, transparent 1px);
-  background-size: 72px 72px;
-  opacity: 0.5;
-}
-
-/* Large BG wordmark */
-.hero-bg-word {
-  position: absolute;
-  right: -2%;
-  top: 50%;
-  transform: translateY(-52%);
-  font-family: var(--font-serif);
-  font-size: clamp(160px, 22vw, 340px);
-  font-weight: 700;
-  font-style: italic;
-  color: transparent;
-  -webkit-text-stroke: 1px var(--border);
-  line-height: 1;
-  user-select: none;
-  letter-spacing: -0.02em;
-  white-space: nowrap;
-  pointer-events: none;
-}
-
-.hero-content { position: relative; z-index: 2; }
-
-.hero-eyebrow {
-  display: inline-flex; align-items: center; gap: 10px;
-  font-size: 11px; font-weight: 600;
-  letter-spacing: 0.2em; text-transform: uppercase;
-  color: var(--accent); margin-bottom: 24px;
-}
-.hero-eyebrow::before {
-  content: ''; width: 28px; height: 2px; background: var(--accent);
-}
-
-.hero-h1 {
-  font-family: var(--font-serif);
-  font-size: clamp(56px, 9vw, 140px);
-  font-weight: 700;
-  line-height: 0.92;
-  letter-spacing: -0.02em;
-  margin-bottom: 40px;
-}
-.hero-h1 .line-red { color: var(--red); font-style: italic; }
-.hero-h1 .line-muted {
-  color: var(--text-muted);
-  font-size: 0.65em;
-  font-style: italic;
-  font-weight: 400;
-  display: block;
-  letter-spacing: 0;
-}
-
-.hero-bottom {
-  display: flex; align-items: flex-end;
-  justify-content: space-between; gap: 48px;
-}
-.hero-sub {
-  max-width: 380px;
-  font-size: 16px; font-weight: 300;
-  line-height: 1.75;
-  color: var(--text-muted);
-}
-.hero-sub b { color: var(--text); font-weight: 600; }
-
-.hero-actions {
-  display: flex; align-items: center; gap: 16px;
-  flex-shrink: 0;
-}
-.btn-primary {
-  display: inline-flex; align-items: center; gap: 10px;
-  font-size: 11px; font-weight: 600;
-  letter-spacing: 0.14em; text-transform: uppercase;
-  color: #fff; background: var(--red);
-  padding: 14px 28px; text-decoration: none;
-  transition: background 0.2s, transform 0.2s;
-}
-.btn-primary:hover { background: #c82020; transform: translateY(-2px); }
-.btn-ghost {
-  display: inline-flex; align-items: center; gap: 10px;
-  font-size: 11px; font-weight: 600;
-  letter-spacing: 0.14em; text-transform: uppercase;
-  color: var(--text);
-  border-bottom: 1.5px solid var(--border);
-  padding-bottom: 6px;
-  text-decoration: none;
-  transition: color 0.2s, border-color 0.2s, gap 0.2s;
-}
-.btn-ghost:hover { color: var(--red); border-color: var(--red); gap: 16px; }
-
-/* Marquee ticker */
-.hero-ticker {
-  position: absolute; bottom: 0; left: 0; right: 0;
-  overflow: hidden; padding: 14px 0;
-  border-top: 1px solid var(--border);
-  background: var(--bg-alt);
-  transition: background var(--trans);
-}
-.ticker-track {
-  display: flex; gap: 0;
-  animation: ticker 28s linear infinite;
-  white-space: nowrap;
-}
-.ticker-track span {
-  font-size: 11px; font-weight: 600;
-  letter-spacing: 0.2em; text-transform: uppercase;
-  color: var(--text-faint); padding: 0 32px;
-}
-.ticker-track .sep {
-  color: var(--red); padding: 0 8px;
-  font-size: 14px;
-}
-@keyframes ticker { from{transform:translateX(0)} to{transform:translateX(-50%)} }
-
-/* =====================
-   STATS
-   ===================== */
-.stats {
-  display: grid; grid-template-columns: repeat(3,1fr);
-  background: var(--stat-bg);
-  transition: background var(--trans);
-}
-.stat-cell {
-  padding: 56px 48px;
-  border-right: 1px solid rgba(5,33,62,0.08);
-  text-align: center;
-  background: var(--stat-bg);
-  transition: background var(--trans);
-}
-[data-theme="light"] .stat-cell { border-right: 1px solid rgba(239,244,237,0.12); }
-.stat-cell:last-child { border-right: none; }
-.stat-num {
-  font-family: var(--font-serif);
-  font-size: 80px; font-weight: 700;
-  line-height: 1; color: var(--stat-text);
-  display: block;
-  transition: color var(--trans);
-}
-.stat-lbl {
-  font-size: 11px; font-weight: 600;
-  letter-spacing: 0.16em; text-transform: uppercase;
-  color: var(--stat-muted); margin-top: 8px; display: block;
-  transition: color var(--trans);
-}
-[data-theme="light"] .stat-num { color: var(--cream); }
-[data-theme="light"] .stat-lbl { color: rgba(239,244,237,0.6); }
-
-/* =====================
-   SECTION HELPERS
-   ===================== */
-.section { padding: 120px 60px; }
-.section-alt { background: var(--bg-alt); transition: background var(--trans); }
-
-.section-tag {
-  display: inline-flex; align-items: center; gap: 12px;
-  font-size: 10px; font-weight: 600;
-  letter-spacing: 0.22em; text-transform: uppercase;
-  color: var(--accent); margin-bottom: 28px;
-}
-.section-tag::before { content: ''; width: 28px; height: 2px; background: var(--accent); }
-
-.section-h2 {
-  font-family: var(--font-serif);
-  font-size: clamp(42px, 5.5vw, 80px);
-  font-weight: 700;
-  line-height: 1.0;
-  letter-spacing: -0.02em;
-  margin-bottom: 24px;
-}
-.section-h2 em { font-style: italic; color: var(--red); }
-.section-h2 .muted { color: var(--text-muted); }
-
-/* =====================
-   ABOUT
-   ===================== */
-.about-grid {
-  display: grid; grid-template-columns: 1fr 1fr;
-  gap: 80px; align-items: center;
-}
-.about-text {
-  font-size: 17px; font-weight: 300;
-  line-height: 1.8; color: var(--text-muted); margin-bottom: 20px;
-}
-.about-text b { color: var(--text); font-weight: 600; }
-.about-divider {
-  width: 48px; height: 2px; background: var(--red);
-  margin: 32px 0;
-}
-
-/* Color swatch strip */
-.brand-swatches {
-  display: flex; gap: 8px; margin-bottom: 40px;
-}
-.swatch {
-  flex: 1; height: 32px; border-radius: 2px;
-  position: relative;
-}
-.swatch::after {
-  content: attr(data-hex);
-  position: absolute; bottom: -18px; left: 50%;
-  transform: translateX(-50%);
-  font-size: 9px; letter-spacing: 0.05em;
-  color: var(--text-faint); white-space: nowrap;
-}
-
-.about-visual {
-  position: relative;
-}
-.about-img-wrap {
-  aspect-ratio: 4/5; overflow: hidden;
-  background: var(--bg-alt);
-  transition: background var(--trans);
-  position: relative;
-}
-.about-img-wrap img {
-  width: 100%; height: 100%; object-fit: cover; object-position: center top;
-  display: block; transition: transform 0.6s ease;
-}
-.about-img-wrap:hover img { transform: scale(1.04); }
-.about-img-placeholder {
-  width: 100%; height: 100%;
-  display: flex; flex-direction: column;
-  align-items: center; justify-content: center; gap: 16px;
-  background: linear-gradient(135deg, var(--bg-alt) 0%, var(--bg) 100%);
-}
-.about-float {
-  position: absolute; right: -32px; bottom: 40px;
-  background: var(--red); color: #fff;
-  padding: 20px 24px;
-}
-.about-float-big {
-  font-family: var(--font-serif);
-  font-size: 52px; font-weight: 700;
-  line-height: 1; display: block;
-}
-.about-float-sm {
-  font-size: 10px; font-weight: 600;
-  letter-spacing: 0.16em; text-transform: uppercase;
-  display: block; margin-top: 4px; opacity: 0.8;
-}
-.about-corner-badge {
-  position: absolute; left: -32px; top: 40px;
-  width: 64px; height: 64px;
-  background: var(--amber);
-  display: flex; align-items: center; justify-content: center;
-}
-.about-corner-badge svg { fill: var(--navy); }
-
-/* =====================
-   SERVICES
-   ===================== */
-.services-head {
-  display: flex; align-items: flex-end; justify-content: space-between;
-  margin-bottom: 64px;
-}
-.services-grid {
-  display: grid; grid-template-columns: repeat(3,1fr);
-  gap: 1px; background: var(--border);
-}
-.service-card {
-  background: var(--bg-card); padding: 48px 40px;
-  position: relative; overflow: hidden;
-  transition: background var(--trans);
-}
-.service-card::after {
-  content: '';
-  position: absolute; bottom: 0; left: 0; right: 0;
-  height: 3px; background: var(--red);
-  transform: scaleX(0); transform-origin: left;
-  transition: transform 0.35s ease;
-}
-.service-card:hover { background: var(--bg-alt); }
-.service-card:hover::after { transform: scaleX(1); }
-
-.service-num {
-  font-family: var(--font-serif);
-  font-size: 64px; font-weight: 700;
-  color: var(--text-faint); line-height: 1;
-  margin-bottom: 20px; display: block;
-}
-.service-title {
-  font-family: var(--font-serif);
-  font-size: 28px; font-weight: 700;
-  line-height: 1.15; margin-bottom: 14px;
-}
-.service-desc {
-  font-size: 14px; font-weight: 300;
-  line-height: 1.75; color: var(--text-muted);
-  margin-bottom: 28px;
-}
-.service-tags { display: flex; flex-wrap: wrap; gap: 6px; }
-.service-tag {
-  font-size: 10px; font-weight: 600;
-  letter-spacing: 0.12em; text-transform: uppercase;
-  color: var(--accent);
-  border: 1px solid rgba(238,41,36,0.25);
-  padding: 5px 10px;
-}
-
-/* =====================
-   PROJECTS
-   ===================== */
-.projects-header { margin-bottom: 64px; }
-.projects-grid {
-  display: grid; grid-template-columns: repeat(2,1fr);
-  gap: 20px;
-}
-.project-card-wide { grid-column: span 2; }
-
-.project-card { position: relative; overflow: hidden; cursor: none; }
-
-.project-thumb {
-  overflow: hidden; position: relative;
-}
-.project-card-wide .project-thumb { aspect-ratio: 21/9; }
-.project-card:not(.project-card-wide) .project-thumb { aspect-ratio: 4/3; }
-
-.thumb-bg {
-  width: 100%; height: 100%;
-  display: flex; align-items: center; justify-content: center;
-  transition: transform 0.7s ease;
-}
-.project-card:hover .thumb-bg { transform: scale(1.04); }
-
-.thumb-bg.navy { background: linear-gradient(135deg, #05213E 0%, #0a3060 100%); }
-.thumb-bg.blue { background: linear-gradient(135deg, #3957A7 0%, #2040a0 100%); }
-.thumb-bg.red  { background: linear-gradient(135deg, #EE2924 0%, #b01c18 100%); }
-.thumb-bg.amber { background: linear-gradient(135deg, #F9A11B 0%, #c07a0e 100%); }
-
-.thumb-glyph {
-  font-family: var(--font-serif);
-  font-size: 80px; font-weight: 700; font-style: italic;
-  color: rgba(255,255,255,0.15);
-  user-select: none;
-}
-.project-card-wide .thumb-glyph { font-size: 140px; }
-
-.thumb-label {
-  position: absolute; bottom: 0; left: 0;
-  background: rgba(5,33,62,0.75);
-  backdrop-filter: blur(8px);
-  padding: 12px 20px;
-  font-size: 11px; font-weight: 600;
-  letter-spacing: 0.14em; text-transform: uppercase;
-  color: rgba(255,255,255,0.7);
-  border-top: 1px solid rgba(255,255,255,0.1);
-}
-
-.project-info {
-  padding: 16px 0;
-  display: flex; align-items: center; justify-content: space-between;
-}
-.project-name {
-  font-family: var(--font-serif);
-  font-size: 20px; font-weight: 700;
-}
-.project-cat {
-  font-size: 11px; font-weight: 400;
-  letter-spacing: 0.1em; text-transform: uppercase;
-  color: var(--text-muted);
-}
-
-/* =====================
-   TESTIMONIALS
-   ===================== */
-.testi-h { margin-bottom: 64px; }
-.testi-grid {
-  display: grid; grid-template-columns: repeat(2,1fr);
-  gap: 1px; background: var(--border);
-}
-.testi-card {
-  background: var(--bg-card); padding: 52px 48px;
-  transition: background var(--trans);
-}
-.testi-card:hover { background: var(--bg-alt); }
-.testi-mark {
-  font-family: var(--font-serif);
-  font-size: 72px; font-weight: 700;
-  color: var(--red); line-height: 0.7;
-  margin-bottom: 20px; display: block; opacity: 0.7;
-}
-.testi-quote {
-  font-family: var(--font-serif);
-  font-size: 18px; font-weight: 400; font-style: italic;
-  line-height: 1.7; color: var(--text-muted);
-  margin-bottom: 36px;
-}
-.testi-author { display: flex; align-items: center; gap: 14px; }
-.testi-avatar {
-  width: 42px; height: 42px; border-radius: 50%;
-  background: var(--blue);
-  display: flex; align-items: center; justify-content: center;
-  font-size: 13px; font-weight: 600;
-  color: #fff; flex-shrink: 0;
-}
-.testi-name { font-size: 14px; font-weight: 600; }
-.testi-role {
-  font-size: 11px; color: var(--text-muted);
-  letter-spacing: 0.06em; margin-top: 2px;
-}
-
-/* =====================
-   TEAM
-   ===================== */
-.team-head { margin-bottom: 64px; }
-.team-grid {
-  display: grid; grid-template-columns: repeat(2,1fr);
-  gap: 32px;
-}
-.team-card {
-  display: grid; grid-template-columns: 1fr 1fr;
-  background: var(--bg-card);
-  transition: background var(--trans);
-  overflow: hidden;
-}
-.team-card:hover { background: var(--bg-alt); }
-.team-photo {
-  aspect-ratio: 4/5; overflow: hidden;
-  background: var(--bg);
-}
-.team-photo img {
-  width: 100%; height: 100%;
-  object-fit: cover; object-position: center top;
-  display: block; transition: transform 0.6s;
-}
-.team-card:hover .team-photo img { transform: scale(1.05); }
-.team-photo-placeholder {
-  width: 100%; height: 100%;
-  display: flex; align-items: center; justify-content: center;
-  background: var(--bg-alt);
-}
-.team-info {
-  padding: 36px 28px;
-  display: flex; flex-direction: column; justify-content: space-between;
-}
-.team-role {
-  font-size: 10px; font-weight: 600;
-  letter-spacing: 0.18em; text-transform: uppercase;
-  color: var(--red); margin-bottom: 10px;
-}
-.team-name {
-  font-family: var(--font-serif);
-  font-size: 28px; font-weight: 700;
-  line-height: 1.1; margin-bottom: 14px;
-}
-.team-bio {
-  font-size: 13px; font-weight: 300;
-  line-height: 1.7; color: var(--text-muted);
-  flex: 1;
-}
-.team-social {
-  display: inline-flex; align-items: center; gap: 8px;
-  font-size: 10px; font-weight: 600;
-  letter-spacing: 0.12em; text-transform: uppercase;
-  color: var(--text-muted); text-decoration: none;
-  margin-top: 20px;
-  transition: color 0.2s;
-}
-.team-social:hover { color: var(--red); }
-
-/* =====================
-   CTA BANNER
-   ===================== */
-.cta-band {
-  background: var(--red); padding: 100px 60px;
-  position: relative; overflow: hidden; text-align: center;
-}
-.cta-bg-text {
-  position: absolute; left: 50%; top: 50%;
-  transform: translate(-50%, -50%);
-  font-family: var(--font-serif);
-  font-size: 240px; font-weight: 700; font-style: italic;
-  color: rgba(255,255,255,0.06);
-  white-space: nowrap; user-select: none; pointer-events: none;
-  letter-spacing: -0.02em;
-}
-.cta-eyebrow {
-  font-size: 11px; font-weight: 600;
-  letter-spacing: 0.2em; text-transform: uppercase;
-  color: rgba(255,255,255,0.7); margin-bottom: 20px;
-  position: relative; z-index: 1;
-}
-.cta-h {
-  font-family: var(--font-serif);
-  font-size: clamp(48px, 7vw, 96px);
-  font-weight: 700; line-height: 0.95;
-  color: #fff; margin-bottom: 32px;
-  position: relative; z-index: 1;
-}
-.cta-h em { font-style: italic; color: rgba(255,255,255,0.75); }
-.cta-sub {
-  font-size: 17px; font-weight: 300;
-  line-height: 1.6; color: rgba(255,255,255,0.75);
-  max-width: 440px; margin: 0 auto 52px;
-  position: relative; z-index: 1;
-}
-.btn-white {
-  display: inline-flex; align-items: center; gap: 10px;
-  font-size: 11px; font-weight: 600;
-  letter-spacing: 0.14em; text-transform: uppercase;
-  color: var(--red); background: #fff;
-  padding: 15px 32px; text-decoration: none;
-  position: relative; z-index: 1;
-  transition: transform 0.2s, opacity 0.2s;
-}
-.btn-white:hover { transform: translateY(-2px); opacity: 0.95; }
-
-/* =====================
-   FOOTER
-   ===================== */
-footer {
-  background: var(--navy); color: var(--cream);
-  padding: 80px 60px 48px;
-}
-[data-theme="light"] footer { background: var(--navy); }
-
-.footer-grid {
-  display: grid; grid-template-columns: 1.6fr 1fr 1fr 1fr;
-  gap: 48px; padding-bottom: 60px;
-  border-bottom: 1px solid rgba(239,244,237,0.1);
-  margin-bottom: 40px;
-}
-.footer-logo-mark {
-  font-family: var(--font-serif);
-  font-size: 26px; font-weight: 700;
-  color: var(--cream); margin-bottom: 14px; display: block;
-}
-.footer-tagline {
-  font-size: 13px; font-weight: 300;
-  line-height: 1.7; color: rgba(239,244,237,0.55);
-  max-width: 220px; margin-bottom: 24px;
-}
-.footer-social { display: flex; gap: 12px; }
-.footer-icon {
-  width: 34px; height: 34px;
-  border: 1px solid rgba(239,244,237,0.15);
-  display: flex; align-items: center; justify-content: center;
-  color: rgba(239,244,237,0.55);
-  transition: border-color 0.2s, color 0.2s, background 0.2s;
-  text-decoration: none; font-size: 13px;
-}
-.footer-icon:hover { border-color: var(--red); color: var(--cream); background: var(--red); }
-
-.footer-col h4 {
-  font-size: 10px; font-weight: 600;
-  letter-spacing: 0.2em; text-transform: uppercase;
-  color: var(--amber); margin-bottom: 20px;
-}
-.footer-col ul { list-style: none; }
-.footer-col li { margin-bottom: 10px; }
-.footer-col a {
-  font-size: 13px; font-weight: 300;
-  color: rgba(239,244,237,0.55);
-  text-decoration: none; transition: color 0.2s;
-}
-.footer-col a:hover { color: var(--cream); }
-
-.footer-bottom {
-  display: flex; align-items: center; justify-content: space-between;
-}
-.footer-copy {
-  font-size: 12px; color: rgba(239,244,237,0.35);
-}
-.footer-email {
-  font-size: 12px; color: rgba(239,244,237,0.45);
-  text-decoration: none; transition: color 0.2s;
-}
-.footer-email:hover { color: var(--amber); }
-
-/* =====================
-   REVEAL ANIMATIONS
-   ===================== */
-.reveal {
-  opacity: 0; transform: translateY(36px);
-  transition: opacity 0.8s ease, transform 0.8s ease;
-}
-.reveal.show { opacity: 1; transform: translateY(0); }
-.reveal.d1 { transition-delay: 0.1s; }
-.reveal.d2 { transition-delay: 0.2s; }
-.reveal.d3 { transition-delay: 0.3s; }
-.reveal.d4 { transition-delay: 0.4s; }
-
-/* =====================
-   RESPONSIVE
-   ===================== */
-@media (max-width: 960px) {
-  nav { padding: 18px 24px; }
-  nav.scrolled { padding: 12px 24px; }
-  .nav-center { display: none; }
-  .hero { padding: 0 24px 80px; }
-  .hero-bottom { flex-direction: column; align-items: flex-start; gap: 32px; }
-  .about-grid { grid-template-columns: 1fr; }
-  .about-visual { display: none; }
-  .services-grid { grid-template-columns: 1fr; }
-  .services-head { flex-direction: column; align-items: flex-start; gap: 20px; }
-  .projects-grid { grid-template-columns: 1fr; }
-  .project-card-wide { grid-column: span 1; }
-  .testi-grid { grid-template-columns: 1fr; }
-  .team-grid { grid-template-columns: 1fr; }
-  .stats { grid-template-columns: 1fr; }
-  .footer-grid { grid-template-columns: 1fr 1fr; }
-  .footer-bottom { flex-direction: column; gap: 8px; text-align: center; }
-  .section { padding: 80px 24px; }
-  body { cursor: auto; }
-  .cursor, .cursor-ring { display: none; }
+:root{--red:#EE2924;--amber:#F9A11B;--blue:#3957A7;--fs:'Instrument Serif',Georgia,serif;--ss:'Instrument Sans',sans-serif;--ease:cubic-bezier(0.76,0,0.24,1);--eout:cubic-bezier(0.22,1,0.36,1)}
+[data-theme="dark"]{--bg:#111110;--bg2:#161615;--bg3:#1d1d1b;--line:rgba(255,255,255,.07);--line2:rgba(255,255,255,.12);--text:#F7F7F5;--muted:rgba(247,247,245,.45);--faint:rgba(247,247,245,.13);--card:#181817;--nav:rgba(17,17,16,.9);--inv:#F7F7F5;--invt:#111110}
+[data-theme="light"]{--bg:#F7F7F5;--bg2:#EEEEEC;--bg3:#E5E5E3;--line:rgba(0,0,0,.07);--line2:rgba(0,0,0,.14);--text:#111110;--muted:rgba(17,17,16,.45);--faint:rgba(17,17,16,.11);--card:#fff;--nav:rgba(247,247,245,.9);--inv:#111110;--invt:#F7F7F5}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--ss);background:var(--bg);color:var(--text);overflow-x:hidden;cursor:none;transition:background .5s,color .5s;-webkit-font-smoothing:antialiased}
+.grain{position:fixed;inset:-50%;z-index:1000;width:200%;height:200%;pointer-events:none;opacity:.022;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");animation:grn .5s steps(1) infinite}
+@keyframes grn{0%,100%{transform:translate(0,0)}20%{transform:translate(3%,2%)}40%{transform:translate(-1%,4%)}60%{transform:translate(1%,-4%)}80%{transform:translate(3%,-2%)}}
+.cdot{position:fixed;width:6px;height:6px;background:var(--red);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:width .2s,height .2s,background .2s}
+.cring{position:fixed;width:34px;height:34px;border:1px solid rgba(238,41,36,.38);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:width .4s var(--eout),height .4s var(--eout)}
+body.chov .cdot{width:10px;height:10px;background:var(--amber)}
+body.chov .cring{width:54px;height:54px;border-color:rgba(238,41,36,.65)}
+nav{position:fixed;inset:0 0 auto;z-index:500;display:flex;align-items:center;justify-content:space-between;padding:24px 52px;transition:padding .4s var(--eout),background .4s,border-color .4s;border-bottom:1px solid transparent}
+nav.on{background:var(--nav);backdrop-filter:blur(20px) saturate(1.5);border-color:var(--line);padding:15px 52px}
+.nbrand{display:flex;align-items:center;gap:10px;text-decoration:none}
+.nbox{width:34px;height:34px;background:var(--inv);display:flex;align-items:center;justify-content:center;overflow:hidden;flex-shrink:0;transition:background .5s}
+.nbox img{width:26px;height:26px;object-fit:contain}
+.nbox .nfb{font-family:var(--fs);font-size:17px;font-style:italic;color:var(--invt);transition:color .5s}
+.nname{font-family:var(--fs);font-size:17px;color:var(--text);letter-spacing:.01em;transition:color .5s}
+.nname sub{font-family:var(--ss);font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);display:block;line-height:1}
+.nlinks{list-style:none;display:flex;gap:36px}
+.nlinks a{font-size:12px;font-weight:400;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);text-decoration:none;transition:color .2s;position:relative}
+.nlinks a::after{content:'';position:absolute;bottom:-2px;left:0;right:0;height:1px;background:var(--red);transform:scaleX(0);transform-origin:left;transition:transform .3s var(--ease)}
+.nlinks a:hover{color:var(--text)}.nlinks a:hover::after{transform:scaleX(1)}
+.nright{display:flex;align-items:center;gap:14px}
+.tbtn{width:40px;height:22px;background:var(--bg3);border:1px solid var(--line2);border-radius:11px;position:relative;cursor:none;transition:background .3s;flex-shrink:0}
+.tbtn::after{content:'';position:absolute;top:3px;left:3px;width:14px;height:14px;border-radius:50%;background:var(--text);transition:transform .35s var(--eout),background .3s}
+[data-theme="light"] .tbtn::after{transform:translateX(18px)}
+.ncta{font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--invt);background:var(--text);padding:11px 22px;text-decoration:none;display:inline-block;transition:background .3s,color .3s}
+.ncta:hover{background:var(--red);color:#fff}
+.hero{min-height:100vh;display:grid;grid-template-rows:1fr auto;padding:0 52px;position:relative;overflow:hidden}
+.hrules{position:absolute;inset:0;pointer-events:none}
+.hrules::before,.hrules::after{content:'';position:absolute;top:0;bottom:0;width:1px;background:var(--line)}
+.hrules::before{left:calc(52px + (100% - 104px)*.33)}.hrules::after{right:calc(52px + (100% - 104px)*.33)}
+.hmain{display:flex;flex-direction:column;justify-content:flex-end;padding-bottom:64px;position:relative;z-index:2}
+.heyelabel{font-size:10px;font-weight:600;letter-spacing:.24em;text-transform:uppercase;color:var(--muted);display:flex;align-items:center;gap:12px;margin-bottom:32px;opacity:0;animation:fadeup .8s var(--eout) .05s forwards}
+.heyelabel::before{content:'';width:22px;height:1px;background:var(--red);flex-shrink:0}
+.hh1{font-family:var(--fs);font-size:clamp(64px,9.5vw,150px);line-height:.93;letter-spacing:-.02em}
+.hl{display:block;overflow:hidden}.hi{display:block;transform:translateY(108%);animation:sup 1.1s var(--eout) forwards}
+.hl:nth-child(1) .hi{animation-delay:.12s}.hl:nth-child(2) .hi{animation-delay:.22s}.hl:nth-child(3) .hi{animation-delay:.32s}
+@keyframes sup{to{transform:translateY(0)}}@keyframes fadeup{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
+.hred{font-style:italic;color:var(--red)}.hdim{color:var(--muted);font-size:.62em;font-weight:400;font-style:normal}
+.hfoot{display:flex;align-items:flex-end;justify-content:space-between;gap:32px;padding:28px 0 56px;border-top:1px solid var(--line);position:relative;z-index:2;opacity:0;animation:fadeup .9s var(--eout) .65s forwards}
+.hsub{max-width:340px;font-size:15px;font-weight:300;line-height:1.8;color:var(--muted)}.hsub b{color:var(--text);font-weight:500}
+.hbtns{display:flex;gap:12px;align-items:center}
+.bprimary{display:inline-flex;align-items:center;gap:8px;font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--invt);background:var(--text);padding:13px 26px;text-decoration:none;transition:background .3s,color .3s}
+.bprimary:hover{background:var(--red);color:#fff}
+.bghost{display:inline-flex;align-items:center;gap:8px;font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);text-decoration:none;border-bottom:1px solid var(--faint);padding-bottom:4px;transition:color .25s,border-color .25s,gap .25s var(--ease)}
+.bghost:hover{color:var(--text);border-color:var(--line2);gap:14px}
+.bghost svg{flex-shrink:0;transition:transform .3s var(--eout)}.bghost:hover svg{transform:translateX(3px)}
+.scrl{position:absolute;right:52px;bottom:80px;display:flex;flex-direction:column;align-items:center;gap:8px;z-index:2;opacity:0;animation:fadeup .9s var(--eout) 1s forwards}
+.scrl span{font-size:9px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--faint);writing-mode:vertical-rl}
+.sline{width:1px;height:44px;background:linear-gradient(to bottom,var(--red),transparent);animation:sani 2s ease-in-out infinite}
+@keyframes sani{0%{transform:scaleY(0);transform-origin:top}50%{transform:scaleY(1);transform-origin:top}51%{transform:scaleY(1);transform-origin:bottom}100%{transform:scaleY(0);transform-origin:bottom}}
+.ticker{border-top:1px solid var(--line);overflow:hidden;padding:12px 0;background:var(--bg2);transition:background .5s}
+.ttrack{display:flex;white-space:nowrap;animation:rn 26s linear infinite}
+.ttrack span{font-size:10px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--faint);padding:0 26px}
+.ttrack .pip{color:var(--red);padding:0 4px}
+@keyframes rn{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+section{padding:112px 52px}.salt{background:var(--bg2);transition:background .5s}
+.tag{font-size:10px;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:var(--red);display:flex;align-items:center;gap:10px;margin-bottom:22px}
+.tag::before{content:'';width:18px;height:1px;background:var(--red)}
+.sh2{font-family:var(--fs);font-size:clamp(40px,5vw,72px);font-weight:400;line-height:1;letter-spacing:-.02em;margin-bottom:20px}
+.sh2 em{font-style:italic;color:var(--red)}.sh2 .dim{color:var(--muted)}
+.statsband{display:grid;grid-template-columns:repeat(3,1fr);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.sc{padding:60px 52px;border-right:1px solid var(--line);text-align:center;position:relative;overflow:hidden}
+.sc:last-child{border-right:none}
+.sc::after{content:'';position:absolute;bottom:0;left:0;right:0;height:2px;background:var(--red);transform:scaleX(0);transition:transform .6s var(--eout)}
+.sc:hover::after{transform:scaleX(1)}
+.sn{font-family:var(--fs);font-size:72px;font-weight:400;line-height:1;display:block}.sl{font-size:10px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);margin-top:8px;display:block}
+.awrap{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:start}
+.abody{font-size:16px;font-weight:300;line-height:1.85;color:var(--muted);margin-bottom:16px}.abody b{color:var(--text);font-weight:500}
+.arule{width:40px;height:2px;background:var(--red);margin:28px 0}
+.swatches{display:flex;gap:6px;margin-bottom:36px}
+.sw{height:26px;flex:1;border-radius:2px;position:relative;transform-origin:bottom;transition:transform .3s var(--eout)}.sw:hover{transform:scaleY(1.25)}
+.sw::after{content:attr(data-c);position:absolute;bottom:-16px;left:50%;transform:translateX(-50%);font-size:8px;letter-spacing:.04em;color:var(--faint);white-space:nowrap}
+.avis{position:relative}.aimg{aspect-ratio:4/5;overflow:hidden;background:var(--bg3);transition:background .5s}
+.aimg-in{width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:var(--bg3);transition:transform .8s var(--ease),background .5s}
+.aimg:hover .aimg-in{transform:scale(1.03)}
+.abadge{position:absolute;right:-22px;bottom:44px;background:var(--red);color:#fff;padding:16px 20px}
+.abn{font-family:var(--fs);font-size:46px;font-weight:400;line-height:1;display:block}.abs{font-size:9px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;display:block;margin-top:4px;opacity:.8}
+.svhead{display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:48px;padding-bottom:24px;border-bottom:1px solid var(--line)}
+.svgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line)}
+.svc{background:var(--bg);padding:44px 36px;position:relative;overflow:hidden;transition:background .4s}
+.svc::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:var(--red);transform:scaleX(0);transform-origin:left;transition:transform .4s var(--ease)}
+.svc:hover{background:var(--bg2)}.svc:hover::before{transform:scaleX(1)}
+.svn{font-family:var(--fs);font-size:54px;color:var(--faint);line-height:1;margin-bottom:18px;display:block;transition:color .3s}.svc:hover .svn{color:rgba(238,41,36,.18)}
+.svt{font-family:var(--fs);font-size:26px;margin-bottom:12px;line-height:1.15}.svd{font-size:13px;font-weight:300;line-height:1.8;color:var(--muted);margin-bottom:26px}
+.spills{display:flex;flex-wrap:wrap;gap:6px}.sp{font-size:9px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--red);border:1px solid var(--faint);padding:4px 10px;transition:border-color .2s}
+.svc:hover .sp{border-color:rgba(238,41,36,.28)}
+.wgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line);margin-top:48px}
+.wc{background:var(--bg2);padding:36px 28px;transition:background .35s}.wc:hover{background:var(--bg3)}
+.wnum{font-family:var(--fs);font-style:italic;font-size:12px;color:var(--red);margin-bottom:14px}
+.wt{font-size:14px;font-weight:500;margin-bottom:8px}.wb{font-size:12px;font-weight:300;line-height:1.7;color:var(--muted)}
+.tgrid{display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:var(--line);margin-top:48px}
+.tc{background:var(--bg);padding:44px 40px;transition:background .35s}.tc:hover{background:var(--bg2)}
+.tq{font-family:var(--fs);font-size:64px;color:var(--red);line-height:.55;margin-bottom:18px;display:block;opacity:.5}
+.tt{font-family:var(--fs);font-style:italic;font-size:17px;line-height:1.7;color:var(--muted);margin-bottom:28px}
+.tper{display:flex;align-items:center;gap:12px}
+.tav{width:36px;height:36px;border-radius:50%;background:var(--bg3);border:1px solid var(--line2);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:600;color:var(--muted);flex-shrink:0;transition:background .5s}
+.tn{font-size:13px;font-weight:500}.tr{font-size:11px;color:var(--muted);letter-spacing:.03em}
+.tgd{display:grid;grid-template-columns:repeat(2,1fr);gap:20px;margin-top:48px}
+.tmcard{display:grid;grid-template-columns:200px 1fr;background:var(--card);overflow:hidden;transition:background .5s}
+.tmphoto{overflow:hidden;background:var(--bg3)}
+.tmphoto img{width:100%;height:100%;object-fit:cover;object-position:top;display:block;transition:transform .8s var(--ease),filter .5s;filter:grayscale(25%)}
+.tmcard:hover .tmphoto img{transform:scale(1.05);filter:grayscale(0%)}
+.tmph{width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:var(--bg3)}
+.tinfo{padding:28px 24px;display:flex;flex-direction:column;justify-content:space-between}
+.trole{font-size:9px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--red);margin-bottom:8px}
+.tname{font-family:var(--fs);font-size:24px;line-height:1.1;margin-bottom:10px}
+.tbio{font-size:12px;font-weight:300;line-height:1.8;color:var(--muted);flex:1}
+.tig{display:inline-flex;align-items:center;gap:7px;font-size:9px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--faint);text-decoration:none;margin-top:18px;transition:color .2s}
+.tig:hover{color:var(--red)}
+.ctaband{padding:120px 52px;text-align:center;background:var(--inv);color:var(--invt);position:relative;overflow:hidden;transition:background .5s,color .5s}
+.ctabg{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);font-family:var(--fs);font-style:italic;font-size:clamp(140px,22vw,300px);color:currentColor;opacity:.04;pointer-events:none;user-select:none;white-space:nowrap}
+.ctl{font-size:10px;font-weight:600;letter-spacing:.24em;text-transform:uppercase;color:var(--red);margin-bottom:18px;position:relative;z-index:1}
+.cth{font-family:var(--fs);font-size:clamp(52px,7vw,96px);line-height:.95;letter-spacing:-.02em;margin-bottom:24px;position:relative;z-index:1}
+.cts{font-size:15px;font-weight:300;line-height:1.7;opacity:.6;max-width:380px;margin:0 auto 48px;position:relative;z-index:1}
+.binv{display:inline-flex;align-items:center;gap:10px;font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--invt);border:1.5px solid rgba(0,0,0,.15);padding:14px 28px;text-decoration:none;position:relative;z-index:1;transition:background .3s,color .3s,border-color .3s,transform .2s var(--eout)}
+[data-theme="light"] .binv{border-color:rgba(255,255,255,.2)}
+.binv:hover{background:var(--red);color:#fff;border-color:var(--red);transform:translateY(-2px)}
+footer{background:var(--bg);padding:76px 52px 44px;border-top:1px solid var(--line);transition:background .5s}
+.fgrid{display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:48px;padding-bottom:52px;border-bottom:1px solid var(--line);margin-bottom:32px}
+.fmark{font-family:var(--fs);font-size:22px;color:var(--text);display:block;margin-bottom:12px;text-decoration:none}
+.fbyline{font-size:12px;font-weight:300;line-height:1.7;color:var(--muted);max-width:190px;margin-bottom:20px}
+.ficons{display:flex;gap:8px}
+.fi{width:30px;height:30px;border:1px solid var(--line);display:flex;align-items:center;justify-content:center;color:var(--faint);text-decoration:none;transition:border-color .2s,color .2s,background .2s}
+.fi:hover{border-color:var(--red);color:var(--text);background:rgba(238,41,36,.06)}
+.fcol h5{font-size:9px;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:var(--faint);margin-bottom:16px}
+.fcol ul{list-style:none}.fcol li{margin-bottom:10px}
+.fcol a{font-size:13px;font-weight:300;color:var(--muted);text-decoration:none;transition:color .2s}.fcol a:hover{color:var(--text)}
+.fbar2{display:flex;align-items:center;justify-content:space-between}
+.fcopy{font-size:11px;color:var(--faint)}.femail{font-size:11px;color:var(--muted);text-decoration:none;transition:color .2s}.femail:hover{color:var(--amber)}
+.ldraw{width:0;height:1px;background:var(--red);transition:width 1.3s var(--eout);margin-bottom:36px}.ldraw.in{width:100%}
+.rv{opacity:0;transition:opacity .9s var(--eout),transform .9s var(--eout)}
+.rv.up{transform:translateY(30px)}.rv.zm{transform:scale(.97)}.rv.in{opacity:1;transform:none}
+.rv.d1{transition-delay:.1s}.rv.d2{transition-delay:.2s}.rv.d3{transition-delay:.3s}.rv.d4{transition-delay:.45s}
+@media(max-width:900px){
+nav{padding:18px 24px}nav.on{padding:13px 24px}.nlinks{display:none}
+.hero,section,footer{padding-left:24px;padding-right:24px}.hrules{display:none}
+.hfoot{flex-direction:column;align-items:flex-start;gap:24px}.scrl{display:none}
+.awrap{grid-template-columns:1fr}.avis{display:none}.svgrid{grid-template-columns:1fr}
+.svhead{flex-direction:column;align-items:flex-start;gap:16px}
+.wgrid{grid-template-columns:1fr 1fr}.tgrid{grid-template-columns:1fr}.tgd{grid-template-columns:1fr}
+.tmcard{grid-template-columns:1fr}.statsband{grid-template-columns:1fr}
+.fgrid{grid-template-columns:1fr 1fr;gap:28px}.fbar2{flex-direction:column;gap:8px;text-align:center}
+body{cursor:auto}.cdot,.cring{display:none}
 }
 </style>
 </head>
 <body>
-
-<!-- CURSOR -->
-<div class="cursor" id="cur"></div>
-<div class="cursor-ring" id="cur-ring"></div>
-
-<!-- NAV -->
+<div class="grain"></div>
+<div class="cdot" id="cdot"></div>
+<div class="cring" id="cring"></div>
 <nav id="nav">
-  <a href="#" class="nav-logo">
-    <div class="nav-logo-img">
-      <img src="logo.png" alt="Κάλλος"
-        onerror="this.style.display='none'; this.parentElement.querySelector('.logo-placeholder').style.display='flex'">
-      <div class="logo-placeholder" style="display:none">Κ</div>
-    </div>
-    <div class="nav-wordmark">
-      Κάλλος
-      <span>Creative Agency</span>
-    </div>
+  <a href="index.html" class="nbrand">
+    <div class="nbox"><img src="logo.png" alt="Κ" onerror="this.style.display='none';this.parentElement.querySelector('.nfb').style.display='block'"><span class="nfb" style="display:none">Κ</span></div>
+    <span class="nname">Κάλλος<sub>Creative Agency</sub></span>
   </a>
-
-  <ul class="nav-center">
+  <ul class="nlinks">
     <li><a href="#services">Services</a></li>
-    <li><a href="#projects">Projects</a></li>
+    <li><a href="portfolio.html">Portfolio</a></li>
     <li><a href="#team">About</a></li>
     <li><a href="#contact">Contact</a></li>
   </ul>
-
-  <div class="nav-right">
-    <label class="theme-toggle" title="Toggle theme">
-      <input type="checkbox" id="themeToggle">
-      <div class="toggle-track">
-        <div class="toggle-thumb">
-          <span class="toggle-icon" id="themeIcon">☀</span>
-        </div>
-      </div>
-    </label>
-    <a href="https://app.hellobonsai.com/f/1f505b723cad700" target="_blank" class="nav-cta">Work with us</a>
+  <div class="nright">
+    <button class="tbtn" id="tbtn" aria-label="Toggle theme" style="border:none;cursor:none"></button>
+    <a href="https://app.hellobonsai.com/f/1f505b723cad700" target="_blank" class="ncta">Work with us</a>
   </div>
 </nav>
-
-<!-- HERO -->
 <section class="hero">
-  <div class="hero-bg"></div>
-  <div class="hero-grid-lines"></div>
-  <div class="hero-bg-word">Κάλλος</div>
-
-  <div class="hero-content">
-    <div class="hero-eyebrow reveal">Creative Agency · Est. 2022</div>
-    <h1 class="hero-h1 reveal d1">
-      We are<br>
-      <span class="line-red">Κάλλος</span>
-      <span class="line-muted">Creative Agency</span>
+  <div class="hrules"></div>
+  <div class="hmain">
+    <div class="heyelabel"><span>Creative Agency · Est. 2022</span></div>
+    <h1 class="hh1">
+      <span class="hl"><span class="hi">We are</span></span>
+      <span class="hl"><span class="hi hred">Κάλλος</span></span>
+      <span class="hl"><span class="hi hdim">Creative Agency</span></span>
     </h1>
-    <div class="hero-bottom reveal d2">
-      <p class="hero-sub"><b>We lead with courage and creativity.</b> We craft bold branding, design, and print experiences that challenge the ordinary — and deliver real results.</p>
-      <div class="hero-actions">
-        <a href="https://app.hellobonsai.com/f/1f505b723cad700" target="_blank" class="btn-primary">
-          Start a Project
-          <svg width="14" height="14" fill="none" viewBox="0 0 14 14"><path d="M2 7h10M8 3l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        </a>
-        <a href="#projects" class="btn-ghost">
-          View Work
-          <svg width="14" height="14" fill="none" viewBox="0 0 14 14"><path d="M2 7h10M8 3l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        </a>
-      </div>
+  </div>
+  <div class="hfoot">
+    <p class="hsub"><b>Bold branding. Purposeful design.</b> We challenge the ordinary and craft work that makes people feel something — every single time.</p>
+    <div class="hbtns">
+      <a href="https://app.hellobonsai.com/f/1f505b723cad700" target="_blank" class="bprimary">Start a Project</a>
+      <a href="portfolio.html" class="bghost">See Work <svg width="14" height="14" fill="none" viewBox="0 0 14 14"><path d="M2 7h10M8 3l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
     </div>
   </div>
-
-  <div class="hero-ticker">
-    <div class="ticker-track" id="ticker">
-      <span>Brand Strategy</span><span class="sep">✦</span>
-      <span>Visual Design</span><span class="sep">✦</span>
-      <span>Print & Packaging</span><span class="sep">✦</span>
-      <span>Brand Identity</span><span class="sep">✦</span>
-      <span>Design Systems</span><span class="sep">✦</span>
-      <span>Creative Direction</span><span class="sep">✦</span>
-      <span>Brand Strategy</span><span class="sep">✦</span>
-      <span>Visual Design</span><span class="sep">✦</span>
-      <span>Print & Packaging</span><span class="sep">✦</span>
-      <span>Brand Identity</span><span class="sep">✦</span>
-      <span>Design Systems</span><span class="sep">✦</span>
-      <span>Creative Direction</span><span class="sep">✦</span>
-    </div>
-  </div>
+  <div class="scrl"><span>Scroll</span><div class="sline"></div></div>
+  <div class="ticker"><div class="ttrack"><span>Brand Strategy</span><span class="pip">✦</span><span>Visual Design</span><span class="pip">✦</span><span>Print & Packaging</span><span class="pip">✦</span><span>Brand Identity</span><span class="pip">✦</span><span>Design Systems</span><span class="pip">✦</span><span>Creative Direction</span><span class="pip">✦</span><span>Brand Strategy</span><span class="pip">✦</span><span>Visual Design</span><span class="pip">✦</span><span>Print & Packaging</span><span class="pip">✦</span><span>Brand Identity</span><span class="pip">✦</span><span>Design Systems</span><span class="pip">✦</span><span>Creative Direction</span><span class="pip">✦</span></div></div>
 </section>
-
-<!-- STATS -->
-<div class="stats">
-  <div class="stat-cell reveal">
-    <span class="stat-num">50+</span>
-    <span class="stat-lbl">Projects Delivered</span>
-  </div>
-  <div class="stat-cell reveal d1">
-    <span class="stat-num">95%</span>
-    <span class="stat-lbl">Client Satisfaction</span>
-  </div>
-  <div class="stat-cell reveal d2">
-    <span class="stat-num">3+</span>
-    <span class="stat-lbl">Years of Excellence</span>
-  </div>
+<div class="statsband">
+  <div class="sc rv up"><span class="sn" data-to="50" data-sx="+">0+</span><span class="sl">Projects Delivered</span></div>
+  <div class="sc rv up d1"><span class="sn" data-to="95" data-sx="%">0%</span><span class="sl">Client Satisfaction</span></div>
+  <div class="sc rv up d2"><span class="sn" data-to="3" data-sx="+">0+</span><span class="sl">Years of Excellence</span></div>
 </div>
-
-<!-- ABOUT -->
-<section class="section" id="about">
-  <div class="about-grid">
+<section id="about">
+  <div class="awrap">
     <div>
-      <div class="section-tag reveal">About Kallos</div>
-      <h2 class="section-h2 reveal d1">
-        Results that<br>
-        <em>matter—</em><br>
-        <span class="muted">rooted in bold design.</span>
-      </h2>
-      <div class="about-divider reveal d2"></div>
-      <p class="about-text reveal d2">
-        <b>We're built on a foundation of problem-solving.</b> We identify challenges faced by businesses and individuals in branding, design, and print — and deliver innovative, tailored solutions that drive results.
-      </p>
-      <p class="about-text reveal d3">
-        No gimmicks, just solutions. We design with purpose — making your brand sharper, smarter, and more efficient with every project we take on.
-      </p>
-
-      <div class="brand-swatches reveal d3">
-        <div class="swatch" style="background:#05213E" data-hex="#05213E"></div>
-        <div class="swatch" style="background:#3957A7" data-hex="#3957A7"></div>
-        <div class="swatch" style="background:#EE2924" data-hex="#EE2924"></div>
-        <div class="swatch" style="background:#F9A11B" data-hex="#F9A11B"></div>
-        <div class="swatch" style="background:#EFF4ED" data-hex="#EFF4ED;border:1px solid rgba(0,0,0,0.1)"></div>
+      <div class="tag rv up">About Kallos</div>
+      <h2 class="sh2 rv up d1">Results that<br><em>matter.</em> <span class="dim">Rooted in<br>bold design.</span></h2>
+      <div class="ldraw rv"></div>
+      <p class="abody rv up d1"><b>We're built on a foundation of problem-solving.</b> We identify the challenges businesses face in branding and design — and deliver tailored solutions that actually drive results.</p>
+      <p class="abody rv up d2">No gimmicks. No fluff. We design with purpose — making your brand sharper, smarter, and more effective with every project.</p>
+      <div class="swatches rv up d3">
+        <div class="sw" style="background:#111110" data-c="#111"></div>
+        <div class="sw" style="background:#F7F7F5;border:1px solid #ddd" data-c="#F7F"></div>
+        <div class="sw" style="background:#EE2924" data-c="Red"></div>
+        <div class="sw" style="background:#F9A11B" data-c="Amber"></div>
+        <div class="sw" style="background:#3957A7" data-c="Blue"></div>
       </div>
-
-      <a href="#team" class="btn-ghost reveal d4" style="margin-top:32px">
-        Meet the team
-        <svg width="14" height="14" fill="none" viewBox="0 0 14 14"><path d="M2 7h10M8 3l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-      </a>
+      <a href="#team" class="bghost rv up d4" style="margin-top:28px;display:inline-flex">Meet the team <svg width="14" height="14" fill="none" viewBox="0 0 14 14"><path d="M2 7h10M8 3l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
     </div>
-
-    <div class="about-visual reveal d2">
-      <div class="about-img-wrap">
-        <div class="about-img-placeholder">
-          <svg width="80" height="80" viewBox="0 0 80 80" fill="none">
-            <text x="40" y="55" text-anchor="middle" font-family="serif" font-size="48" fill="rgba(57,87,167,0.25)" font-style="italic">Κ</text>
-          </svg>
-          <span style="font-family:var(--font-display);font-size:11px;letter-spacing:0.2em;text-transform:uppercase;color:var(--text-faint)">Kallos Creative</span>
-        </div>
-      </div>
-      <div class="about-float">
-        <span class="about-float-big">©25</span>
-        <span class="about-float-sm">Est. 2022</span>
-      </div>
-      <div class="about-corner-badge">
-        <svg width="28" height="28" viewBox="0 0 28 28">
-          <path d="M14 2L17.5 10.5H26L19.5 15.5L22 24L14 19L6 24L8.5 15.5L2 10.5H10.5L14 2Z" fill="#05213E"/>
-        </svg>
-      </div>
+    <div class="avis rv zm d1">
+      <div class="aimg"><div class="aimg-in"><svg width="64" height="64" viewBox="0 0 64 64" fill="none"><circle cx="32" cy="32" r="30" stroke="var(--faint)" stroke-width="1"/><text x="32" y="46" text-anchor="middle" font-family="var(--fs)" font-size="40" fill="var(--faint)" font-style="italic">Κ</text></svg></div></div>
+      <div class="abadge"><span class="abn">©25</span><span class="abs">Est. 2022</span></div>
     </div>
   </div>
 </section>
-
-<!-- SERVICES -->
-<section class="section section-alt" id="services">
-  <div class="services-head">
-    <div>
-      <div class="section-tag reveal">What we offer</div>
-      <h2 class="section-h2 reveal d1">Our <em>Services</em></h2>
-    </div>
-    <a href="https://app.hellobonsai.com/f/1f505b723cad700" target="_blank" class="btn-ghost reveal">
-      Start a project
-      <svg width="14" height="14" fill="none" viewBox="0 0 14 14"><path d="M2 7h10M8 3l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-    </a>
+<section class="salt" id="services">
+  <div class="svhead">
+    <div><div class="tag rv up">What we offer</div><h2 class="sh2 rv up d1">Our <em>Services</em></h2></div>
+    <a href="https://app.hellobonsai.com/f/1f505b723cad700" target="_blank" class="bghost rv">Start a project <svg width="14" height="14" fill="none" viewBox="0 0 14 14"><path d="M2 7h10M8 3l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
   </div>
-
-  <div class="services-grid">
-    <div class="service-card reveal">
-      <span class="service-num">01</span>
-      <h3 class="service-title">Brand Strategy<br>& Design</h3>
-      <p class="service-desc">We create compelling brand identities that resonate with your audience — from discovery and research to visual identity, logo design, and brand guidelines.</p>
-      <div class="service-tags">
-        <span class="service-tag">Brand Discovery</span>
-        <span class="service-tag">Logo Design</span>
-        <span class="service-tag">Messaging</span>
-        <span class="service-tag">Guidelines</span>
-      </div>
+  <div class="svgrid">
+    <div class="svc rv up"><span class="svn">01</span><h3 class="svt">Brand Strategy<br>& Design</h3><p class="svd">We create compelling brand identities — from discovery and research to logos, visual systems, and guidelines that keep your brand consistent everywhere.</p><div class="spills"><span class="sp">Brand Discovery</span><span class="sp">Logo Design</span><span class="sp">Messaging</span><span class="sp">Guidelines</span></div></div>
+    <div class="svc rv up d1"><span class="svn">02</span><h3 class="svt">Visual<br>Design</h3><p class="svd">High-impact design for digital and print — from cohesive design systems and marketing collateral to digital assets and UI elements that make your brand unforgettable.</p><div class="spills"><span class="sp">Design Systems</span><span class="sp">Collateral</span><span class="sp">Digital Assets</span><span class="sp">UI Elements</span></div></div>
+    <div class="svc rv up d2"><span class="svn">03</span><h3 class="svt">Print &<br>Packaging</h3><p class="svd">From idea to ink, we oversee every detail — material selection, vendor coordination, proofing, and delivery — to produce print that genuinely impresses.</p><div class="spills"><span class="sp">Consultation</span><span class="sp">Vendor Mgmt</span><span class="sp">Proofing</span><span class="sp">QA</span></div></div>
+  </div>
+  <div class="wgrid">
+    <div class="wc rv up"><div class="wnum">01/</div><div class="wt">Clear communication</div><div class="wb">From concept to delivery, you're never left guessing. We work with you, not at you.</div></div>
+    <div class="wc rv up d1"><div class="wnum">02/</div><div class="wt">Tailored solutions</div><div class="wb">No templates. Every project is built around your brand, your goals, your audience.</div></div>
+    <div class="wc rv up d2"><div class="wnum">03/</div><div class="wt">Upfront pricing</div><div class="wb">No hidden fees. No surprise invoices. What we quote is what you pay.</div></div>
+    <div class="wc rv up d3"><div class="wnum">04/</div><div class="wt">Measurable results</div><div class="wb">Trusted by clients across industries. Backed by 50+ successful deliveries.</div></div>
+  </div>
+</section>
+<section id="testimonials">
+  <div class="tag rv up">Client Voices</div>
+  <h2 class="sh2 rv up d1">Experi<em>ences.</em></h2>
+  <div class="tgrid">
+    <div class="tc rv up"><span class="tq">"</span><p class="tt">Kallos Creative is extremely talented and highly professional. The team was patient and collaborative — working closely until we landed on the perfect result. Even with a tight deadline, the final outcome went above and beyond what I envisioned.</p><div class="tper"><div class="tav">IO</div><div><div class="tn">Ifeoluwa Olaniyan</div><div class="tr">Celebration Church, USA</div></div></div></div>
+    <div class="tc rv up d1"><span class="tq">"</span><p class="tt">Working with Kallos Creative was an exceptional experience. From the start, the team understood my vision and brought it to life with precision and creativity. Even under tight deadlines, they delivered beyond expectations.</p><div class="tper"><div class="tav">SO</div><div><div class="tn">Samuel Owa</div><div class="tr">Founder, Ripple</div></div></div></div>
+    <div class="tc rv up"><span class="tq">"</span><p class="tt">Working with Kallos was truly a God-orchestrated experience. I came with a vision rooted in ministry, and they handled it with such care and excellence. The final result wasn't just a project — it was a testimony.</p><div class="tper"><div class="tav">LK</div><div><div class="tn">The Lady Kaka</div><div class="tr">The Stay Experience</div></div></div></div>
+    <div class="tc rv up d1"><span class="tq">"</span><p class="tt">Kallos was incredibly helpful in designing the pamphlet for my event — vibrant, eye-catching, and perfectly capturing the theme. The team was accessible and responsive, and they delivered on time without compromising quality.</p><div class="tper"><div class="tav">PU</div><div><div class="tn">Philip Ugbe</div><div class="tr">Event Organizer</div></div></div></div>
+  </div>
+</section>
+<section class="salt" id="team">
+  <div class="tag rv up">Creative Minds</div>
+  <h2 class="sh2 rv up d1">The team behind <em>Kallos.</em></h2>
+  <div class="tgd">
+    <div class="tmcard rv zm">
+      <div class="tmphoto"><img src="https://framerusercontent.com/images/3SYMSAeMHzCYSOYLXyBuy0WIwC4.jpg" alt="Nifemi Adeniran" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="tmph" style="display:none"><span style="font-family:var(--fs);font-size:64px;font-style:italic;color:var(--faint)">NA</span></div></div>
+      <div class="tinfo"><div><div class="trole">Creative Director</div><h3 class="tname">Nifemi<br>Adeniran</h3><p class="tbio">Nifemi leads visual direction at Kallos — guiding all creative projects with a focus on quality, innovation, and design excellence. He builds design systems and sets the creative standard.</p></div><a href="https://www.instagram.com/_mannorr/" target="_blank" class="tig"><svg width="11" height="11" fill="none" viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5" stroke="currentColor" stroke-width="1.5"/><circle cx="12" cy="12" r="4" stroke="currentColor" stroke-width="1.5"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor"/></svg>@_mannorr</a></div>
     </div>
-    <div class="service-card reveal d1">
-      <span class="service-num">02</span>
-      <h3 class="service-title">Visual<br>Design</h3>
-      <p class="service-desc">We bring your brand's personality to life through thoughtful, high-impact design for digital and print — from systems and layouts to marketing collateral and digital assets.</p>
-      <div class="service-tags">
-        <span class="service-tag">Design Systems</span>
-        <span class="service-tag">Collateral</span>
-        <span class="service-tag">Digital Assets</span>
-        <span class="service-tag">UI Elements</span>
-      </div>
-    </div>
-    <div class="service-card reveal d2">
-      <span class="service-num">03</span>
-      <h3 class="service-title">Print &<br>Packaging</h3>
-      <p class="service-desc">From idea to ink, we oversee every detail to deliver high-quality printed materials that make a tangible, lasting impression — on time, every time.</p>
-      <div class="service-tags">
-        <span class="service-tag">Consultation</span>
-        <span class="service-tag">Vendor Mgmt</span>
-        <span class="service-tag">Proofing</span>
-        <span class="service-tag">Quality Check</span>
-      </div>
+    <div class="tmcard rv zm d1">
+      <div class="tmphoto"><img src="https://framerusercontent.com/images/anvXrxIsJzXrmnWyuzXrnJhZLM.jpg" alt="Ayobami Ojesina" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="tmph" style="display:none"><span style="font-family:var(--fs);font-size:64px;font-style:italic;color:var(--faint)">AO</span></div></div>
+      <div class="tinfo"><div><div class="trole">Business & Operations</div><h3 class="tname">Ayobami<br>Ojesina</h3><p class="tbio">Ayobami oversees the operational core of Kallos — managing timelines, budgets, client communication, and print production with a sharp focus on strategy and logistics.</p></div><a href="https://www.instagram.com/yourgirlbami/" target="_blank" class="tig"><svg width="11" height="11" fill="none" viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5" stroke="currentColor" stroke-width="1.5"/><circle cx="12" cy="12" r="4" stroke="currentColor" stroke-width="1.5"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor"/></svg>@yourgirlbami</a></div>
     </div>
   </div>
 </section>
-
-<!-- PROJECTS -->
-<section class="section" id="projects">
-  <div class="projects-header">
-    <div class="section-tag reveal">Featured Work</div>
-    <h2 class="section-h2 reveal d1">Projects.</h2>
-  </div>
-
-  <div class="projects-grid">
-    <div class="project-card project-card-wide reveal">
-      <div class="project-thumb">
-        <div class="thumb-bg navy">
-          <span class="thumb-glyph">FC</span>
-        </div>
-        <div class="thumb-label">Visual Design / Conference Branding</div>
-      </div>
-      <div class="project-info">
-        <div class="project-name">Fuse Conference</div>
-        <div class="project-cat">2024</div>
-      </div>
-    </div>
-    <div class="project-card reveal">
-      <div class="project-thumb">
-        <div class="thumb-bg blue">
-          <span class="thumb-glyph">FB</span>
-        </div>
-        <div class="thumb-label">Visual Design</div>
-      </div>
-      <div class="project-info">
-        <div class="project-name">Faith Brodrick</div>
-        <div class="project-cat">2024</div>
-      </div>
-    </div>
-    <div class="project-card reveal d1">
-      <div class="project-thumb">
-        <div class="thumb-bg red">
-          <span class="thumb-glyph">TS</span>
-        </div>
-        <div class="thumb-label">Brand Design</div>
-      </div>
-      <div class="project-info">
-        <div class="project-name">Truth Show</div>
-        <div class="project-cat">2024</div>
-      </div>
-    </div>
-    <div class="project-card reveal d2">
-      <div class="project-thumb">
-        <div class="thumb-bg amber">
-          <span class="thumb-glyph">BP</span>
-        </div>
-        <div class="thumb-label">Brand Design</div>
-      </div>
-      <div class="project-info">
-        <div class="project-name">Bigger Picture</div>
-        <div class="project-cat">2024</div>
-      </div>
-    </div>
-    <div class="project-card reveal d3">
-      <div class="project-thumb">
-        <div class="thumb-bg navy">
-          <span class="thumb-glyph">M</span>
-        </div>
-        <div class="thumb-label">Mentorship Agency</div>
-      </div>
-      <div class="project-info">
-        <div class="project-name">Menter</div>
-        <div class="project-cat">2024</div>
-      </div>
-    </div>
-  </div>
-
-  <div style="text-align:center;margin-top:56px" class="reveal">
-    <a href="#" class="btn-ghost">
-      View all projects
-      <svg width="14" height="14" fill="none" viewBox="0 0 14 14"><path d="M2 7h10M8 3l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-    </a>
-  </div>
-</section>
-
-<!-- TESTIMONIALS -->
-<section class="section section-alt">
-  <div class="testi-h">
-    <div class="section-tag reveal">Client Voices</div>
-    <h2 class="section-h2 reveal d1">Experi<em>ences.</em></h2>
-  </div>
-  <div class="testi-grid">
-    <div class="testi-card reveal">
-      <span class="testi-mark">"</span>
-      <p class="testi-quote">Kallos Creative is extremely talented and highly professional. The team was patient and collaborative — working closely with me until we landed on the perfect result. Even with a tight deadline, the final outcome went above and beyond what I envisioned.</p>
-      <div class="testi-author">
-        <div class="testi-avatar">IO</div>
-        <div>
-          <div class="testi-name">Ifeoluwa Olaniyan</div>
-          <div class="testi-role">Celebration Church, USA</div>
-        </div>
-      </div>
-    </div>
-    <div class="testi-card reveal d1">
-      <span class="testi-mark">"</span>
-      <p class="testi-quote">Working with Kallos Creative was an exceptional experience. From the start, the team understood my vision and brought it to life with precision and creativity. Even under tight deadlines, they delivered beyond expectations — on time and with a level of polish that truly impressed.</p>
-      <div class="testi-author">
-        <div class="testi-avatar">SO</div>
-        <div>
-          <div class="testi-name">Samuel Owa</div>
-          <div class="testi-role">Founder, Ripple</div>
-        </div>
-      </div>
-    </div>
-    <div class="testi-card reveal">
-      <span class="testi-mark">"</span>
-      <p class="testi-quote">Working with Kallos Creative was truly a God-orchestrated experience. I came with a vision deeply rooted in ministry, and they handled it with such care, sensitivity, and excellence. The final result wasn't just a project — it was a testimony.</p>
-      <div class="testi-author">
-        <div class="testi-avatar">LK</div>
-        <div>
-          <div class="testi-name">The Lady Kaka</div>
-          <div class="testi-role">The Stay Experience</div>
-        </div>
-      </div>
-    </div>
-    <div class="testi-card reveal d1">
-      <span class="testi-mark">"</span>
-      <p class="testi-quote">Kallos Creative was incredibly helpful in designing the pamphlet for my event. They delivered a vibrant, eye-catching design that perfectly captured the theme. The team was accessible, communicative, and quick — and they delivered on time without ever compromising on quality.</p>
-      <div class="testi-author">
-        <div class="testi-avatar">PU</div>
-        <div>
-          <div class="testi-name">Philip Ugbe</div>
-          <div class="testi-role">Event Organizer</div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- TEAM -->
-<section class="section" id="team">
-  <div class="team-head">
-    <div class="section-tag reveal">Creative Minds</div>
-    <h2 class="section-h2 reveal d1">The team<br>behind <em>Kallos.</em></h2>
-  </div>
-  <div class="team-grid">
-    <div class="team-card reveal">
-      <div class="team-photo">
-        <img src="https://framerusercontent.com/images/3SYMSAeMHzCYSOYLXyBuy0WIwC4.jpg" alt="Nifemi Adeniran"
-          onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
-        <div class="team-photo-placeholder" style="display:none">
-          <span style="font-family:var(--font-serif);font-size:72px;font-style:italic;color:var(--blue);opacity:0.3">NA</span>
-        </div>
-      </div>
-      <div class="team-info">
-        <div>
-          <div class="team-role">Creative Director</div>
-          <h3 class="team-name">Nifemi<br>Adeniran</h3>
-          <p class="team-bio">Nifemi leads the visual direction at Kallos, guiding all creative projects with a focus on quality, innovation, and design excellence. He builds design systems and sets creative standards.</p>
-        </div>
-        <a href="https://www.instagram.com/_mannorr/" target="_blank" class="team-social">
-          <svg width="13" height="13" fill="none" viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5" stroke="currentColor" stroke-width="1.5"/><circle cx="12" cy="12" r="4" stroke="currentColor" stroke-width="1.5"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor"/></svg>
-          @_mannorr
-        </a>
-      </div>
-    </div>
-
-    <div class="team-card reveal d1">
-      <div class="team-photo">
-        <img src="https://framerusercontent.com/images/anvXrxIsJzXrmnWyuzXrnJhZLM.jpg" alt="Ayobami Ojesina"
-          onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
-        <div class="team-photo-placeholder" style="display:none">
-          <span style="font-family:var(--font-serif);font-size:72px;font-style:italic;color:var(--blue);opacity:0.3">AO</span>
-        </div>
-      </div>
-      <div class="team-info">
-        <div>
-          <div class="team-role">Business & Operations</div>
-          <h3 class="team-name">Ayobami<br>Ojesina</h3>
-          <p class="team-bio">Ayobami oversees the operational core of Kallos — managing timelines, budgets, client communication, and print production with sharp strategic focus.</p>
-        </div>
-        <a href="https://www.instagram.com/yourgirlbami/" target="_blank" class="team-social">
-          <svg width="13" height="13" fill="none" viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5" stroke="currentColor" stroke-width="1.5"/><circle cx="12" cy="12" r="4" stroke="currentColor" stroke-width="1.5"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor"/></svg>
-          @yourgirlbami
-        </a>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- CTA -->
-<div class="cta-band" id="contact">
-  <div class="cta-bg-text">Κάλλος</div>
-  <p class="cta-eyebrow">Start something bold</p>
-  <h2 class="cta-h">Let's Build<br><em>Together</em></h2>
-  <p class="cta-sub">We've delivered 50+ projects that help companies generate real results. Let's make yours the next one.</p>
-  <a href="https://app.hellobonsai.com/f/1f505b723cad700" target="_blank" class="btn-white">
-    Start a new project
-    <svg width="14" height="14" fill="none" viewBox="0 0 14 14"><path d="M2 7h10M8 3l4 4-4 4" stroke="#EE2924" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-  </a>
+<div class="ctaband" id="contact">
+  <div class="ctabg">Κάλλος</div>
+  <p class="ctl rv">Start something bold</p>
+  <h2 class="cth rv up d1">Let's Build<br><em>Together</em></h2>
+  <p class="cts rv up d2">50+ projects. Real results. Let's make yours next.</p>
+  <a href="https://app.hellobonsai.com/f/1f505b723cad700" target="_blank" class="binv rv up d3">Start a new project <svg width="14" height="14" fill="none" viewBox="0 0 14 14"><path d="M2 7h10M8 3l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
 </div>
-
-<!-- FOOTER -->
 <footer>
-  <div class="footer-grid">
-    <div>
-      <a href="#" class="footer-logo-mark">Κάλλος</a>
-      <p class="footer-tagline">We craft bold branding and design experiences that challenge the ordinary and deliver real results.</p>
-      <div class="footer-social">
-        <a href="https://www.instagram.com/wearekallos/" target="_blank" class="footer-icon" title="Instagram">
-          <svg width="14" height="14" fill="none" viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5" stroke="currentColor" stroke-width="1.5"/><circle cx="12" cy="12" r="4" stroke="currentColor" stroke-width="1.5"/><circle cx="17.5" cy="6.5" r="1.2" fill="currentColor"/></svg>
-        </a>
-        <a href="https://www.linkedin.com/company/kallos-creative-agency/" target="_blank" class="footer-icon" title="LinkedIn">
-          <svg width="14" height="14" fill="none" viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="3" stroke="currentColor" stroke-width="1.5"/><path d="M7 10v7M7 7.5v.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><path d="M11 17v-4a2 2 0 0 1 4 0v4M11 10v7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
-        </a>
-        <a href="mailto:kalloscreativeagency@gmail.com" class="footer-icon" title="Email">
-          <svg width="14" height="14" fill="none" viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="2" stroke="currentColor" stroke-width="1.5"/><path d="M2 8l10 6 10-6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
-        </a>
-      </div>
-    </div>
-    <div class="footer-col">
-      <h4>Navigation</h4>
-      <ul>
-        <li><a href="#">Home</a></li>
-        <li><a href="#services">Services</a></li>
-        <li><a href="#projects">Projects</a></li>
-        <li><a href="#team">About Us</a></li>
-      </ul>
-    </div>
-    <div class="footer-col">
-      <h4>Services</h4>
-      <ul>
-        <li><a href="#services">Brand Strategy</a></li>
-        <li><a href="#services">Visual Design</a></li>
-        <li><a href="#services">Print & Packaging</a></li>
-        <li><a href="#services">Design Systems</a></li>
-      </ul>
-    </div>
-    <div class="footer-col">
-      <h4>Contact</h4>
-      <ul>
-        <li><a href="mailto:kalloscreativeagency@gmail.com">Email Us</a></li>
-        <li><a href="https://app.hellobonsai.com/f/1f505b723cad700" target="_blank">Start a Project</a></li>
-        <li><a href="https://www.instagram.com/wearekallos/" target="_blank">Instagram</a></li>
-        <li><a href="https://www.linkedin.com/company/kallos-creative-agency/" target="_blank">LinkedIn</a></li>
-      </ul>
-    </div>
+  <div class="fgrid">
+    <div><a href="index.html" class="fmark">Κάλλος</a><p class="fbyline">Bold branding and design experiences that challenge the ordinary.</p><div class="ficons"><a href="https://www.instagram.com/wearekallos/" target="_blank" class="fi"><svg width="12" height="12" fill="none" viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5" stroke="currentColor" stroke-width="1.5"/><circle cx="12" cy="12" r="4" stroke="currentColor" stroke-width="1.5"/><circle cx="17.5" cy="6.5" r="1.2" fill="currentColor"/></svg></a><a href="https://www.linkedin.com/company/kallos-creative-agency/" target="_blank" class="fi"><svg width="12" height="12" fill="none" viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="3" stroke="currentColor" stroke-width="1.5"/><path d="M7 10v7M7 7v.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><path d="M11 17v-3.5a2 2 0 0 1 4 0V17M11 10v7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></a><a href="mailto:kalloscreativeagency@gmail.com" class="fi"><svg width="12" height="12" fill="none" viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="2" stroke="currentColor" stroke-width="1.5"/><path d="M2 8l10 6 10-6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></a></div></div>
+    <div class="fcol"><h5>Navigate</h5><ul><li><a href="#">Home</a></li><li><a href="#services">Services</a></li><li><a href="portfolio.html">Portfolio</a></li><li><a href="#team">About</a></li></ul></div>
+    <div class="fcol"><h5>Services</h5><ul><li><a href="#services">Brand Strategy</a></li><li><a href="#services">Visual Design</a></li><li><a href="#services">Print & Packaging</a></li><li><a href="#services">Design Systems</a></li></ul></div>
+    <div class="fcol"><h5>Contact</h5><ul><li><a href="mailto:kalloscreativeagency@gmail.com">Email Us</a></li><li><a href="https://app.hellobonsai.com/f/1f505b723cad700" target="_blank">Start a Project</a></li><li><a href="https://www.instagram.com/wearekallos/" target="_blank">Instagram</a></li><li><a href="https://www.linkedin.com/company/kallos-creative-agency/" target="_blank">LinkedIn</a></li></ul></div>
   </div>
-  <div class="footer-bottom">
-    <span class="footer-copy">© 2025 Κάλλος Creative Agency. All rights reserved.</span>
-    <a href="mailto:kalloscreativeagency@gmail.com" class="footer-email">kalloscreativeagency@gmail.com</a>
-  </div>
+  <div class="fbar2"><span class="fcopy">© 2025 Κάλλος Creative Agency. All rights reserved.</span><a href="mailto:kalloscreativeagency@gmail.com" class="femail">kalloscreativeagency@gmail.com</a></div>
 </footer>
-
 <script>
-/* === CURSOR === */
-const cur = document.getElementById('cur');
-const ring = document.getElementById('cur-ring');
-let rx=0, ry=0, mx=0, my=0;
-document.addEventListener('mousemove', e => {
-  mx = e.clientX; my = e.clientY;
-  cur.style.left = mx+'px'; cur.style.top = my+'px';
-});
-function animCursor(){
-  rx += (mx-rx)*0.13; ry += (my-ry)*0.13;
-  ring.style.left = rx+'px'; ring.style.top = ry+'px';
-  requestAnimationFrame(animCursor);
-}
-animCursor();
-
-/* === THEME TOGGLE === */
-const html = document.documentElement;
-const toggle = document.getElementById('themeToggle');
-const themeIcon = document.getElementById('themeIcon');
-// Check saved preference
-const saved = localStorage.getItem('kallos-theme') || 'dark';
-html.setAttribute('data-theme', saved);
-toggle.checked = (saved === 'light');
-themeIcon.textContent = saved === 'light' ? '☾' : '☀';
-
-toggle.addEventListener('change', () => {
-  const next = toggle.checked ? 'light' : 'dark';
-  html.setAttribute('data-theme', next);
-  localStorage.setItem('kallos-theme', next);
-  themeIcon.textContent = next === 'light' ? '☾' : '☀';
-});
-
-/* === NAV SCROLL === */
-const nav = document.getElementById('nav');
-window.addEventListener('scroll', () => {
-  nav.classList.toggle('scrolled', window.scrollY > 64);
-}, { passive: true });
-
-/* === REVEAL ON SCROLL === */
-const reveals = document.querySelectorAll('.reveal');
-const obs = new IntersectionObserver(entries => {
-  entries.forEach(e => { if(e.isIntersecting) { e.target.classList.add('show'); obs.unobserve(e.target); } });
-}, { threshold: 0.1 });
-reveals.forEach(el => obs.observe(el));
-
-/* === SMOOTH ANCHOR SCROLL === */
-document.querySelectorAll('a[href^="#"]').forEach(a => {
-  a.addEventListener('click', e => {
-    const id = a.getAttribute('href');
-    const target = id === '#' ? document.body : document.querySelector(id);
-    if(target){ e.preventDefault(); target.scrollIntoView({behavior:'smooth'}); }
-  });
-});
+const dot=document.getElementById('cdot'),ring=document.getElementById('cring');
+let rx=0,ry=0,mx=window.innerWidth/2,my=window.innerHeight/2;
+document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;dot.style.left=mx+'px';dot.style.top=my+'px'});
+document.querySelectorAll('a,button').forEach(el=>{el.addEventListener('mouseenter',()=>document.body.classList.add('chov'));el.addEventListener('mouseleave',()=>document.body.classList.remove('chov'))});
+(function raf(){rx+=(mx-rx)*.12;ry+=(my-ry)*.12;ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(raf)})();
+const html=document.documentElement,tbtn=document.getElementById('tbtn');
+const saved=localStorage.getItem('kallos-theme')||'dark';html.setAttribute('data-theme',saved);
+tbtn.addEventListener('click',()=>{const n=html.getAttribute('data-theme')==='dark'?'light':'dark';html.setAttribute('data-theme',n);localStorage.setItem('kallos-theme',n)});
+const nav=document.getElementById('nav');window.addEventListener('scroll',()=>nav.classList.toggle('on',scrollY>60),{passive:true});
+const obs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('in')})},{threshold:.1});
+document.querySelectorAll('.rv,.ldraw').forEach(el=>obs.observe(el));
+function countUp(el){const to=parseInt(el.dataset.to),sx=el.dataset.sx||'+',dur=1600,start=performance.now();(function step(now){const p=Math.min((now-start)/dur,1),ease=1-Math.pow(1-p,4);el.textContent=Math.round(ease*to)+sx;if(p<1)requestAnimationFrame(step)})(performance.now())}
+new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){e.target.querySelectorAll('.sn[data-to]').forEach(el=>{countUp(el);delete el.dataset.to})}})},{threshold:.3}).observe(document.querySelector('.statsband'));
+document.querySelectorAll('a[href^="#"]').forEach(a=>{a.addEventListener('click',e=>{const t=document.querySelector(a.getAttribute('href'));if(t){e.preventDefault();t.scrollIntoView({behavior:'smooth'})}})});
+document.querySelectorAll('.bprimary,.binv,.ncta').forEach(b=>{b.addEventListener('mousemove',e=>{const r=b.getBoundingClientRect();b.style.transform=`translate(${(e.clientX-r.left-r.width/2)*.28}px,${(e.clientY-r.top-r.height/2)*.28}px)`;b.style.transition='transform .1s'});b.addEventListener('mouseleave',()=>{b.style.transform='';b.style.transition='transform .5s cubic-bezier(0.22,1,0.36,1),background .3s,color .3s'})});
 </script>
 </body>
 </html>
