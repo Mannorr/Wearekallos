@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Portfolio — Kallos Creative Agency</title>
+<link rel="icon" type="image/png" href="logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Instrument+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--red:#EE2924;--amber:#F9A11B;--blue:#3957A7;--fs:'Instrument Serif',Georgia,serif;--ss:'Instrument Sans',sans-serif;--ease:cubic-bezier(0.76,0,0.24,1);--eout:cubic-bezier(0.22,1,0.36,1)}
+[data-theme="dark"]{--bg:#111110;--bg2:#161615;--bg3:#1d1d1b;--line:rgba(255,255,255,.07);--line2:rgba(255,255,255,.13);--text:#F7F7F5;--muted:rgba(247,247,245,.45);--faint:rgba(247,247,245,.12);--card:#181817;--nav:rgba(17,17,16,.92);--inv:#F7F7F5;--invt:#111110}
+[data-theme="light"]{--bg:#F7F7F5;--bg2:#EEEEEC;--bg3:#E5E5E3;--line:rgba(0,0,0,.07);--line2:rgba(0,0,0,.14);--text:#111110;--muted:rgba(17,17,16,.45);--faint:rgba(17,17,16,.11);--card:#fff;--nav:rgba(247,247,245,.92);--inv:#111110;--invt:#F7F7F5}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--ss);background:var(--bg);color:var(--text);overflow-x:hidden;cursor:none;transition:background .5s,color .5s;-webkit-font-smoothing:antialiased}
+.grain{position:fixed;inset:-50%;z-index:1000;width:200%;height:200%;pointer-events:none;opacity:.022;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");animation:grn .5s steps(1) infinite}
+@keyframes grn{0%,100%{transform:translate(0,0)}20%{transform:translate(3%,2%)}40%{transform:translate(-1%,4%)}60%{transform:translate(1%,-4%)}80%{transform:translate(3%,-2%)}}
+.cdot{position:fixed;width:6px;height:6px;background:var(--red);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:width .2s,height .2s,background .2s}
+.cring{position:fixed;width:34px;height:34px;border:1px solid rgba(238,41,36,.38);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:width .4s var(--eout),height .4s var(--eout),border-color .3s}
+body.chov .cdot{width:10px;height:10px;background:var(--amber)}
+body.chov .cring{width:54px;height:54px;border-color:rgba(238,41,36,.65)}
+body.cview .cdot{width:52px;height:52px;background:var(--red);opacity:.9;border-radius:50%}
+body.cview .cring{opacity:0}
+.cvl{position:fixed;z-index:9999;pointer-events:none;font-size:9px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:#fff;transform:translate(-50%,-50%);opacity:0;transition:opacity .2s;white-space:nowrap}
+body.cview .cvl{opacity:1}
+nav{position:fixed;inset:0 0 auto;z-index:500;display:flex;align-items:center;justify-content:space-between;padding:24px 52px;transition:padding .4s var(--eout),background .4s,border-color .4s;border-bottom:1px solid transparent}
+nav.on{background:var(--nav);backdrop-filter:blur(20px) saturate(1.5);border-color:var(--line);padding:15px 52px}
+.nbrand{display:flex;align-items:center;gap:10px;text-decoration:none}
+.nbox{width:34px;height:34px;background:var(--inv);display:flex;align-items:center;justify-content:center;overflow:hidden;flex-shrink:0;transition:background .5s}
+.nbox img{width:26px;height:26px;object-fit:contain}
+.nbox .nfb{font-family:var(--fs);font-size:17px;font-style:italic;color:var(--invt);transition:color .5s}
+.nname{font-family:var(--fs);font-size:17px;color:var(--text);letter-spacing:.01em;transition:color .5s}
+.nname sub{font-family:var(--ss);font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);display:block;line-height:1}
+.nlinks{list-style:none;display:flex;gap:36px}
+.nlinks a{font-size:12px;font-weight:400;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);text-decoration:none;transition:color .2s;position:relative}
+.nlinks a::after{content:'';position:absolute;bottom:-2px;left:0;right:0;height:1px;background:var(--red);transform:scaleX(0);transform-origin:left;transition:transform .3s var(--ease)}
+.nlinks a:hover,.nlinks a.on{color:var(--text)}
+.nlinks a:hover::after,.nlinks a.on::after{transform:scaleX(1)}
+.nright{display:flex;align-items:center;gap:14px}
+.tbtn{width:40px;height:22px;background:var(--bg3);border:1px solid var(--line2);border-radius:11px;position:relative;cursor:none;transition:background .3s;flex-shrink:0}
+.tbtn::after{content:'';position:absolute;top:3px;left:3px;width:14px;height:14px;border-radius:50%;background:var(--text);transition:transform .35s var(--eout),background .3s}
+[data-theme="light"] .tbtn::after{transform:translateX(18px)}
+.ncta{font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--invt);background:var(--text);padding:11px 22px;text-decoration:none;display:inline-block;transition:background .3s,color .3s}
+.ncta:hover{background:var(--red);color:#fff}
+/* PAGE HERO */
+.phero{padding:156px 52px 72px;border-bottom:1px solid var(--line);position:relative;overflow:hidden}
+.phero::before,.phero::after{content:'';position:absolute;top:0;bottom:0;width:1px;background:var(--line)}
+.phero::before{left:calc(52px + (100% - 104px)*.33)}
+.phero::after{right:calc(52px + (100% - 104px)*.33)}
+.tag{font-size:10px;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:var(--red);display:flex;align-items:center;gap:10px;margin-bottom:20px}
+.tag::before{content:'';width:18px;height:1px;background:var(--red)}
+.ph1{font-family:var(--fs);font-size:clamp(60px,8.5vw,130px);line-height:.93;letter-spacing:-.02em;overflow:hidden;position:relative;z-index:1}
+.ph1-l{display:block;overflow:hidden}
+.ph1-i{display:block;transform:translateY(108%);animation:sup 1.1s var(--eout) forwards}
+.ph1-l:nth-child(1) .ph1-i{animation-delay:.1s}
+.ph1-l:nth-child(2) .ph1-i{animation-delay:.2s}
+@keyframes sup{to{transform:translateY(0)}}
+@keyframes fadeup{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
+.ph1 em{font-style:italic;color:var(--red)}
+.pmeta{display:flex;align-items:flex-end;justify-content:space-between;margin-top:36px;padding-top:24px;border-top:1px solid var(--line);opacity:0;animation:fadeup .9s var(--eout) .45s forwards;position:relative;z-index:1}
+.pdesc{max-width:380px;font-size:15px;font-weight:300;line-height:1.8;color:var(--muted)}
+.pdesc b{color:var(--text);font-weight:500}
+.pcount{font-family:var(--fs);font-style:italic;font-size:52px;line-height:1;color:var(--faint);text-align:right}
+.pcount span{display:block;font-family:var(--ss);font-style:normal;font-size:10px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);margin-top:6px}
+/* FILTER */
+.fbar{display:flex;align-items:center;border-bottom:1px solid var(--line);padding:0 52px;overflow-x:auto;background:var(--bg2);transition:background .5s;gap:0}
+.fbar::-webkit-scrollbar{display:none}
+.fbtn{font-size:11px;font-weight:600;letter-spacing:.13em;text-transform:uppercase;color:var(--muted);padding:18px 20px;background:none;border:none;cursor:none;border-bottom:2px solid transparent;transition:color .2s,border-color .2s;white-space:nowrap}
+.fbtn:hover{color:var(--text)}
+.fbtn.on{color:var(--text);border-bottom-color:var(--red)}
+/* GRID */
+.pgwrap{padding:56px 52px 112px;background:var(--bg);transition:background .5s}
+.pgrid{display:grid;grid-template-columns:repeat(12,1fr);gap:16px}
+/* Card sizes */
+.pc{position:relative;overflow:hidden;background:var(--bg2);cursor:none;transition:background .5s}
+.pc.sw{grid-column:span 8}
+.pc.st{grid-column:span 4;grid-row:span 2}
+.pc.sh{grid-column:span 6}
+.pc.sr{grid-column:span 4}
+.pc.sf{grid-column:span 12}
+/* Media */
+.pm{width:100%;overflow:hidden;position:relative;background:var(--bg3);transition:background .5s}
+.pc.sw .pm,.pc.sh .pm{aspect-ratio:16/10}
+.pc.st .pm{height:100%;min-height:460px}
+.pc.sr .pm{aspect-ratio:4/3}
+.pc.sf .pm{aspect-ratio:21/8}
+.pm img,.pm video{width:100%;height:100%;object-fit:cover;display:block;transition:transform .9s var(--ease),filter .5s;filter:grayscale(10%)}
+.pc:hover .pm img,.pc:hover .pm video{transform:scale(1.04);filter:grayscale(0%)}
+/* Placeholder */
+.pph{width:100%;height:100%;min-height:200px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;background:var(--bg3);border:1px dashed var(--line2);transition:background .5s,border-color .3s}
+.pc:hover .pph{border-color:rgba(238,41,36,.3);background:var(--bg2)}
+.pph-ico{color:var(--faint);transition:color .3s}
+.pc:hover .pph-ico{color:var(--red)}
+.pph-lbl{font-size:9px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--faint)}
+/* Hover overlay */
+.pov{position:absolute;inset:0;z-index:2;background:linear-gradient(to top,rgba(0,0,0,.7) 0%,transparent 55%);opacity:0;transition:opacity .4s;display:flex;align-items:flex-end;padding:22px}
+.pc:hover .pov{opacity:1}
+.pov-in{transform:translateY(8px);transition:transform .4s var(--eout)}
+.pc:hover .pov-in{transform:translateY(0)}
+.pov-t{font-family:var(--fs);font-size:20px;color:#fff;line-height:1.1}
+.pov-s{font-size:10px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.55);margin-bottom:4px}
+/* Card info */
+.pi{padding:16px 18px 18px;border-top:1px solid var(--line);transition:border-color .5s}
+.pcli{font-size:9px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--red);margin-bottom:4px}
+.ptit{font-family:var(--fs);font-size:18px;line-height:1.1;margin-bottom:5px}
+.pdsc{font-size:12px;font-weight:300;line-height:1.65;color:var(--muted)}
+.ptags{display:flex;flex-wrap:wrap;gap:5px;margin-top:9px}
+.ptg{font-size:9px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);border:1px solid var(--faint);padding:3px 8px;transition:border-color .2s}
+.pc:hover .ptg{border-color:var(--line2)}
+/* CTA strip */
+.cta-strip{padding:72px 52px;background:var(--bg2);border-top:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;gap:32px;transition:background .5s}
+.cst h3{font-family:var(--fs);font-size:clamp(26px,3.2vw,44px);line-height:1.1;margin-bottom:8px}
+.cst h3 em{font-style:italic;color:var(--red)}
+.cst p{font-size:14px;font-weight:300;color:var(--muted);max-width:360px;line-height:1.7}
+.bprimary{display:inline-flex;align-items:center;gap:8px;flex-shrink:0;font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--invt);background:var(--text);padding:13px 26px;text-decoration:none;transition:background .3s,color .3s,transform .2s var(--eout)}
+.bprimary:hover{background:var(--red);color:#fff}
+.bghost{display:inline-flex;align-items:center;gap:8px;font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);text-decoration:none;border-bottom:1px solid var(--faint);padding-bottom:4px;transition:color .25s,border-color .25s,gap .25s var(--ease)}
+.bghost:hover{color:var(--text);border-color:var(--line2);gap:14px}
+.bghost svg{transition:transform .3s var(--eout)}
+.bghost:hover svg{transform:translateX(3px)}
+/* Footer */
+footer{background:var(--bg);padding:72px 52px 40px;border-top:1px solid var(--line);transition:background .5s}
+.fgrid{display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:48px;padding-bottom:48px;border-bottom:1px solid var(--line);margin-bottom:28px}
+.fmark{font-family:var(--fs);font-size:22px;color:var(--text);display:block;margin-bottom:12px;text-decoration:none}
+.fbyline{font-size:12px;font-weight:300;line-height:1.7;color:var(--muted);max-width:190px;margin-bottom:20px}
+.ficons{display:flex;gap:8px}
+.fi{width:30px;height:30px;border:1px solid var(--line);display:flex;align-items:center;justify-content:center;color:var(--faint);text-decoration:none;transition:border-color .2s,color .2s,background .2s}
+.fi:hover{border-color:var(--red);color:var(--text);background:rgba(238,41,36,.06)}
+.fcol h5{font-size:9px;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:var(--faint);margin-bottom:16px}
+.fcol ul{list-style:none}
+.fcol li{margin-bottom:10px}
+.fcol a{font-size:13px;font-weight:300;color:var(--muted);text-decoration:none;transition:color .2s}
+.fcol a:hover{color:var(--text)}
+.fbottom{display:flex;align-items:center;justify-content:space-between}
+.fcopy{font-size:11px;color:var(--faint)}
+.femail{font-size:11px;color:var(--muted);text-decoration:none;transition:color .2s}
+.femail:hover{color:var(--amber)}
+/* Lightbox */
+.lb{position:fixed;inset:0;z-index:800;background:rgba(8,8,8,.96);display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity .4s}
+.lb.open{opacity:1;pointer-events:all}
+.lb-in{position:relative;max-width:90vw;max-height:86vh;transform:scale(.95);transition:transform .4s var(--eout)}
+.lb.open .lb-in{transform:scale(1)}
+.lb-in img,.lb-in video{max-width:90vw;max-height:86vh;object-fit:contain;display:block}
+.lb-x{position:absolute;top:-42px;right:0;font-size:10px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:rgba(255,255,255,.45);background:none;border:none;cursor:none;transition:color .2s}
+.lb-x:hover{color:#fff}
+.lb-nav{position:absolute;top:50%;transform:translateY(-50%);width:38px;height:38px;border:1px solid rgba(255,255,255,.14);background:rgba(0,0,0,.5);display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,.45);cursor:none;transition:border-color .2s,color .2s}
+.lb-nav:hover{border-color:rgba(255,255,255,.4);color:#fff}
+.lb-prev{left:-52px}.lb-next{right:-52px}
+.lb-cap{position:absolute;bottom:-44px;left:0;font-size:11px;color:rgba(255,255,255,.35);letter-spacing:.04em}
+/* Reveals */
+.rv{opacity:0;transition:opacity .9s var(--eout),transform .9s var(--eout)}
+.rv.up{transform:translateY(28px)}
+.rv.zm{transform:scale(.97)}
+.rv.in{opacity:1;transform:none}
+.rv.d1{transition-delay:.1s}.rv.d2{transition-delay:.2s}.rv.d3{transition-delay:.3s}
+/* Responsive */
+@media(max-width:1024px){.pc.sw{grid-column:span 12}.pc.st{grid-column:span 6;grid-row:auto}.pc.sh{grid-column:span 6}.pc.sr{grid-column:span 6}.pc.sf{grid-column:span 12}.pc.st .pm{min-height:0}}
+@media(max-width:768px){
+  nav{padding:18px 24px}nav.on{padding:13px 24px}.nlinks{display:none}
+  .phero,.pgwrap,.fbar,.cta-strip,footer{padding-left:24px;padding-right:24px}
+  .phero::before,.phero::after{display:none}
+  .pmeta{flex-direction:column;align-items:flex-start;gap:16px}
+  .pgrid{grid-template-columns:1fr}
+  .pc.sw,.pc.st,.pc.sh,.pc.sr,.pc.sf{grid-column:span 1;grid-row:auto}
+  .pc.st .pm{min-height:0}
+  .cta-strip{flex-direction:column;align-items:flex-start}
+  .fgrid{grid-template-columns:1fr 1fr;gap:24px}.fbottom{flex-direction:column;gap:8px;text-align:center}
+  body{cursor:auto}.cdot,.cring,.cvl{display:none}
+}
+</style>
+</head>
+<body>
+<div class="grain"></div>
+<div class="cdot" id="cdot"></div>
+<div class="cring" id="cring"></div>
+<div class="cvl" id="cvl">View</div>
+
+<nav id="nav">
+  <a href="index.html" class="nbrand">
+    <div class="nbox">
+      <img src="logo.png" alt="K" onerror="this.style.display='none';this.parentElement.querySelector('.nfb').style.display='block'">
+      <span class="nfb" style="display:none">K</span>
+    </div>
+    <span class="nname">Kallos<sub>Creative Agency</sub></span>
+  </a>
+  <ul class="nlinks">
+    <li><a href="index.html#services">Services</a></li>
+    <li><a href="portfolio.html" class="on">Portfolio</a></li>
+    <li><a href="index.html#team">About</a></li>
+    <li><a href="index.html#contact">Contact</a></li>
+  </ul>
+  <div class="nright">
+    <button class="tbtn" id="tbtn" aria-label="Toggle theme" style="border:none;cursor:none"></button>
+    <a href="https://app.hellobonsai.com/f/1f505b723cad700" target="_blank" class="ncta">Work with us</a>
+  </div>
+</nav>
+
+<div class="phero">
+  <div class="tag">Selected Work</div>
+  <h1 class="ph1">
+    <span class="ph1-l"><span class="ph1-i">Our</span></span>
+    <span class="ph1-l"><span class="ph1-i"><em>Portfolio</em></span></span>
+  </h1>
+  <div class="pmeta">
+    <p class="pdesc"><b>A curated selection of work across brand strategy, visual design, and print.</b> Each project reflects our commitment to purpose-driven, results-oriented design.</p>
+    <div class="pcount"><span id="cnt">7</span><span>Projects</span></div>
+  </div>
+</div>
+
+<div class="fbar" id="filterbar">
+  <button class="fbtn on" data-f="all">All Work</button>
+  <button class="fbtn" data-f="brand">Brand Identity</button>
+  <button class="fbtn" data-f="visual">Visual Design</button>
+  <button class="fbtn" data-f="print">Print &amp; Packaging</button>
+  <button class="fbtn" data-f="event">Events</button>
+</div>
+
+<div class="pgwrap">
+  <div class="pgrid" id="pgrid">
+
+    <!-- CARD 1: Fuse Conf — wide -->
+    <div class="pc sw rv zm" data-cat="event brand">
+      <div class="pm">
+        <!-- TO ADD IMAGE: <img src="path/to/image.jpg" alt="Fuse Conf"> -->
+        <!-- TO ADD VIDEO: <video src="path/to/video.mp4" autoplay muted loop playsinline></video> -->
+        <div class="pph">
+          <div class="pph-ico"><svg width="28" height="28" fill="none" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2" stroke="currentColor" stroke-width="1.2"/><circle cx="8.5" cy="8.5" r="1.5" stroke="currentColor" stroke-width="1.2"/><path d="M3 15l5-5 4 4 3-3 6 6" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          <span class="pph-lbl">Add Image or Video</span>
+        </div>
+        <div class="pov"><div class="pov-in"><div class="pov-s">Event Branding</div><div class="pov-t">Fuse Conf</div></div></div>
+      </div>
+      <div class="pi">
+        <div class="pcli">Event Branding</div>
+        <div class="ptit">Fuse Conf</div>
+        <div class="pdsc">Full brand identity and event collateral for a forward-thinking tech and creativity conference.</div>
+        <div class="ptags"><span class="ptg">Brand Identity</span><span class="ptg">Event</span><span class="ptg">Print</span></div>
+      </div>
+    </div>
+
+    <!-- CARD 2: Faith Brodrick — tall -->
+    <div class="pc st rv zm d1" data-cat="brand visual">
+      <div class="pm">
+        <div class="pph">
+          <div class="pph-ico"><svg width="28" height="28" fill="none" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2" stroke="currentColor" stroke-width="1.2"/><circle cx="8.5" cy="8.5" r="1.5" stroke="currentColor" stroke-width="1.2"/><path d="M3 15l5-5 4 4 3-3 6 6" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          <span class="pph-lbl">Add Image or Video</span>
+        </div>
+        <div class="pov"><div class="pov-in"><div class="pov-s">Personal Brand</div><div class="pov-t">Faith Brodrick</div></div></div>
+      </div>
+      <div class="pi">
+        <div class="pcli">Personal Brand</div>
+        <div class="ptit">Faith Brodrick</div>
+        <div class="pdsc">Personal brand system — visual identity, typography, and digital assets.</div>
+        <div class="ptags"><span class="ptg">Brand</span><span class="ptg">Visual Design</span></div>
+      </div>
+    </div>
+
+    <!-- CARD 3: Truth Show — half -->
+    <div class="pc sh rv zm" data-cat="event visual">
+      <div class="pm">
+        <div class="pph">
+          <div class="pph-ico"><svg width="28" height="28" fill="none" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2" stroke="currentColor" stroke-width="1.2"/><circle cx="8.5" cy="8.5" r="1.5" stroke="currentColor" stroke-width="1.2"/><path d="M3 15l5-5 4 4 3-3 6 6" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          <span class="pph-lbl">Add Image or Video</span>
+        </div>
+        <div class="pov"><div class="pov-in"><div class="pov-s">Event Campaign</div><div class="pov-t">Truth Show</div></div></div>
+      </div>
+      <div class="pi">
+        <div class="pcli">Event Campaign</div>
+        <div class="ptit">Truth Show</div>
+        <div class="pdsc">Campaign visuals and print collateral for a high-impact live event.</div>
+        <div class="ptags"><span class="ptg">Event</span><span class="ptg">Campaign</span></div>
+      </div>
+    </div>
+
+    <!-- CARD 4: Bigger Picture — half -->
+    <div class="pc sh rv zm d1" data-cat="brand visual">
+      <div class="pm">
+        <div class="pph">
+          <div class="pph-ico"><svg width="28" height="28" fill="none" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2" stroke="currentColor" stroke-width="1.2"/><circle cx="8.5" cy="8.5" r="1.5" stroke="currentColor" stroke-width="1.2"/><path d="M3 15l5-5 4 4 3-3 6 6" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          <span class="pph-lbl">Add Image or Video</span>
+        </div>
+        <div class="pov"><div class="pov-in"><div class="pov-s">Brand Strategy</div><div class="pov-t">Bigger Picture</div></div></div>
+      </div>
+      <div class="pi">
+        <div class="pcli">Brand Strategy</div>
+        <div class="ptit">Bigger Picture</div>
+        <div class="pdsc">Strategic brand identity built to communicate scale, ambition, and long-term vision.</div>
+        <div class="ptags"><span class="ptg">Strategy</span><span class="ptg">Identity</span></div>
+      </div>
+    </div>
+
+    <!-- CARD 5: Menter — third -->
+    <div class="pc sr rv zm" data-cat="brand">
+      <div class="pm">
+        <div class="pph">
+          <div class="pph-ico"><svg width="28" height="28" fill="none" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2" stroke="currentColor" stroke-width="1.2"/><circle cx="8.5" cy="8.5" r="1.5" stroke="currentColor" stroke-width="1.2"/><path d="M3 15l5-5 4 4 3-3 6 6" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          <span class="pph-lbl">Add Image or Video</span>
+        </div>
+        <div class="pov"><div class="pov-in"><div class="pov-s">Startup Brand</div><div class="pov-t">Menter</div></div></div>
+      </div>
+      <div class="pi">
+        <div class="pcli">Startup Brand</div>
+        <div class="ptit">Menter</div>
+        <div class="pdsc">Brand identity for an emerging startup — clean, modern, built for scale.</div>
+        <div class="ptags"><span class="ptg">Brand</span><span class="ptg">Startup</span></div>
+      </div>
+    </div>
+
+    <!-- CARD 6: It Ends With Me — third -->
+    <div class="pc sr rv zm d1" data-cat="event print">
+      <div class="pm">
+        <div class="pph">
+          <div class="pph-ico"><svg width="28" height="28" fill="none" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2" stroke="currentColor" stroke-width="1.2"/><circle cx="8.5" cy="8.5" r="1.5" stroke="currentColor" stroke-width="1.2"/><path d="M3 15l5-5 4 4 3-3 6 6" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          <span class="pph-lbl">Add Image or Video</span>
+        </div>
+        <div class="pov"><div class="pov-in"><div class="pov-s">Event Print</div><div class="pov-t">It Ends With Me</div></div></div>
+      </div>
+      <div class="pi">
+        <div class="pcli">Event Print</div>
+        <div class="ptit">It Ends With Me</div>
+        <div class="pdsc">Print design and collateral for a deeply personal awareness campaign.</div>
+        <div class="ptags"><span class="ptg">Print</span><span class="ptg">Campaign</span></div>
+      </div>
+    </div>
+
+    <!-- CARD 7: The Stay Experience — third -->
+    <div class="pc sr rv zm d2" data-cat="event brand">
+      <div class="pm">
+        <div class="pph">
+          <div class="pph-ico"><svg width="28" height="28" fill="none" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2" stroke="currentColor" stroke-width="1.2"/><circle cx="8.5" cy="8.5" r="1.5" stroke="currentColor" stroke-width="1.2"/><path d="M3 15l5-5 4 4 3-3 6 6" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          <span class="pph-lbl">Add Image or Video</span>
+        </div>
+        <div class="pov"><div class="pov-in"><div class="pov-s">Ministry Brand</div><div class="pov-t">The Stay Experience</div></div></div>
+      </div>
+      <div class="pi">
+        <div class="pcli">Ministry Brand</div>
+        <div class="ptit">The Stay Experience</div>
+        <div class="pdsc">Visual identity and event branding capturing the heart of a ministry-driven live experience.</div>
+        <div class="ptags"><span class="ptg">Brand</span><span class="ptg">Event</span></div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- LIGHTBOX -->
+<div class="lb" id="lb">
+  <div class="lb-in" id="lbin">
+    <button class="lb-x" id="lbx">ESC Close</button>
+    <button class="lb-nav lb-prev" id="lbprev"><svg width="13" height="13" fill="none" viewBox="0 0 14 14"><path d="M9 2L4 7l5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+    <div id="lbm"></div>
+    <button class="lb-nav lb-next" id="lbnext"><svg width="13" height="13" fill="none" viewBox="0 0 14 14"><path d="M5 2l5 5-5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+    <div class="lb-cap" id="lbcap"></div>
+  </div>
+</div>
+
+<div class="cta-strip rv up">
+  <div class="cst">
+    <h3>Like what you see?<br>Let's build <em>yours.</em></h3>
+    <p>Every project starts with a conversation. Tell us what you're building and we'll handle the rest.</p>
+  </div>
+  <div style="display:flex;gap:14px;align-items:center;flex-wrap:wrap">
+    <a href="https://app.hellobonsai.com/f/1f505b723cad700" target="_blank" class="bprimary">Start a Project <svg width="14" height="14" fill="none" viewBox="0 0 14 14"><path d="M2 7h10M8 3l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+    <a href="index.html#services" class="bghost">View Services <svg width="14" height="14" fill="none" viewBox="0 0 14 14"><path d="M2 7h10M8 3l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+  </div>
+</div>
+
+<footer>
+  <div class="fgrid">
+    <div>
+      <a href="index.html" class="fmark">Kallos</a>
+      <p class="fbyline">Bold branding and design experiences that challenge the ordinary.</p>
+      <div class="ficons">
+        <a href="https://www.instagram.com/wearekallos/" target="_blank" class="fi"><svg width="12" height="12" fill="none" viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5" stroke="currentColor" stroke-width="1.5"/><circle cx="12" cy="12" r="4" stroke="currentColor" stroke-width="1.5"/><circle cx="17.5" cy="6.5" r="1.2" fill="currentColor"/></svg></a>
+        <a href="https://www.linkedin.com/company/kallos-creative-agency/" target="_blank" class="fi"><svg width="12" height="12" fill="none" viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="3" stroke="currentColor" stroke-width="1.5"/><path d="M7 10v7M7 7v.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><path d="M11 17v-3.5a2 2 0 0 1 4 0V17M11 10v7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></a>
+        <a href="mailto:kalloscreativeagency@gmail.com" class="fi"><svg width="12" height="12" fill="none" viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="2" stroke="currentColor" stroke-width="1.5"/><path d="M2 8l10 6 10-6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></a>
+      </div>
+    </div>
+    <div class="fcol"><h5>Navigate</h5><ul><li><a href="index.html">Home</a></li><li><a href="index.html#services">Services</a></li><li><a href="portfolio.html">Portfolio</a></li><li><a href="index.html#team">About</a></li></ul></div>
+    <div class="fcol"><h5>Services</h5><ul><li><a href="index.html#services">Brand Strategy</a></li><li><a href="index.html#services">Visual Design</a></li><li><a href="index.html#services">Print &amp; Packaging</a></li></ul></div>
+    <div class="fcol"><h5>Contact</h5><ul><li><a href="mailto:kalloscreativeagency@gmail.com">Email Us</a></li><li><a href="https://app.hellobonsai.com/f/1f505b723cad700" target="_blank">Start a Project</a></li><li><a href="https://www.instagram.com/wearekallos/" target="_blank">Instagram</a></li><li><a href="https://www.linkedin.com/company/kallos-creative-agency/" target="_blank">LinkedIn</a></li></ul></div>
+  </div>
+  <div class="fbottom"><span class="fcopy">2025 Kallos Creative Agency. All rights reserved.</span><a href="mailto:kalloscreativeagency@gmail.com" class="femail">kalloscreativeagency@gmail.com</a></div>
+</footer>
+
+<script>
+const dot=document.getElementById('cdot'),ring=document.getElementById('cring'),cvl=document.getElementById('cvl');
+let rx=0,ry=0,mx=window.innerWidth/2,my=window.innerHeight/2;
+document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;dot.style.left=mx+'px';dot.style.top=my+'px';cvl.style.left=mx+'px';cvl.style.top=my+'px'});
+document.querySelectorAll('a,button').forEach(el=>{el.addEventListener('mouseenter',()=>document.body.classList.add('chov'));el.addEventListener('mouseleave',()=>document.body.classList.remove('chov'))});
+document.querySelectorAll('.pc').forEach(el=>{el.addEventListener('mouseenter',()=>document.body.classList.add('cview'));el.addEventListener('mouseleave',()=>document.body.classList.remove('cview'))});
+(function raf(){rx+=(mx-rx)*.12;ry+=(my-ry)*.12;ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(raf)})();
+const html=document.documentElement;
+html.setAttribute('data-theme',localStorage.getItem('kallos-theme')||'dark');
+document.getElementById('tbtn').addEventListener('click',()=>{const n=html.getAttribute('data-theme')==='dark'?'light':'dark';html.setAttribute('data-theme',n);localStorage.setItem('kallos-theme',n)});
+window.addEventListener('scroll',()=>document.getElementById('nav').classList.toggle('on',scrollY>60),{passive:true});
+const obs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('in')})},{threshold:.08});
+document.querySelectorAll('.rv').forEach(el=>obs.observe(el));
+// Filter
+document.querySelectorAll('.fbtn').forEach(btn=>{
+  btn.addEventListener('click',()=>{
+    document.querySelectorAll('.fbtn').forEach(b=>b.classList.remove('on'));
+    btn.classList.add('on');
+    const f=btn.dataset.f;
+    let vis=0;
+    document.querySelectorAll('.pc').forEach(c=>{
+      const show=f==='all'||c.dataset.cat.includes(f);
+      c.style.display=show?'':'none';
+      if(show)vis++;
+    });
+    document.getElementById('cnt').textContent=vis;
+  });
+});
+// Lightbox
+const lb=document.getElementById('lb'),lbin=document.getElementById('lbin'),lbm=document.getElementById('lbm'),lbcap=document.getElementById('lbcap');
+let items=[],idx=0;
+function buildItems(){
+  items=[];
+  document.querySelectorAll('.pc').forEach(c=>{
+    if(c.style.display==='none')return;
+    const img=c.querySelector('.pm img'),vid=c.querySelector('.pm video');
+    const t=c.querySelector('.ptit')?.textContent||'',s=c.querySelector('.pcli')?.textContent||'';
+    if(img)items.push({type:'img',src:img.src,t,s});
+    else if(vid)items.push({type:'vid',src:vid.src,t,s});
+  });
+}
+function renderLb(){
+  const it=items[idx];lbm.innerHTML='';
+  if(it.type==='img'){const i=new Image();i.src=it.src;lbm.appendChild(i)}
+  else{const v=document.createElement('video');v.src=it.src;v.controls=v.autoplay=true;lbm.appendChild(v)}
+  lbcap.textContent=it.s+' — '+it.t+'  ('+(idx+1)+'/'+items.length+')';
+}
+function openLb(i){buildItems();if(!items.length)return;idx=i;renderLb();lb.classList.add('open');document.body.style.overflow='hidden'}
+function closeLb(){lb.classList.remove('open');document.body.style.overflow='';lbm.innerHTML=''}
+document.querySelectorAll('.pc').forEach(c=>{
+  c.addEventListener('click',()=>{
+    buildItems();
+    const img=c.querySelector('.pm img'),vid=c.querySelector('.pm video');
+    if(!img&&!vid)return;
+    const src=(img||vid).src;
+    const i=items.findIndex(it=>it.src===src);
+    if(i>=0)openLb(i);
+  });
+});
+document.getElementById('lbx').addEventListener('click',closeLb);
+document.getElementById('lbprev').addEventListener('click',()=>{idx=(idx-1+items.length)%items.length;renderLb()});
+document.getElementById('lbnext').addEventListener('click',()=>{idx=(idx+1)%items.length;renderLb()});
+lb.addEventListener('click',e=>{if(e.target===lb)closeLb()});
+document.addEventListener('keydown',e=>{if(!lb.classList.contains('open'))return;if(e.key==='Escape')closeLb();if(e.key==='ArrowLeft'){idx=(idx-1+items.length)%items.length;renderLb()}if(e.key==='ArrowRight'){idx=(idx+1)%items.length;renderLb()}});
+document.querySelectorAll('.bprimary,.ncta').forEach(b=>{b.addEventListener('mousemove',e=>{const r=b.getBoundingClientRect();b.style.transform=`translate(${(e.clientX-r.left-r.width/2)*.28}px,${(e.clientY-r.top-r.height/2)*.28}px)`;b.style.transition='transform .1s'});b.addEventListener('mouseleave',()=>{b.style.transform='';b.style.transition='transform .5s cubic-bezier(0.22,1,0.36,1),background .3s,color .3s'})});
+</script>
+</body>
+</html>
