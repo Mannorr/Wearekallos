@@ -374,17 +374,17 @@ footer{background:var(--bg);padding:72px 52px 40px;border-top:1px solid var(--li
       <div class="ficons">
         <a href="https://www.instagram.com/wearekallos/" target="_blank" class="fi"><svg width="12" height="12" fill="none" viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5" stroke="currentColor" stroke-width="1.5"/><circle cx="12" cy="12" r="4" stroke="currentColor" stroke-width="1.5"/><circle cx="17.5" cy="6.5" r="1.2" fill="currentColor"/></svg></a>
         <a href="https://www.linkedin.com/company/kallos-creative-agency/" target="_blank" class="fi"><svg width="12" height="12" fill="none" viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="3" stroke="currentColor" stroke-width="1.5"/><path d="M7 10v7M7 7v.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><path d="M11 17v-3.5a2 2 0 0 1 4 0V17M11 10v7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></a>
-        <a href="/cdn-cgi/l/email-protection#98f3f9f4f4f7ebfbeafdf9ecf1eefdf9fffdf6fbe1d8fff5f9f1f4b6fbf7f5" class="fi"><svg width="12" height="12" fill="none" viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="2" stroke="currentColor" stroke-width="1.5"/><path d="M2 8l10 6 10-6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></a>
+        <a href="mailto:kalloscreativeagency@gmail.com" class="fi"><svg width="12" height="12" fill="none" viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="2" stroke="currentColor" stroke-width="1.5"/><path d="M2 8l10 6 10-6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></a>
       </div>
     </div>
     <div class="fcol"><h5>Navigate</h5><ul><li><a href="index.html">Home</a></li><li><a href="index.html#services">Services</a></li><li><a href="portfolio.html">Portfolio</a></li><li><a href="index.html#team">About</a></li></ul></div>
     <div class="fcol"><h5>Services</h5><ul><li><a href="index.html#services">Brand Strategy</a></li><li><a href="index.html#services">Visual Design</a></li><li><a href="index.html#services">Print &amp; Packaging</a></li></ul></div>
-    <div class="fcol"><h5>Contact</h5><ul><li><a href="/cdn-cgi/l/email-protection#b6ddd7dadad9c5d5c4d3d7c2dfc0d3d7d1d3d8d5cff6d1dbd7dfda98d5d9db">Email Us</a></li><li><a href="https://app.hellobonsai.com/f/1f505b723cad700" target="_blank">Start a Project</a></li><li><a href="https://www.instagram.com/wearekallos/" target="_blank">Instagram</a></li><li><a href="https://www.linkedin.com/company/kallos-creative-agency/" target="_blank">LinkedIn</a></li></ul></div>
+    <div class="fcol"><h5>Contact</h5><ul><li><a href="mailto:kalloscreativeagency@gmail.com">Email Us</a></li><li><a href="https://app.hellobonsai.com/f/1f505b723cad700" target="_blank">Start a Project</a></li><li><a href="https://www.instagram.com/wearekallos/" target="_blank">Instagram</a></li><li><a href="https://www.linkedin.com/company/kallos-creative-agency/" target="_blank">LinkedIn</a></li></ul></div>
   </div>
-  <div class="fbottom"><span class="fcopy">2025 Kallos Creative Agency. All rights reserved.</span><a href="/cdn-cgi/l/email-protection#fa919b9696958999889f9b8e938c9f9b9d9f949983ba9d979b9396d4999597" class="femail"><span class="__cf_email__" data-cfemail="8de6ece1e1e2feeeffe8ecf9e4fbe8eceae8e3eef4cdeae0ece4e1a3eee2e0">[email&#160;protected]</span></a></div>
+  <div class="fbottom"><span class="fcopy">2025 Kallos Creative Agency. All rights reserved.</span><a href="mailto:kalloscreativeagency@gmail.com" class="femail">kalloscreativeagency@gmail.com</a></div>
 </footer>
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+<script>
 const dot=document.getElementById('cdot'),ring=document.getElementById('cring'),cvl=document.getElementById('cvl');
 let rx=0,ry=0,mx=window.innerWidth/2,my=window.innerHeight/2;
 document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;dot.style.left=mx+'px';dot.style.top=my+'px';cvl.style.left=mx+'px';cvl.style.top=my+'px'});
@@ -448,68 +448,7 @@ document.getElementById('lbprev').addEventListener('click',()=>{idx=(idx-1+items
 document.getElementById('lbnext').addEventListener('click',()=>{idx=(idx+1)%items.length;renderLb()});
 lb.addEventListener('click',e=>{if(e.target===lb)closeLb()});
 document.addEventListener('keydown',e=>{if(!lb.classList.contains('open'))return;if(e.key==='Escape')closeLb();if(e.key==='ArrowLeft'){idx=(idx-1+items.length)%items.length;renderLb()}if(e.key==='ArrowRight'){idx=(idx+1)%items.length;renderLb()}});
-// ── Dynamic projects from Supabase ───────────────────────────────────────────
-(async function loadAdminProjects() {
-  const SUPABASE_URL = 'https://zjkyujghzcowipmbizwd.supabase.co';
-  const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inpqa3l1amdoemNvd2lwbWJpendkIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQwNDE3NzUsImV4cCI6MjA4OTYxNzc3NX0.m4iOrQwwoWAjbmFCLIBJPCM1G0FSvdYTEP8whw2cWQk';
-
-  let projects = [];
-  try {
-    const r = await fetch(`${SUPABASE_URL}/rest/v1/projects?select=*&order=sort_order.asc,created_at.asc`, {
-      headers: { 'apikey': SUPABASE_KEY, 'Authorization': 'Bearer ' + SUPABASE_KEY }
-    });
-    if (r.ok) projects = await r.json();
-  } catch(e) { return; }
-
-  if (!projects.length) return;
-
-  const grid = document.getElementById('pgrid');
-
-  projects.forEach(p => {
-    const el = document.createElement('div');
-    el.className = `pc ${p.size || 'sh'} rv zm`;
-    el.dataset.cat = p.filter || 'brand';
-
-    const src = (p.media_url || '').trim();
-    let mediaHtml = src && p.media_type === 'image'
-      ? `<img src="${esc(src)}" alt="${esc(p.title)}">`
-      : src && p.media_type === 'video'
-      ? `<video src="${esc(src)}" autoplay muted loop playsinline></video>`
-      : `<div class="pph"><div class="pph-ico"><svg width="28" height="28" fill="none" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2" stroke="currentColor" stroke-width="1.2"/><circle cx="8.5" cy="8.5" r="1.5" stroke="currentColor" stroke-width="1.2"/><path d="M3 15l5-5 4 4 3-3 6 6" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="pph-lbl">Coming Soon</span></div>`;
-
-    const tagsHtml = (p.tags || '').split(',').map(t => t.trim()).filter(Boolean)
-      .map(t => `<span class="ptg">${esc(t)}</span>`).join('');
-
-    el.innerHTML = `
-      <div class="pm">
-        ${mediaHtml}
-        <div class="pov"><div class="pov-in"><div class="pov-s">${esc(p.cat)}</div><div class="pov-t">${esc(p.title)}</div></div></div>
-      </div>
-      <div class="pi">
-        <div class="pcli">${esc(p.cat)}</div>
-        <div class="ptit">${esc(p.title)}</div>
-        <div class="pdsc">${esc(p.description)}</div>
-        ${tagsHtml ? `<div class="ptags">${tagsHtml}</div>` : ''}
-      </div>`;
-
-    grid.appendChild(el);
-
-    el.addEventListener('click', () => {
-      buildItems();
-      const img = el.querySelector('.pm img'), vid = el.querySelector('.pm video');
-      if (!img && !vid) return;
-      const s = (img || vid).src;
-      const i = items.findIndex(it => it.src === s);
-      if (i >= 0) openLb(i);
-    });
-    el.addEventListener('mouseenter', () => document.body.classList.add('cview'));
-    el.addEventListener('mouseleave', () => document.body.classList.remove('cview'));
-    obs.observe(el);
-  });
-
-  document.getElementById('cnt').textContent = document.querySelectorAll('.pc').length;
-
-  function esc(s){ return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
-})();
-
-document.querySelectorAll('.bprimary,.ncta').forEach(b=>{b.addEventListener(
+document.querySelectorAll('.bprimary,.ncta').forEach(b=>{b.addEventListener('mousemove',e=>{const r=b.getBoundingClientRect();b.style.transform=`translate(${(e.clientX-r.left-r.width/2)*.28}px,${(e.clientY-r.top-r.height/2)*.28}px)`;b.style.transition='transform .1s'});b.addEventListener('mouseleave',()=>{b.style.transform='';b.style.transition='transform .5s cubic-bezier(0.22,1,0.36,1),background .3s,color .3s'})});
+</script>
+</body>
+</html>
