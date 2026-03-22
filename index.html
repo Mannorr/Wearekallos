@@ -341,16 +341,16 @@ footer{background:var(--bg);padding:76px 52px 44px;border-top:1px solid var(--li
       <div class="ficons">
         <a href="https://www.instagram.com/wearekallos/" target="_blank" class="fi"><svg width="12" height="12" fill="none" viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5" stroke="currentColor" stroke-width="1.5"/><circle cx="12" cy="12" r="4" stroke="currentColor" stroke-width="1.5"/><circle cx="17.5" cy="6.5" r="1.2" fill="currentColor"/></svg></a>
         <a href="https://www.linkedin.com/company/kallos-creative-agency/" target="_blank" class="fi"><svg width="12" height="12" fill="none" viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="3" stroke="currentColor" stroke-width="1.5"/><path d="M7 10v7M7 7v.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><path d="M11 17v-3.5a2 2 0 0 1 4 0V17M11 10v7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></a>
-        <a href="/cdn-cgi/l/email-protection#4229232e2e2d3121302723362b34272325272c213b02252f232b2e6c212d2f" class="fi"><svg width="12" height="12" fill="none" viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="2" stroke="currentColor" stroke-width="1.5"/><path d="M2 8l10 6 10-6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></a>
+        <a href="mailto:kalloscreativeagency@gmail.com" class="fi"><svg width="12" height="12" fill="none" viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="2" stroke="currentColor" stroke-width="1.5"/><path d="M2 8l10 6 10-6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></a>
       </div>
     </div>
     <div class="fcol"><h5>Navigate</h5><ul><li><a href="#">Home</a></li><li><a href="#services">Services</a></li><li><a href="portfolio.html">Portfolio</a></li><li><a href="#team">About</a></li></ul></div>
     <div class="fcol"><h5>Services</h5><ul><li><a href="#services">Brand Strategy</a></li><li><a href="#services">Visual Design</a></li><li><a href="#services">Print &amp; Packaging</a></li><li><a href="#services">Design Systems</a></li></ul></div>
-    <div class="fcol"><h5>Contact</h5><ul><li><a href="/cdn-cgi/l/email-protection#84efe5e8e8ebf7e7f6e1e5f0edf2e1e5e3e1eae7fdc4e3e9e5ede8aae7ebe9">Email Us</a></li><li><a href="https://app.hellobonsai.com/f/1f505b723cad700" target="_blank">Start a Project</a></li><li><a href="https://www.instagram.com/wearekallos/" target="_blank">Instagram</a></li><li><a href="https://www.linkedin.com/company/kallos-creative-agency/" target="_blank">LinkedIn</a></li></ul></div>
+    <div class="fcol"><h5>Contact</h5><ul><li><a href="mailto:kalloscreativeagency@gmail.com">Email Us</a></li><li><a href="https://app.hellobonsai.com/f/1f505b723cad700" target="_blank">Start a Project</a></li><li><a href="https://www.instagram.com/wearekallos/" target="_blank">Instagram</a></li><li><a href="https://www.linkedin.com/company/kallos-creative-agency/" target="_blank">LinkedIn</a></li></ul></div>
   </div>
-  <div class="fbar"><span class="fcopy">2025 Kallos Creative Agency. All rights reserved.</span><a href="/cdn-cgi/l/email-protection#82e9e3eeeeedf1e1f0e7e3f6ebf4e7e3e5e7ece1fbc2e5efe3ebeeace1edef" class="femail"><span class="__cf_email__" data-cfemail="402b212c2c2f3323322521342936252127252e233900272d21292c6e232f2d">[email&#160;protected]</span></a></div>
+  <div class="fbar"><span class="fcopy">2025 Kallos Creative Agency. All rights reserved.</span><a href="mailto:kalloscreativeagency@gmail.com" class="femail">kalloscreativeagency@gmail.com</a></div>
 </footer>
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+<script>
 const dot=document.getElementById('cdot'),ring=document.getElementById('cring');
 let rx=0,ry=0,mx=window.innerWidth/2,my=window.innerHeight/2;
 document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;dot.style.left=mx+'px';dot.style.top=my+'px'});
@@ -365,4 +365,7 @@ document.querySelectorAll('.rv,.ldraw').forEach(el=>obs.observe(el));
 function countUp(el){const to=parseInt(el.dataset.to),sx=el.dataset.sx||'+',dur=1600,start=performance.now();(function step(now){const p=Math.min((now-start)/dur,1),ease=1-Math.pow(1-p,4);el.textContent=Math.round(ease*to)+sx;if(p<1)requestAnimationFrame(step)})(performance.now())}
 new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){e.target.querySelectorAll('.sn[data-to]').forEach(el=>{countUp(el);delete el.dataset.to})}})},{threshold:.3}).observe(document.querySelector('.statsband'));
 document.querySelectorAll('a[href^="#"]').forEach(a=>{a.addEventListener('click',e=>{const t=document.querySelector(a.getAttribute('href'));if(t){e.preventDefault();t.scrollIntoView({behavior:'smooth'})}})});
-document.querySelectorAll('.bprimary,.binv,.ncta').forEach(b=>{b.addEventListener(
+document.querySelectorAll('.bprimary,.binv,.ncta').forEach(b=>{b.addEventListener('mousemove',e=>{const r=b.getBoundingClientRect();b.style.transform=`translate(${(e.clientX-r.left-r.width/2)*.28}px,${(e.clientY-r.top-r.height/2)*.28}px)`;b.style.transition='transform .1s'});b.addEventListener('mouseleave',()=>{b.style.transform='';b.style.transition='transform .5s cubic-bezier(0.22,1,0.36,1),background .3s,color .3s'})});
+</script>
+</body>
+</html>
