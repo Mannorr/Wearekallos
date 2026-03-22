@@ -121,6 +121,50 @@ section{padding:112px 52px}.salt{background:var(--bg2);transition:background .5s
 .aimg{aspect-ratio:4/5;overflow:hidden;background:var(--bg3);transition:background .5s}
 .aimg-in{width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:var(--bg3);transition:transform .8s var(--ease),background .5s}
 .aimg:hover .aimg-in{transform:scale(1.03)}
+.aimg-in{background:var(--bg2)}
+
+/* About illustration animations */
+.about-illo{width:100%;height:100%}
+.illo-border{
+  stroke-dasharray:1640;stroke-dashoffset:1640;
+  animation:drawBorder 2s var(--eout) 0.3s forwards;
+}
+.illo-h1{
+  stroke-dasharray:360;stroke-dashoffset:360;
+  animation:drawLine 1s var(--eout) 0.9s forwards;
+}
+.illo-h2{
+  stroke-dasharray:360;stroke-dashoffset:-360;
+  animation:drawLine 1s var(--eout) 1.1s forwards;
+}
+.illo-v1{
+  stroke-dasharray:8 6;stroke-dashoffset:320;
+  animation:drawLine 1.2s var(--eout) 1.3s forwards;
+}
+.illo-glyph{
+  opacity:0;animation:fadeGlyph 1.5s var(--eout) 0.6s forwards;
+}
+.illo-sq1{
+  opacity:0;transform:scale(0);transform-origin:32px 32px;
+  animation:popIn .4s var(--eout) 1.4s forwards;
+}
+.illo-dot{
+  opacity:0;animation:popIn .4s var(--eout) 1.6s forwards;
+}
+.illo-orbit{
+  opacity:0;
+  animation:popIn .4s var(--eout) 1.7s forwards, spinOrbit 8s linear 2.1s infinite;
+  transform-origin:388px 420px;
+}
+.illo-label,.illo-year{
+  opacity:0;animation:fadeGlyph 1s var(--eout) 1.5s forwards;
+}
+.illo-year{animation-delay:1.7s}
+@keyframes drawBorder{to{stroke-dashoffset:0}}
+@keyframes drawLine{to{stroke-dashoffset:0}}
+@keyframes fadeGlyph{to{opacity:1}}
+@keyframes popIn{to{opacity:1;transform:scale(1)}}
+@keyframes spinOrbit{to{transform:rotate(360deg)}}
 .abadge{position:absolute;right:-22px;bottom:44px;background:var(--red);color:#fff;padding:16px 20px}
 .abn{font-family:var(--fs);font-size:46px;font-weight:400;line-height:1;display:block}
 .abs{font-size:9px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;display:block;margin-top:4px;opacity:.8}
@@ -221,7 +265,7 @@ footer{background:var(--bg);padding:76px 52px 44px;border-top:1px solid var(--li
   </a>
   <ul class="nlinks">
     <li><a href="#services">Services</a></li>
-    <li><a href="portfolio.html">Portfolio</a></li>
+    <li><a href="kallos-portfolio.html">Portfolio</a></li>
     <li><a href="#team">About</a></li>
     <li><a href="#contact">Contact</a></li>
   </ul>
@@ -246,7 +290,7 @@ footer{background:var(--bg);padding:76px 52px 44px;border-top:1px solid var(--li
     <p class="hsub"><b>Bold branding. Purposeful design.</b> We challenge the ordinary and craft work that makes people feel something &mdash; every single time.</p>
     <div class="hbtns">
       <a href="https://app.hellobonsai.com/f/1f505b723cad700" target="_blank" class="bprimary">Start a Project</a>
-      <a href="portfolio.html" class="bghost">See Work <svg width="14" height="14" fill="none" viewBox="0 0 14 14"><path d="M2 7h10M8 3l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+      <a href="kallos-portfolio.html" class="bghost">See Work <svg width="14" height="14" fill="none" viewBox="0 0 14 14"><path d="M2 7h10M8 3l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
     </div>
   </div>
   <div class="scrl"><span>Scroll</span><div class="sline"></div></div>
@@ -296,7 +340,28 @@ footer{background:var(--bg);padding:76px 52px 44px;border-top:1px solid var(--li
     <div class="avis rv zm d1">
       <div class="aimg">
         <div class="aimg-in">
-          <svg width="64" height="64" viewBox="0 0 64 64" fill="none"><circle cx="32" cy="32" r="30" stroke="var(--faint)" stroke-width="1"/><text x="32" y="46" text-anchor="middle" font-family="serif" font-size="40" fill="var(--faint)" font-style="italic">&#x39A;</text></svg>
+          <svg class="about-illo" viewBox="0 0 420 520" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <!-- Outer border rectangle, draws in -->
+            <rect class="illo-border" x="32" y="32" width="356" height="456" stroke="var(--line2)" stroke-width="1"/>
+            <!-- Large background greek K glyph, fades in -->
+            <text class="illo-glyph" x="210" y="400" text-anchor="middle" font-family="Georgia, serif" font-size="340" font-style="italic" fill="var(--faint)">K</text>
+            <!-- Horizontal rule top, draws right -->
+            <line class="illo-h1" x1="32" y1="100" x2="388" y2="100" stroke="var(--line)" stroke-width="1"/>
+            <!-- Horizontal rule bottom, draws left -->
+            <line class="illo-h2" x1="388" y1="420" x2="32" y2="420" stroke="var(--line)" stroke-width="1"/>
+            <!-- Small red accent square, pops in -->
+            <rect class="illo-sq1" x="32" y="32" width="18" height="18" fill="var(--red)"/>
+            <!-- Amber dot, fades in -->
+            <circle class="illo-dot" cx="388" cy="420" r="5" fill="var(--amber)"/>
+            <!-- Thin vertical line, draws down -->
+            <line class="illo-v1" x1="210" y1="100" x2="210" y2="420" stroke="var(--line)" stroke-width="1" stroke-dasharray="4 6"/>
+            <!-- Brand label text -->
+            <text class="illo-label" x="52" y="88" font-family="'Instrument Sans', sans-serif" font-size="9" letter-spacing="3" fill="var(--muted)" text-transform="uppercase">KALLOS CREATIVE</text>
+            <!-- Year label -->
+            <text class="illo-year" x="340" y="445" font-family="'Instrument Sans', sans-serif" font-size="9" letter-spacing="2" fill="var(--faint)">EST. 2022</text>
+            <!-- Small rotating orbit ring around dot -->
+            <circle class="illo-orbit" cx="388" cy="420" r="18" stroke="rgba(238,41,36,0.2)" stroke-width="1"/>
+          </svg>
         </div>
       </div>
       <div class="abadge"><span class="abn">&copy;25</span><span class="abs">Est. 2022</span></div>
@@ -433,7 +498,7 @@ footer{background:var(--bg);padding:76px 52px 44px;border-top:1px solid var(--li
         <a href="https://www.linkedin.com/company/kallos-creative-agency/" target="_blank" class="fi" title="LinkedIn">
           <svg width="12" height="12" fill="none" viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="3" stroke="currentColor" stroke-width="1.5"/><path d="M7 10v7M7 7v.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><path d="M11 17v-3.5a2 2 0 0 1 4 0V17M11 10v7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
         </a>
-        <a href="mailto:kalloscreativeagency@gmail.com" class="fi" title="Email">
+        <a href="#contact" data-mail="1" class="fi" title="Email">
           <svg width="12" height="12" fill="none" viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="2" stroke="currentColor" stroke-width="1.5"/><path d="M2 8l10 6 10-6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
         </a>
       </div>
@@ -443,7 +508,7 @@ footer{background:var(--bg);padding:76px 52px 44px;border-top:1px solid var(--li
       <ul>
         <li><a href="#">Home</a></li>
         <li><a href="#services">Services</a></li>
-        <li><a href="portfolio.html">Portfolio</a></li>
+        <li><a href="kallos-portfolio.html">Portfolio</a></li>
         <li><a href="#team">About</a></li>
       </ul>
     </div>
@@ -459,7 +524,7 @@ footer{background:var(--bg);padding:76px 52px 44px;border-top:1px solid var(--li
     <div class="fcol">
       <h5>Contact</h5>
       <ul>
-        <li><a href="mailto:kalloscreativeagency@gmail.com">Email Us</a></li>
+        <li><a href="#contact" data-mail="1">Email Us</a></li>
         <li><a href="https://app.hellobonsai.com/f/1f505b723cad700" target="_blank">Start a Project</a></li>
         <li><a href="https://www.instagram.com/wearekallos/" target="_blank">Instagram</a></li>
         <li><a href="https://www.linkedin.com/company/kallos-creative-agency/" target="_blank">LinkedIn</a></li>
@@ -468,7 +533,7 @@ footer{background:var(--bg);padding:76px 52px 44px;border-top:1px solid var(--li
   </div>
   <div class="fbar">
     <span class="fcopy">&copy; 2025 &#x39A;&#x3AC;&#x3BB;&#x3BB;&#x3BF;&#x3C2; Creative Agency. All rights reserved.</span>
-    <a href="mailto:kalloscreativeagency@gmail.com" class="femail">kalloscreativeagency@gmail.com</a>
+    <a href="#contact" data-mail="1" class="femail">kalloscreativeagency&#64;gmail&#46;com</a>
   </div>
 </footer>
 
@@ -520,7 +585,23 @@ window.addEventListener('scroll', () => {
 
 /* SCROLL REVEAL */
 const obs = new IntersectionObserver(entries => {
-  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('in'); });
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.classList.add('in');
+      // Re-trigger illustration animations when about section comes into view
+      if (e.target.classList.contains('avis')) {
+        const illo = e.target.querySelector('.about-illo');
+        if (illo) {
+          illo.style.animation = 'none';
+          illo.querySelectorAll('[class^="illo-"]').forEach(el => {
+            el.style.animation = 'none';
+            void el.offsetWidth;
+            el.style.animation = '';
+          });
+        }
+      }
+    }
+  });
 }, { threshold: 0.1 });
 document.querySelectorAll('.rv, .ldraw').forEach(el => obs.observe(el));
 
@@ -554,14 +635,4 @@ document.querySelectorAll('a[href^="#"]').forEach(a => {
 document.querySelectorAll('.bprimary, .binv, .ncta').forEach(b => {
   b.addEventListener('mousemove', e => {
     const r = b.getBoundingClientRect();
-    b.style.transform = `translate(${(e.clientX - r.left - r.width / 2) * 0.28}px,${(e.clientY - r.top - r.height / 2) * 0.28}px)`;
-    b.style.transition = 'transform .1s';
-  });
-  b.addEventListener('mouseleave', () => {
-    b.style.transform = '';
-    b.style.transition = 'transform .5s cubic-bezier(0.22,1,0.36,1), background .3s, color .3s';
-  });
-});
-</script>
-</body>
-</html>
+    b.style.
