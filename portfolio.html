@@ -232,8 +232,23 @@ window.addEventListener('scroll',()=>document.getElementById('nav').classList.to
 
 /* DATA */
 function getProjects(){
-  try{ return (JSON.parse(localStorage.getItem(STORE_KEY))||[]).filter(p=>p.visible!==false); }
-  catch{ return []; }
+  try{
+    // v2 = Cloudinary URLs in localStorage
+    const v2 = JSON.parse(localStorage.getItem('kallos_portfolio_v2')) || [];
+    // v1 = old base64 version in localStorage (first working version)
+    const v1raw = localStorage.getItem('kallos_portfolio_v1');
+    let v1 = [];
+    if(v1raw){
+      const parsed = JSON.parse(v1raw);
+      // v1 stored as array directly, or as {projects:[...]}
+      v1 = Array.isArray(parsed) ? parsed : (parsed.projects || []);
+    }
+    // Merge both, v2 takes priority
+    const ids = new Set(v2.map(p=>p.id));
+    const merged = [...v2, ...v1.filter(p=>!ids.has(p.id))];
+    return merged.filter(p=>p.visible!==false);
+  }
+  catch(e){ console.warn('getProjects error:',e); return []; }
 }
 
 const grid=document.getElementById('pgrid');
@@ -261,16 +276,17 @@ function buildCard(p){
     media.forEach(m=>{
       const s=document.createElement('div');s.className='pslide';
       // Use thumb for faster initial load, full URL on click/hover
-      const src=m.thumb||m.url;
+      // Support both Cloudinary URLs (url) and old base64 (dataUrl)
+      const fullSrc = m.url || m.dataUrl || '';
+      const thumbSrc = m.thumb || fullSrc;
       if(m.type==='video'){
         const v=document.createElement('video');
-        v.src=m.url; v.autoplay=true; v.muted=true; v.loop=true; v.playsInline=true;
+        v.src=fullSrc; v.autoplay=true; v.muted=true; v.loop=true; v.playsInline=true;
         s.appendChild(v);
       } else {
         const img=document.createElement('img');
-        img.src=src; img.alt=p.title; img.loading='lazy';
-        // Load full res on hover
-        img.addEventListener('load',()=>{ if(m.url!==src) img.src=m.url; });
+        img.src=thumbSrc; img.alt=p.title; img.loading='lazy';
+        if(thumbSrc!==fullSrc){ img.addEventListener('load',()=>{ img.src=fullSrc; }); }
         s.appendChild(img);
       }
       carousel.appendChild(s);
@@ -345,7 +361,7 @@ const obs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersec
 document.querySelectorAll('.rv').forEach(el=>obs.observe(el));
 
 /* LIVE SYNC when admin saves */
-window.addEventListener('storage',e=>{ if(e.key===STORE_KEY) renderGrid(); });
+window.addEventListener('storage',e=>{ if(e.key==='kallos_portfolio_v1'||e.key==='kallos_portfolio_v2') renderGrid(); });
 
 /* MAGNETIC */
 document.querySelectorAll('.bprimary,.ncta').forEach(b=>{
