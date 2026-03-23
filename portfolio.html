@@ -328,7 +328,7 @@ window.addEventListener('scroll',()=>document.getElementById('nav').classList.to
 
 // ── LOAD FROM JSONBIN ────────────────────────────────────
 async function loadPortfolio() {
-  const binId = '69c12be6c3097a1dd54fcd6f';
+  const binId = '69c12f68c3097a1dd54fdec5';
   const loading = document.getElementById('loading');
   const grid    = document.getElementById('grid');
   const noproj  = document.getElementById('noproj');
@@ -337,7 +337,13 @@ async function loadPortfolio() {
 
   try {
     const res  = await fetch(JBAPI + '/' + binId + '/latest');
+    if (!res.ok) {
+      const errText = await res.text();
+      console.error('JSONBin error:', res.status, errText);
+      throw new Error('Status ' + res.status + ': ' + errText);
+    }
     const data = await res.json();
+    console.log('JSONBin response:', data);
     const projects = (data.record?.projects || data.record || []).filter(p => p.visible !== false);
     loading.style.display = 'none';
     allProjects = projects;
@@ -345,7 +351,7 @@ async function loadPortfolio() {
   } catch(e) {
     loading.style.display = 'none';
     noproj.classList.add('show');
-    noproj.querySelector('p').textContent = 'Could not load portfolio. Please try again later.';
+    console.error('Portfolio load error:', e); noproj.querySelector('p').textContent = 'Could not load portfolio: ' + e.message;
   }
 }
 
