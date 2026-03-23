@@ -93,6 +93,25 @@ nav.on{background:var(--nav);backdrop-filter:blur(20px) saturate(1.5);border-col
 .carr{width:30px;height:30px;border:1px solid var(--faint);display:flex;align-items:center;justify-content:center;color:var(--faint);flex-shrink:0;transition:border-color .2s,color .2s,transform .3s var(--eout),background .2s}
 .card:hover .carr{border-color:var(--red);color:var(--text);transform:rotate(-45deg);background:rgba(238,41,36,.08)}
 
+/* WEBSITE IFRAME PREVIEW */
+.site-preview{position:relative;width:100%;overflow:hidden;background:var(--bg3);cursor:pointer}
+.site-frame-wrap{position:relative;width:100%;padding-bottom:62.5%;overflow:hidden;pointer-events:none}
+.site-frame-wrap iframe{position:absolute;top:0;left:0;width:250%;height:250%;transform:scale(0.4);transform-origin:top left;border:none;background:#fff}
+.site-overlay{position:absolute;inset:0;z-index:2;display:flex;align-items:flex-end;justify-content:flex-start;padding:10px 12px;background:linear-gradient(to top,rgba(0,0,0,.5) 0%,transparent 60%);opacity:0;transition:opacity .3s}
+.card:hover .site-overlay{opacity:1}
+.site-tag{font-size:9px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;background:var(--red);color:#fff;padding:3px 8px}
+.site-ph{width:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;background:var(--bg3)}
+.site-ph-icon{font-size:32px;color:var(--faint)}
+.site-ph-url{font-size:9px;color:var(--faint);letter-spacing:.06em;word-break:break-all;max-width:80%;text-align:center}
+
+/* LIGHTBOX iframe */
+.lb-site{width:100%;height:100%;border:none;background:#fff}
+.lb-site-wrap{position:absolute;inset:0;display:flex;flex-direction:column}
+.lb-site-bar{background:#1a1a18;padding:10px 16px;display:flex;align-items:center;gap:10px;flex-shrink:0}
+.lb-site-url{font-size:11px;color:rgba(255,255,255,.5);flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-family:monospace}
+.lb-site-open{font-size:10px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:#fff;background:var(--red);border:none;padding:5px 12px;cursor:pointer;text-decoration:none;white-space:nowrap}
+.lb-site-open:hover{background:#c71f1c}
+
 /* EMPTY / ERROR */
 .noproj{display:none;padding:96px 52px;text-align:center}
 .noproj.show{display:block}
@@ -245,6 +264,7 @@ footer{background:var(--bg);padding:48px 52px;border-top:1px solid var(--line);t
   <button class="ftab" data-f="visual">Visual Design</button>
   <button class="ftab" data-f="print">Print &amp; Packaging</button>
   <button class="ftab" data-f="event">Events</button>
+  <button class="ftab" data-f="web">Website Design</button>
 </div>
 
 <!-- GRID -->
@@ -307,7 +327,7 @@ footer{background:var(--bg);padding:48px 52px;border-top:1px solid var(--line);t
 // ── Config ───────────────────────────────────────────────
 const JBAPI = 'https://api.jsonbin.io/v3/b';
 const BIN_KEY = 'kallos_bin_id';
-const CATS = {brand:'Brand Identity',visual:'Visual Design',print:'Print & Packaging',event:'Events'};
+const CATS = {brand:'Brand Identity',visual:'Visual Design',print:'Print & Packaging',event:'Events',web:'Website Design'};
 const ARR  = '<svg width="12" height="12" fill="none" viewBox="0 0 12 12"><path d="M2.5 9.5l7-7M3 2.5h6.5V9" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>';
 
 // ── CURSOR ───────────────────────────────────────────────
@@ -374,28 +394,51 @@ function renderGrid(projects) {
     card.className = 'card' + (p.featured ? ' feat' : '');
     card.dataset.cat = p.cat; card.dataset.id = p.id;
 
-    // Media — cover image/video only on card
+    // Media — cover image/video only on card, iframe for website type
     const cm = document.createElement('div');
     cm.className = 'cmedia'; cm.style.aspectRatio = p.ratio || '4/3';
-    if (!mc) {
-      cm.innerHTML = '<div class="cph"><span>' + (p.title||'?').slice(0,2).toUpperCase() + '</span></div>';
-    } else {
-      const m = media[0];
-      if (m.type === 'video') {
-        const v = document.createElement('video');
-        v.src = m.thumb || m.url; v.autoplay = true; v.muted = true; v.loop = true; v.playsInline = true;
-        cm.appendChild(v);
-      } else {
-        const img = document.createElement('img');
-        img.src = m.thumb || m.url; img.alt = p.title; img.loading = 'lazy';
-        cm.appendChild(img);
-      }
-    }
 
-    const ovl = document.createElement('div'); ovl.className = 'covl'; cm.appendChild(ovl);
-    if (p.year) { const yr=document.createElement('span');yr.className='cyr';yr.textContent=p.year;cm.appendChild(yr); }
-    if (mc > 1) { const ct=document.createElement('span');ct.className='cmc';ct.textContent='1/'+mc+' ▶';cm.appendChild(ct); }
-    card.appendChild(cm);
+    if (p.cat === 'web' && p.siteUrl) {
+      // Website preview card
+      const sp = document.createElement('div'); sp.className = 'site-preview';
+      sp.style.aspectRatio = p.ratio || '16/10';
+      const fw = document.createElement('div'); fw.className = 'site-frame-wrap';
+      const ifr = document.createElement('iframe');
+      ifr.src = p.siteUrl; ifr.title = p.title;
+      ifr.setAttribute('loading','lazy');
+      ifr.setAttribute('sandbox','allow-scripts allow-same-origin');
+      fw.appendChild(ifr); sp.appendChild(fw);
+      const so = document.createElement('div'); so.className = 'site-overlay';
+      so.innerHTML = '<span class="site-tag">&#x1F310; Live Site</span>';
+      sp.appendChild(so);
+      card.appendChild(sp);
+    } else if (p.cat === 'web' && !p.siteUrl) {
+      // Website with no URL yet — show placeholder
+      const sp = document.createElement('div'); sp.className = 'site-preview site-ph';
+      sp.style.aspectRatio = p.ratio || '16/10';
+      sp.innerHTML = '<span class="site-ph-icon">&#x1F310;</span><span class="site-ph-url">Website preview coming soon</span>';
+      card.appendChild(sp);
+    } else {
+      // Normal image/video media
+      if (!mc) {
+        cm.innerHTML = '<div class="cph"><span>' + (p.title||'?').slice(0,2).toUpperCase() + '</span></div>';
+      } else {
+        const m = media[0];
+        if (m.type === 'video') {
+          const v = document.createElement('video');
+          v.src = m.thumb || m.url; v.autoplay = true; v.muted = true; v.loop = true; v.playsInline = true;
+          cm.appendChild(v);
+        } else {
+          const img = document.createElement('img');
+          img.src = m.thumb || m.url; img.alt = p.title; img.loading = 'lazy';
+          cm.appendChild(img);
+        }
+      }
+      const ovl = document.createElement('div'); ovl.className = 'covl'; cm.appendChild(ovl);
+      if (p.year) { const yr=document.createElement('span');yr.className='cyr';yr.textContent=p.year;cm.appendChild(yr); }
+      if (mc > 1) { const ct=document.createElement('span');ct.className='cmc';ct.textContent='1/'+mc+' ▶';cm.appendChild(ct); }
+      card.appendChild(cm);
+    }
 
     const foot = document.createElement('div'); foot.className = 'cfoot';
     foot.innerHTML = '<div><div class="ccat">'+(CATS[p.cat]||p.cat)+'</div><div class="ctitle">'+p.title+'</div></div><div class="carr">'+ARR+'</div>';
@@ -455,10 +498,27 @@ function openLB(id) {
   lbMed.querySelectorAll('.lb-slide').forEach(s => s.remove());
   lbDots.innerHTML = ''; slides = [];
 
-  if (!media.length) {
+  // Website design: show live iframe in lightbox
+  if (p.cat === 'web' && p.siteUrl) {
+    const wrap = document.createElement('div'); wrap.className = 'lb-site-wrap';
+    const bar  = document.createElement('div'); bar.className = 'lb-site-bar';
+    bar.innerHTML = '<span class="lb-site-url">&#x1F310; ' + p.siteUrl + '</span>';
+    const openBtn = document.createElement('a');
+    openBtn.href = p.siteUrl; openBtn.target = '_blank';
+    openBtn.className = 'lb-site-open'; openBtn.textContent = 'Open Site ↗';
+    bar.appendChild(openBtn); wrap.appendChild(bar);
+    const ifr = document.createElement('iframe');
+    ifr.src = p.siteUrl; ifr.className = 'lb-site'; ifr.title = p.title;
+    ifr.setAttribute('sandbox','allow-scripts allow-same-origin allow-forms allow-popups');
+    wrap.appendChild(ifr);
+    lbMed.insertBefore(wrap, lbP);
+    lbP.style.display = 'none'; lbN.style.display = 'none'; lbCtr.textContent = '';
+    lbDots.innerHTML = ''; slides = [wrap];
+  } else if (!media.length) {
     const s = document.createElement('div'); s.className = 'lb-slide on';
     s.innerHTML = '<span style="font-family:var(--fs);font-style:italic;font-size:80px;color:rgba(255,255,255,.08)">' + (p.title||'?').slice(0,2).toUpperCase() + '</span>';
     lbMed.insertBefore(s, lbP); slides.push(s);
+    lbP.style.display = 'none'; lbN.style.display = 'none'; lbCtr.textContent = '';
   } else {
     media.forEach((m, i) => {
       const s = document.createElement('div'); s.className = 'lb-slide' + (i === 0 ? ' on' : '');
@@ -471,18 +531,16 @@ function openLB(id) {
         s.appendChild(img);
       }
       lbMed.insertBefore(s, lbP); slides.push(s);
-
       if (media.length > 1) {
         const d = document.createElement('button'); d.className = 'lbd' + (i === 0 ? ' on' : '');
         d.addEventListener('click', () => goLB(i));
         lbDots.appendChild(d);
       }
     });
+    lbP.style.display = media.length > 1 ? 'flex' : 'none';
+    lbN.style.display = media.length > 1 ? 'flex' : 'none';
+    lbCtr.textContent = media.length > 1 ? '1 / ' + media.length : '';
   }
-
-  lbP.style.display = media.length > 1 ? 'flex' : 'none';
-  lbN.style.display = media.length > 1 ? 'flex' : 'none';
-  lbCtr.textContent = media.length > 1 ? '1 / ' + media.length : '';
   cur = 0;
   lb.classList.add('open');
   document.body.style.overflow = 'hidden';
@@ -497,7 +555,11 @@ function goLB(i) {
 
 function closeLB() {
   lb.classList.remove('open'); document.body.style.overflow = '';
-  slides.forEach(s => { const v = s.querySelector('video'); if (v) { v.pause(); v.currentTime = 0; } });
+  slides.forEach(s => {
+    const v = s.querySelector('video'); if (v) { v.pause(); v.currentTime = 0; }
+    const ifr = s.querySelector('iframe'); if (ifr) ifr.src = '';
+  });
+  lbMed.querySelectorAll('.lb-site-wrap').forEach(w => w.remove());
 }
 
 lbP.addEventListener('click', () => goLB((cur - 1 + slides.length) % slides.length));
