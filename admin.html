@@ -31,31 +31,41 @@ body{font-family:var(--ss);background:var(--bg);color:var(--text);min-height:100
 .field input,.field select,.field textarea{width:100%;background:var(--input);border:1px solid var(--line2);color:var(--text);font-family:var(--ss);font-size:13px;padding:10px 12px;outline:none;transition:border-color .2s;-webkit-appearance:none}
 .field input:focus,.field select:focus,.field textarea:focus{border-color:var(--red)}
 .field textarea{resize:vertical;min-height:70px;line-height:1.6}
+
+/* MEDIA SLOTS */
 .media-slots{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:8px}
-.media-slot{position:relative;border:1px dashed var(--line2);aspect-ratio:4/3;cursor:pointer;overflow:hidden;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;transition:border-color .2s,background .2s;background:var(--input)}
-.media-slot:hover{border-color:var(--red);background:rgba(238,41,36,.04)}
+.media-slot{position:relative;border:1px dashed var(--line2);aspect-ratio:4/3;overflow:hidden;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;transition:border-color .2s,background .2s;background:var(--input)}
+.media-slot.clickable{cursor:pointer}.media-slot.clickable:hover{border-color:var(--red);background:rgba(238,41,36,.04)}
 .media-slot.filled{border-style:solid;border-color:var(--line2)}
-.media-slot input[type=file]{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%}
+.media-slot.uploading{border-color:var(--amber)}
+.ms-input{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%}
 .ms-preview{position:absolute;inset:0;object-fit:cover;width:100%;height:100%;display:block}
-.ms-overlay{position:absolute;inset:0;background:rgba(0,0,0,.55);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;opacity:0;transition:opacity .2s}
-.media-slot:hover .ms-overlay{opacity:1}
-.ms-empty-icon{font-size:22px;color:var(--faint)}
-.ms-empty-label{font-size:9px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--faint);text-align:center;line-height:1.4}
-.ms-num{position:absolute;top:5px;left:5px;font-size:9px;font-weight:700;background:var(--bg);color:var(--muted);padding:2px 6px;z-index:2}
-.ms-remove{position:absolute;top:4px;right:4px;width:20px;height:20px;background:var(--red);color:#fff;border:none;display:flex;align-items:center;justify-content:center;font-size:11px;cursor:pointer;opacity:0;transition:opacity .2s;z-index:3}
+.ms-overlay{position:absolute;inset:0;background:rgba(0,0,0,.6);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;opacity:0;transition:opacity .2s}
+.media-slot.filled:hover .ms-overlay{opacity:1}
+.ms-empty-icon{font-size:20px;color:var(--faint)}
+.ms-empty-label{font-size:9px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--faint);text-align:center}
+.ms-num{position:absolute;top:5px;left:5px;font-size:9px;font-weight:700;background:var(--bg);color:var(--muted);padding:2px 5px;z-index:3}
+.ms-remove{position:absolute;top:4px;right:4px;width:20px;height:20px;background:var(--red);color:#fff;border:none;font-size:11px;cursor:pointer;opacity:0;transition:opacity .2s;z-index:4;display:flex;align-items:center;justify-content:center}
 .media-slot.filled:hover .ms-remove{opacity:1}
-.ms-cover-badge{position:absolute;bottom:4px;left:4px;font-size:8px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;background:var(--red);color:#fff;padding:2px 6px;z-index:2}
+.ms-cover{position:absolute;bottom:4px;left:4px;font-size:8px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;background:var(--red);color:#fff;padding:2px 5px;z-index:3}
+.ms-type{position:absolute;bottom:4px;right:4px;font-size:8px;font-weight:700;background:rgba(0,0,0,.65);color:#fff;padding:2px 5px;z-index:3}
+.ms-progress{position:absolute;bottom:0;left:0;height:3px;background:var(--amber);transition:width .2s;z-index:5}
 .media-hint{font-size:10px;color:var(--faint);line-height:1.5;margin-top:4px}
-.ms-type-badge{position:absolute;bottom:4px;right:4px;font-size:8px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;background:rgba(0,0,0,.6);color:#fff;padding:2px 6px;z-index:2}
+
+/* TOGGLES */
 .toggle-row{display:flex;align-items:center;justify-content:space-between}
 .toggle{width:38px;height:20px;background:var(--bg3);border:1px solid var(--line2);border-radius:10px;position:relative;cursor:pointer;transition:background .3s}
 .toggle.on{background:var(--red);border-color:var(--red)}
 .toggle::after{content:'';position:absolute;top:2px;left:2px;width:14px;height:14px;border-radius:50%;background:#fff;transition:transform .3s}
 .toggle.on::after{transform:translateX(18px)}
+
+/* BUTTONS */
 .btn-submit{width:100%;padding:13px;font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:#fff;background:var(--red);border:none;cursor:pointer;transition:background .2s;margin-top:8px}
-.btn-submit:hover{background:#c71f1c}
+.btn-submit:hover{background:#c71f1c}.btn-submit:disabled{background:var(--bg3);color:var(--muted);cursor:not-allowed}
 .btn-cancel{width:100%;padding:10px;margin-top:8px;font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);background:none;border:1px solid var(--line2);cursor:pointer;transition:border-color .2s,color .2s}
 .btn-cancel:hover{border-color:var(--text);color:var(--text)}
+
+/* MAIN */
 .main{padding:32px;overflow-y:auto}
 .main-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:24px}
 .main-title{font-size:11px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--muted)}
@@ -66,11 +76,13 @@ body{font-family:var(--ss);background:var(--bg);color:var(--text);min-height:100
 .sortbtn:hover,.sortbtn.on{border-color:var(--text);color:var(--text)}
 .drag-hint{font-size:10px;color:var(--faint);margin-left:auto}
 .proj-list{display:flex;flex-direction:column;gap:10px}
+
+/* PROJECT ROWS */
 .prow{display:grid;grid-template-columns:auto 90px 1fr auto auto;align-items:center;gap:16px;background:var(--card);border:1px solid var(--line);padding:14px 16px;transition:background .3s,border-color .3s}
-.prow:hover{border-color:var(--line2)}.prow.dragging{opacity:.4}.prow.drag-over{border-color:var(--red);background:rgba(238,41,36,.04)}.prow.editing{border-color:var(--amber)}
+.prow:hover{border-color:var(--line2)}.prow.dragging{opacity:.4}.prow.drag-over{border-color:var(--red)}.prow.editing{border-color:var(--amber)}
 .drag-handle{cursor:grab;color:var(--faint);display:flex;flex-direction:column;gap:3px;padding:2px 0}
 .drag-handle span{display:block;width:14px;height:1px;background:currentColor}
-.pthumb-strip{display:flex;gap:2px;width:90px;height:48px;overflow:hidden;flex-shrink:0}
+.pthumb-strip{display:flex;gap:2px;width:90px;height:48px;flex-shrink:0;overflow:hidden}
 .pthumb-strip .pt{flex-shrink:0;background:var(--bg3);overflow:hidden;display:flex;align-items:center;justify-content:center;height:48px}
 .pthumb-strip .pt:first-child{width:48px}.pthumb-strip .pt:not(:first-child){width:20px}
 .pthumb-strip .pt img,.pthumb-strip .pt video{width:100%;height:100%;object-fit:cover;display:block}
@@ -101,10 +113,10 @@ body{font-family:var(--ss);background:var(--bg);color:var(--text);min-height:100
 .export-actions{display:flex;gap:8px;flex-wrap:wrap}
 .exp-btn{font-size:10px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;padding:8px 14px;border:1px solid var(--line2);background:none;color:var(--muted);cursor:pointer;transition:border-color .2s,color .2s}
 .exp-btn:hover{border-color:var(--text);color:var(--text)}
-.db-status{font-size:10px;color:var(--faint);margin-top:8px}
 </style>
 </head>
 <body>
+
 <div class="topbar">
   <div class="topbar-brand">
     <span class="topbar-logo">&#x39A;&#x3AC;&#x3BB;&#x3BB;&#x3BF;&#x3C2;</span>
@@ -123,6 +135,7 @@ body{font-family:var(--ss);background:var(--bg);color:var(--text);min-height:100
 <div class="wrap">
   <aside class="sidebar">
     <h2 id="form-heading">Add Project</h2>
+
     <div class="field"><label>Project Title *</label><input type="text" id="f-title" placeholder="e.g. Fuse Conference"></div>
     <div class="field">
       <label>Category *</label>
@@ -145,12 +158,13 @@ body{font-family:var(--ss);background:var(--bg);color:var(--text);min-height:100
         <option value="1/1">Square (1:1)</option>
       </select>
     </div>
+
     <div class="field">
-      <label>Media (up to 5 images or videos)</label>
+      <label>Media (up to 5 &#x2014; images or videos)</label>
       <div class="media-slots" id="media-slots"></div>
-      <div class="media-hint">Slot 1 = cover image shown in grid. Click any slot to upload.</div>
-      <div class="db-status" id="db-status"></div>
+      <div class="media-hint">Slot 1 = cover. Files upload to Cloudinary automatically.</div>
     </div>
+
     <div class="field">
       <div class="toggle-row">
         <label style="margin-bottom:0">Featured (spans 2 columns)</label>
@@ -163,8 +177,10 @@ body{font-family:var(--ss);background:var(--bg);color:var(--text);min-height:100
         <button class="toggle on" id="f-vis" role="switch" aria-checked="true"></button>
       </div>
     </div>
+
     <button class="btn-submit" id="btn-submit">Add Project</button>
     <button class="btn-cancel" id="btn-cancel" style="display:none">Cancel Edit</button>
+
     <div class="export-bar">
       <h3>Manage</h3>
       <div class="export-actions">
@@ -193,157 +209,174 @@ body{font-family:var(--ss);background:var(--bg);color:var(--text);min-height:100
     </div>
   </main>
 </div>
+
 <div class="toast" id="toast"></div>
 
 <script>
-// ── IndexedDB setup ─────────────────────────────────────
-const DB_NAME = 'kallos_db', DB_VER = 1;
-const META_STORE = 'projects_meta';   // project info (no blobs)
-const MEDIA_STORE = 'media_files';    // actual file blobs, keyed by mediaId
+// ── Cloudinary config ────────────────────────────────────
+const CLOUD_NAME   = 'dhn7puiqc';
+const UPLOAD_PRESET = 'kallos';
+const CLOUD_URL    = 'https://api.cloudinary.com/v1_1/' + CLOUD_NAME + '/upload';
 
-let db;
-function openDB() {
-  return new Promise((res, rej) => {
-    const req = indexedDB.open(DB_NAME, DB_VER);
-    req.onupgradeneeded = e => {
-      const d = e.target.result;
-      if (!d.objectStoreNames.contains(META_STORE))  d.createObjectStore(META_STORE, {keyPath:'id'});
-      if (!d.objectStoreNames.contains(MEDIA_STORE)) d.createObjectStore(MEDIA_STORE, {keyPath:'id'});
-    };
-    req.onsuccess = e => { db = e.target.result; res(db); };
-    req.onerror   = e => rej(e.target.error);
-  });
-}
+// ── Storage: localStorage for project meta (no blobs) ───
+const STORE_KEY = 'kallos_portfolio_v2';
 
-function dbGet(store, key) {
-  return new Promise((res, rej) => {
-    const tx = db.transaction(store, 'readonly');
-    const req = tx.objectStore(store).get(key);
-    req.onsuccess = () => res(req.result);
-    req.onerror   = () => rej(req.error);
-  });
+function loadProjects() {
+  try { return JSON.parse(localStorage.getItem(STORE_KEY)) || []; } catch { return []; }
 }
-function dbPut(store, val) {
-  return new Promise((res, rej) => {
-    const tx = db.transaction(store, 'readwrite');
-    const req = tx.objectStore(store).put(val);
-    req.onsuccess = () => res();
-    req.onerror   = () => rej(req.error);
-  });
+function saveProjects(arr) {
+  localStorage.setItem(STORE_KEY, JSON.stringify(arr));
 }
-function dbDelete(store, key) {
-  return new Promise((res, rej) => {
-    const tx = db.transaction(store, 'readwrite');
-    const req = tx.objectStore(store).delete(key);
-    req.onsuccess = () => res();
-    req.onerror   = () => rej(req.error);
-  });
-}
-function dbGetAll(store) {
-  return new Promise((res, rej) => {
-    const tx = db.transaction(store, 'readonly');
-    const req = tx.objectStore(store).getAll();
-    req.onsuccess = () => res(req.result);
-    req.onerror   = () => rej(req.error);
-  });
-}
-function dbClear(store) {
-  return new Promise((res, rej) => {
-    const tx = db.transaction(store, 'readwrite');
-    const req = tx.objectStore(store).clear();
-    req.onsuccess = () => res();
-    req.onerror   = () => rej(req.error);
-  });
-}
+function uid() { return Date.now().toString(36) + Math.random().toString(36).slice(2,6); }
 
 // ── State ────────────────────────────────────────────────
-const MAX_MEDIA = 5;
-let projects = [];      // array of project meta objects
+let projects = loadProjects();
 let editingId = null;
 let dragSrc = null;
-// mediaSlots[i] = {file, blobUrl, type, filename, mediaId} | null
-let mediaSlots = Array(MAX_MEDIA).fill(null);
+const MAX_MEDIA = 5;
 
-function uid() { return Date.now().toString(36) + Math.random().toString(36).slice(2,6); }
+// mediaSlots[i] = null | { url, publicId, type, filename, thumb } 
+// url = Cloudinary CDN URL (permanent)
+let mediaSlots = Array(MAX_MEDIA).fill(null);
 
 // ── Theme ────────────────────────────────────────────────
 const html = document.documentElement;
+html.setAttribute('data-theme', localStorage.getItem('kallos-theme') || 'dark');
 document.getElementById('tbtn').addEventListener('click', () => {
   const n = html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
   html.setAttribute('data-theme', n); localStorage.setItem('kallos-theme', n);
 });
-html.setAttribute('data-theme', localStorage.getItem('kallos-theme') || 'dark');
 
-// ── Media slot UI ────────────────────────────────────────
+// ── Upload to Cloudinary ─────────────────────────────────
+async function uploadToCloudinary(file, slotIdx) {
+  const slot = document.querySelector('.media-slot[data-idx="' + slotIdx + '"]');
+  if (slot) slot.classList.add('uploading');
+
+  // Show local preview immediately while uploading
+  const localUrl = URL.createObjectURL(file);
+  const isVideo = file.type.startsWith('video/');
+  if (slot) {
+    const previewEl = isVideo ? document.createElement('video') : document.createElement('img');
+    previewEl.src = localUrl; previewEl.className = 'ms-preview';
+    if (isVideo) { previewEl.muted = true; previewEl.loop = true; previewEl.autoplay = true; }
+    slot.appendChild(previewEl);
+    // progress bar
+    const prog = document.createElement('div'); prog.className = 'ms-progress'; prog.style.width = '0%';
+    slot.appendChild(prog);
+    // animate progress
+    let p = 0; const iv = setInterval(() => { p = Math.min(p + Math.random()*15, 85); prog.style.width = p + '%'; }, 200);
+    slot._progInterval = iv; slot._prog = prog;
+  }
+
+  const formData = new FormData();
+  formData.append('file', file);
+  formData.append('upload_preset', UPLOAD_PRESET);
+  formData.append('folder', 'kallos-portfolio');
+
+  try {
+    const res = await fetch(CLOUD_URL, { method: 'POST', body: formData });
+    if (!res.ok) throw new Error('Upload failed: ' + res.status);
+    const data = await res.json();
+
+    if (slot) {
+      clearInterval(slot._progInterval);
+      if (slot._prog) { slot._prog.style.width = '100%'; setTimeout(() => { if (slot._prog) slot._prog.remove(); }, 400); }
+      slot.classList.remove('uploading'); slot.classList.add('filled');
+    }
+    URL.revokeObjectURL(localUrl);
+
+    return {
+      url: data.secure_url,
+      publicId: data.public_id,
+      type: isVideo ? 'video' : 'image',
+      filename: file.name,
+      thumb: isVideo
+        ? data.secure_url.replace('/upload/', '/upload/w_200,h_150,c_fill/')
+        : data.secure_url.replace('/upload/', '/upload/w_200,h_150,c_fill,q_80/')
+    };
+  } catch (err) {
+    if (slot) { clearInterval(slot._progInterval); slot.classList.remove('uploading'); }
+    URL.revokeObjectURL(localUrl);
+    toast('Upload failed: ' + err.message, true);
+    return null;
+  }
+}
+
+// ── Build media slot UI ───────────────────────────────────
 function buildSlots() {
   const wrap = document.getElementById('media-slots');
   wrap.innerHTML = '';
   for (let i = 0; i < MAX_MEDIA; i++) {
     const slot = document.createElement('div');
-    slot.className = 'media-slot' + (mediaSlots[i] ? ' filled' : '');
+    slot.className = 'media-slot clickable' + (mediaSlots[i] ? ' filled' : '');
+    slot.dataset.idx = i;
 
-    const inp = document.createElement('input');
-    inp.type = 'file'; inp.accept = 'image/*,video/*';
-    inp.addEventListener('change', e => { if (e.target.files[0]) loadFile(e.target.files[0], i); });
-    slot.appendChild(inp);
-
-    if (mediaSlots[i]) {
+    // File input (only active when empty)
+    if (!mediaSlots[i]) {
+      const inp = document.createElement('input');
+      inp.type = 'file'; inp.accept = 'image/*,video/*'; inp.className = 'ms-input';
+      inp.addEventListener('change', async e => {
+        const f = e.target.files[0]; if (!f) return;
+        const result = await uploadToCloudinary(f, i);
+        if (result) { mediaSlots[i] = result; buildSlots(); }
+      });
+      slot.appendChild(inp);
+      slot.innerHTML += '<span class="ms-empty-icon">+</span><span class="ms-empty-label">Add file</span>';
+    } else {
       const m = mediaSlots[i];
-      const el = m.type === 'video' ? document.createElement('video') : document.createElement('img');
-      el.src = m.blobUrl; el.className = 'ms-preview';
-      if (m.type === 'video') { el.muted = true; el.loop = true; el.autoplay = true; el.playsInline = true; }
-      slot.appendChild(el);
+      const prev = m.type === 'video' ? document.createElement('video') : document.createElement('img');
+      prev.src = m.thumb || m.url; prev.className = 'ms-preview';
+      if (m.type === 'video') { prev.muted = true; prev.loop = true; prev.autoplay = true; prev.playsInline = true; }
+      slot.appendChild(prev);
 
       const ovl = document.createElement('div'); ovl.className = 'ms-overlay';
-      ovl.innerHTML = '<span style="font-size:11px;color:#fff">Change</span>';
+      ovl.innerHTML = '<span style="font-size:10px;color:#fff;letter-spacing:.06em">Change</span>';
+
+      // Allow re-upload on existing slot
+      const inp = document.createElement('input');
+      inp.type = 'file'; inp.accept = 'image/*,video/*'; inp.className = 'ms-input';
+      inp.addEventListener('change', async e => {
+        const f = e.target.files[0]; if (!f) return;
+        const result = await uploadToCloudinary(f, i);
+        if (result) { mediaSlots[i] = result; buildSlots(); }
+      });
       slot.appendChild(ovl);
+      slot.appendChild(inp);
 
       const rmv = document.createElement('button'); rmv.className = 'ms-remove'; rmv.textContent = '✕';
-      rmv.addEventListener('click', e => { e.preventDefault(); e.stopPropagation(); removeSlot(i); });
+      rmv.addEventListener('click', e => { e.preventDefault(); e.stopPropagation(); mediaSlots[i] = null; buildSlots(); });
       slot.appendChild(rmv);
 
-      if (i === 0) { const b = document.createElement('div'); b.className = 'ms-cover-badge'; b.textContent = 'Cover'; slot.appendChild(b); }
-      const tb = document.createElement('div'); tb.className = 'ms-type-badge'; tb.textContent = m.type.toUpperCase();
-      slot.appendChild(tb);
-    } else {
-      slot.innerHTML += '<span class="ms-empty-icon">+</span><span class="ms-empty-label">Add file</span>';
+      if (i === 0) { const b = document.createElement('div'); b.className = 'ms-cover'; b.textContent = 'Cover'; slot.appendChild(b); }
+      const tb = document.createElement('div'); tb.className = 'ms-type'; tb.textContent = m.type.toUpperCase(); slot.appendChild(tb);
     }
 
-    const num = document.createElement('span'); num.className = 'ms-num'; num.textContent = i + 1;
-    slot.appendChild(num);
+    const num = document.createElement('span'); num.className = 'ms-num'; num.textContent = i + 1; slot.appendChild(num);
 
+    // Drag & drop file onto slot
     slot.addEventListener('dragover', e => { e.preventDefault(); slot.style.borderColor = 'var(--red)'; });
     slot.addEventListener('dragleave', () => { slot.style.borderColor = ''; });
-    slot.addEventListener('drop', e => { e.preventDefault(); slot.style.borderColor = ''; const f = e.dataTransfer.files[0]; if (f) loadFile(f, i); });
+    slot.addEventListener('drop', async e => {
+      e.preventDefault(); slot.style.borderColor = '';
+      const f = e.dataTransfer.files[0]; if (!f) return;
+      const result = await uploadToCloudinary(f, i);
+      if (result) { mediaSlots[i] = result; buildSlots(); }
+    });
 
     wrap.appendChild(slot);
   }
 }
 
-function loadFile(file, idx) {
-  const blobUrl = URL.createObjectURL(file);
-  const type = file.type.startsWith('video/') ? 'video' : 'image';
-  if (mediaSlots[idx] && mediaSlots[idx].blobUrl) URL.revokeObjectURL(mediaSlots[idx].blobUrl);
-  mediaSlots[idx] = { file, blobUrl, type, filename: file.name, mediaId: uid() };
-  buildSlots();
-}
-
-function removeSlot(idx) {
-  if (mediaSlots[idx] && mediaSlots[idx].blobUrl) URL.revokeObjectURL(mediaSlots[idx].blobUrl);
-  mediaSlots[idx] = null;
-  buildSlots();
-}
-
 // ── Form ─────────────────────────────────────────────────
-const fTitle = document.getElementById('f-title');
-const fCat   = document.getElementById('f-cat');
-const fYear  = document.getElementById('f-year');
-const fDesc  = document.getElementById('f-desc');
-const fRatio = document.getElementById('f-ratio');
-const fFeat  = document.getElementById('f-feat');
-const fVis   = document.getElementById('f-vis');
-const btnSubmit = document.getElementById('btn-submit');
-const btnCancel = document.getElementById('btn-cancel');
+const fTitle  = document.getElementById('f-title');
+const fCat    = document.getElementById('f-cat');
+const fYear   = document.getElementById('f-year');
+const fDesc   = document.getElementById('f-desc');
+const fRatio  = document.getElementById('f-ratio');
+const fFeat   = document.getElementById('f-feat');
+const fVis    = document.getElementById('f-vis');
+const btnSub  = document.getElementById('btn-submit');
+const btnCan  = document.getElementById('btn-cancel');
 
 [fFeat, fVis].forEach(t => t.addEventListener('click', () => {
   const on = t.classList.toggle('on'); t.setAttribute('aria-checked', on);
@@ -354,129 +387,76 @@ function resetForm() {
   fFeat.classList.remove('on'); fFeat.setAttribute('aria-checked','false');
   fVis.classList.add('on'); fVis.setAttribute('aria-checked','true');
   mediaSlots = Array(MAX_MEDIA).fill(null);
-  buildSlots();
-  editingId = null;
+  buildSlots(); editingId = null;
   document.getElementById('form-heading').textContent = 'Add Project';
-  btnSubmit.textContent = 'Add Project';
-  btnCancel.style.display = 'none';
+  btnSub.textContent = 'Add Project'; btnCan.style.display = 'none';
   document.querySelectorAll('.prow').forEach(r => r.classList.remove('editing'));
 }
-btnCancel.addEventListener('click', resetForm);
+btnCan.addEventListener('click', resetForm);
 
-// ── Save project (with media blobs to IndexedDB) ─────────
-btnSubmit.addEventListener('click', async () => {
+btnSub.addEventListener('click', () => {
   const title = fTitle.value.trim(), cat = fCat.value;
-  if (!title) { fTitle.style.borderColor='var(--red)'; fTitle.focus(); return; }
-  if (!cat)   { fCat.style.borderColor='var(--red)'; return; }
-
-  btnSubmit.textContent = 'Saving…'; btnSubmit.disabled = true;
-
-  const projId = editingId || uid();
-
-  // Save each media blob to IndexedDB
-  const mediaMeta = [];
-  for (let i = 0; i < MAX_MEDIA; i++) {
-    const s = mediaSlots[i];
-    if (!s) continue;
-    const mediaId = s.mediaId || uid();
-    if (s.file) { // new file to save
-      await dbPut(MEDIA_STORE, { id: mediaId, blob: s.file, type: s.type, filename: s.filename });
-    }
-    mediaMeta.push({ mediaId, type: s.type, filename: s.filename });
-  }
+  if (!title) { fTitle.style.outline = '2px solid var(--red)'; fTitle.focus(); return; }
+  if (!cat)   { fCat.style.outline   = '2px solid var(--red)'; return; }
+  fTitle.style.outline = ''; fCat.style.outline = '';
 
   const proj = {
-    id: projId, title, cat,
-    year: fYear.value, desc: fDesc.value.trim(),
-    ratio: fRatio.value,
+    id:       editingId || uid(),
+    title, cat,
+    year:     parseInt(fYear.value) || 2025,
+    desc:     fDesc.value.trim(),
+    ratio:    fRatio.value,
     featured: fFeat.classList.contains('on'),
     visible:  fVis.classList.contains('on'),
-    media: mediaMeta,
-    order: editingId ? (projects.find(p=>p.id===editingId)||{}).order : Date.now(),
+    media:    mediaSlots.filter(Boolean),
   };
 
-  // If editing, delete old media that was removed
   if (editingId) {
-    const old = projects.find(p => p.id === editingId);
-    if (old && old.media) {
-      for (const om of old.media) {
-        if (!mediaMeta.find(m => m.mediaId === om.mediaId)) {
-          await dbDelete(MEDIA_STORE, om.mediaId);
-        }
-      }
-    }
     const idx = projects.findIndex(p => p.id === editingId);
     if (idx > -1) projects[idx] = proj; else projects.unshift(proj);
+    toast('Project updated');
   } else {
     projects.unshift(proj);
+    toast('Project added ✓');
   }
 
-  await dbPut(META_STORE, { id: '_list', projects });
-  btnSubmit.textContent = editingId ? 'Save Changes' : 'Add Project';
-  btnSubmit.disabled = false;
-  toast(editingId ? 'Project updated' : 'Project added');
-  resetForm();
-  await renderList();
+  saveProjects(projects); resetForm(); renderList();
 });
 
-// ── Load & render ────────────────────────────────────────
-async function loadProjects() {
-  const rec = await dbGet(META_STORE, '_list');
-  projects = (rec && rec.projects) || [];
-}
-
-async function getBlobUrl(mediaId) {
-  const rec = await dbGet(MEDIA_STORE, mediaId);
-  if (!rec) return null;
-  return URL.createObjectURL(rec.blob);
-}
-
+// ── Render list ───────────────────────────────────────────
 function catLabel(v) { return {brand:'Brand Identity',visual:'Visual Design',print:'Print & Packaging',event:'Events'}[v]||v; }
 
-async function renderList(sortedList) {
-  const arr = sortedList || projects;
+function renderList(sortedArr) {
+  const arr = sortedArr || projects;
   document.getElementById('proj-count').textContent = arr.length;
   document.getElementById('empty-state').style.display = arr.length ? 'none' : 'block';
-  const list = document.getElementById('proj-list');
-  list.innerHTML = '';
+  const list = document.getElementById('proj-list'); list.innerHTML = '';
 
-  for (const p of arr) {
+  arr.forEach(p => {
+    const mc = (p.media||[]).length;
     const row = document.createElement('div');
     row.className = 'prow' + (p.id === editingId ? ' editing' : '');
     row.dataset.id = p.id; row.draggable = true;
-    const mc = (p.media||[]).length;
 
-    // Build thumbnail strip
+    // Thumb strip
     const strip = document.createElement('div'); strip.className = 'pthumb-strip';
-    const thumbMedia = (p.media||[]).slice(0,3);
-    if (thumbMedia.length === 0) {
+    const thumbs = (p.media||[]).slice(0,3);
+    if (!thumbs.length) {
       strip.innerHTML = '<div class="pt" style="width:48px"><span class="pthumb-ph">' + (p.title[0]||'?') + '</span></div>';
     } else {
-      for (let ti = 0; ti < thumbMedia.length; ti++) {
-        const pt = document.createElement('div');
-        pt.className = 'pt'; pt.style.width = ti === 0 ? '48px' : '20px';
-        const burl = await getBlobUrl(thumbMedia[ti].mediaId);
-        if (burl) {
-          if (thumbMedia[ti].type === 'video') {
-            pt.innerHTML = '<video src="'+burl+'" muted style="width:100%;height:100%;object-fit:cover"></video>';
-          } else {
-            pt.innerHTML = '<img src="'+burl+'" style="width:100%;height:100%;object-fit:cover">';
-          }
-        } else {
-          pt.innerHTML = '<span class="pthumb-ph">' + (p.title[0]||'?') + '</span>';
-        }
+      thumbs.forEach((m, ti) => {
+        const pt = document.createElement('div'); pt.className='pt'; pt.style.width=ti===0?'48px':'20px';
+        const src = m.thumb || m.url;
+        if (m.type==='video') pt.innerHTML='<video src="'+src+'" muted playsinline style="width:100%;height:100%;object-fit:cover"></video>';
+        else pt.innerHTML='<img src="'+src+'" style="width:100%;height:100%;object-fit:cover">';
         strip.appendChild(pt);
-      }
-      if (mc > 3) {
-        const pt = document.createElement('div'); pt.className = 'pt'; pt.style.cssText = 'width:20px;align-items:center;justify-content:center;display:flex';
-        pt.innerHTML = '<span class="pthumb-more">+' + (mc-3) + '</span>';
-        strip.appendChild(pt);
-      }
+      });
+      if (mc>3) { const pt=document.createElement('div');pt.className='pt';pt.style.cssText='width:20px;display:flex;align-items:center;justify-content:center';pt.innerHTML='<span class="pthumb-more">+' + (mc-3) + '</span>';strip.appendChild(pt); }
     }
 
     row.innerHTML =
       '<div class="drag-handle"><span></span><span></span><span></span></div>' +
-      '<div></div>' + // thumb placeholder replaced below
+      '<div></div>' +
       '<div class="pmeta">' +
         '<div class="pmeta-title">'+p.title+'</div>' +
         '<div class="pmeta-sub">' +
@@ -492,110 +472,86 @@ async function renderList(sortedList) {
         '<button class="pbtn del" data-id="'+p.id+'"><svg width="12" height="12" fill="none" viewBox="0 0 12 12"><path d="M2 3h8M5 3V2h2v1M4.5 5v4M7.5 5v4M3 3l.5 6.5h5L9 3" stroke="currentColor" stroke-width="1.1" stroke-linecap="round"/></svg></button>' +
       '</div>';
 
-    // Replace the thumb placeholder
     row.children[1].replaceWith(strip);
 
-    // Drag
-    row.addEventListener('dragstart', () => { dragSrc = p.id; row.classList.add('dragging'); });
+    // Drag reorder
+    row.addEventListener('dragstart', () => { dragSrc=p.id; row.classList.add('dragging'); });
     row.addEventListener('dragend',   () => { row.classList.remove('dragging'); document.querySelectorAll('.drag-over').forEach(r=>r.classList.remove('drag-over')); });
     row.addEventListener('dragover',  e => { e.preventDefault(); row.classList.add('drag-over'); });
     row.addEventListener('dragleave', () => row.classList.remove('drag-over'));
-    row.addEventListener('drop', async e => {
+    row.addEventListener('drop', e => {
       e.preventDefault(); row.classList.remove('drag-over');
-      if (dragSrc && dragSrc !== p.id) {
-        const from = projects.findIndex(x=>x.id===dragSrc), to = projects.findIndex(x=>x.id===p.id);
-        if (from>-1&&to>-1) { const [m]=projects.splice(from,1); projects.splice(to,0,m); }
-        await dbPut(META_STORE, {id:'_list', projects});
-        await renderList();
+      if (dragSrc && dragSrc!==p.id) {
+        const from=projects.findIndex(x=>x.id===dragSrc), to=projects.findIndex(x=>x.id===p.id);
+        if (from>-1&&to>-1) { const [m]=projects.splice(from,1); projects.splice(to,0,m); saveProjects(projects); renderList(); }
       }
     });
 
     // Visibility
-    row.querySelector('.vis-toggle').addEventListener('click', async () => {
-      const proj = projects.find(x=>x.id===p.id);
-      if (proj) { proj.visible=!proj.visible; await dbPut(META_STORE,{id:'_list',projects}); await renderList(); toast(proj.visible?'Shown':'Hidden'); }
+    row.querySelector('.vis-toggle').addEventListener('click', () => {
+      const proj=projects.find(x=>x.id===p.id);
+      if(proj){proj.visible=!proj.visible;saveProjects(projects);renderList();toast(proj.visible?'Shown on portfolio':'Hidden from portfolio');}
     });
 
     // Edit
-    row.querySelector('.pbtn.edit').addEventListener('click', () => startEdit(p.id));
+    row.querySelector('.pbtn.edit').addEventListener('click', () => {
+      editingId=p.id;
+      fTitle.value=p.title; fCat.value=p.cat; fYear.value=p.year; fDesc.value=p.desc||''; fRatio.value=p.ratio||'16/10';
+      if(p.featured){fFeat.classList.add('on');fFeat.setAttribute('aria-checked','true');}
+      else{fFeat.classList.remove('on');fFeat.setAttribute('aria-checked','false');}
+      if(p.visible){fVis.classList.add('on');fVis.setAttribute('aria-checked','true');}
+      else{fVis.classList.remove('on');fVis.setAttribute('aria-checked','false');}
+      mediaSlots = Array(MAX_MEDIA).fill(null);
+      (p.media||[]).forEach((m,i)=>{ if(i<MAX_MEDIA) mediaSlots[i]=m; });
+      buildSlots();
+      document.getElementById('form-heading').textContent='Edit Project';
+      btnSub.textContent='Save Changes'; btnCan.style.display='block';
+      renderList();
+      document.querySelector('.sidebar').scrollTo({top:0,behavior:'smooth'});
+    });
 
     // Delete
-    row.querySelector('.pbtn.del').addEventListener('click', async () => {
+    row.querySelector('.pbtn.del').addEventListener('click', () => {
       if (!confirm('Delete "'+p.title+'"?')) return;
-      for (const m of (p.media||[])) await dbDelete(MEDIA_STORE, m.mediaId);
-      projects = projects.filter(x=>x.id!==p.id);
-      await dbPut(META_STORE,{id:'_list',projects});
-      if (editingId===p.id) resetForm();
-      await renderList(); toast('Deleted');
+      projects=projects.filter(x=>x.id!==p.id);
+      saveProjects(projects);
+      if(editingId===p.id) resetForm();
+      renderList(); toast('Deleted');
     });
 
     list.appendChild(row);
-  }
+  });
 }
 
-async function startEdit(id) {
-  const p = projects.find(x=>x.id===id); if (!p) return;
-  editingId = id;
-  fTitle.value=p.title; fCat.value=p.cat; fYear.value=p.year;
-  fDesc.value=p.desc||''; fRatio.value=p.ratio||'16/10';
-  if(p.featured){fFeat.classList.add('on');fFeat.setAttribute('aria-checked','true');}
-  else{fFeat.classList.remove('on');fFeat.setAttribute('aria-checked','false');}
-  if(p.visible){fVis.classList.add('on');fVis.setAttribute('aria-checked','true');}
-  else{fVis.classList.remove('on');fVis.setAttribute('aria-checked','false');}
-
-  // Restore media slots with blob URLs
-  mediaSlots = Array(MAX_MEDIA).fill(null);
-  for (let i = 0; i < (p.media||[]).length && i < MAX_MEDIA; i++) {
-    const m = p.media[i];
-    const rec = await dbGet(MEDIA_STORE, m.mediaId);
-    if (rec) {
-      const blobUrl = URL.createObjectURL(rec.blob);
-      mediaSlots[i] = { file: null, blobUrl, type: m.type, filename: m.filename, mediaId: m.mediaId };
-    }
-  }
-  buildSlots();
-  document.getElementById('form-heading').textContent = 'Edit Project';
-  btnSubmit.textContent = 'Save Changes'; btnCancel.style.display = 'block';
-  await renderList();
-  document.querySelector('.sidebar').scrollTo({top:0,behavior:'smooth'});
-}
-
-// Sort
+// Sort buttons
 document.querySelectorAll('.sortbtn').forEach(btn => {
-  btn.addEventListener('click', async () => {
+  btn.addEventListener('click', () => {
     document.querySelectorAll('.sortbtn').forEach(b=>b.classList.remove('on')); btn.classList.add('on');
-    const s = btn.dataset.sort;
-    let sorted = [...projects];
-    if (s==='year-desc') sorted.sort((a,b)=>b.year-a.year);
-    if (s==='year-asc')  sorted.sort((a,b)=>a.year-b.year);
-    if (s==='alpha')     sorted.sort((a,b)=>a.title.localeCompare(b.title));
-    await renderList(s==='custom' ? undefined : sorted);
+    const s=btn.dataset.sort;
+    let sorted=[...projects];
+    if(s==='year-desc') sorted.sort((a,b)=>b.year-a.year);
+    if(s==='year-asc')  sorted.sort((a,b)=>a.year-b.year);
+    if(s==='alpha')     sorted.sort((a,b)=>a.title.localeCompare(b.title));
+    renderList(s==='custom'?undefined:sorted);
   });
 });
 
 // Clear all
-document.getElementById('btn-clear-all').addEventListener('click', async () => {
-  if (!confirm('Delete ALL projects and media? This cannot be undone.')) return;
-  await dbClear(META_STORE); await dbClear(MEDIA_STORE);
-  projects = []; resetForm(); await renderList(); toast('All cleared');
+document.getElementById('btn-clear-all').addEventListener('click', () => {
+  if(!confirm('Delete ALL projects?')) return;
+  projects=[]; saveProjects(projects); resetForm(); renderList(); toast('All cleared');
 });
 
 // Toast
 let toastTimer;
-function toast(msg, err=false) {
-  const el = document.getElementById('toast');
-  el.textContent = msg; el.className = 'toast show' + (err?' err':'');
-  clearTimeout(toastTimer); toastTimer = setTimeout(()=>el.classList.remove('show'), 2800);
+function toast(msg,err=false){
+  const el=document.getElementById('toast');
+  el.textContent=msg; el.className='toast show'+(err?' err':'');
+  clearTimeout(toastTimer); toastTimer=setTimeout(()=>el.classList.remove('show'),2800);
 }
 
 // Init
-(async () => {
-  await openDB();
-  document.getElementById('db-status').textContent = 'Storage ready — no file size limits';
-  await loadProjects();
-  buildSlots();
-  await renderList();
-})();
+buildSlots(); renderList();
 </script>
 </body>
 </html>
