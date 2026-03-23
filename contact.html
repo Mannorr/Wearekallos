@@ -1,0 +1,702 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Start a Project &#x2014; &#x39A;&#x3AC;&#x3BB;&#x3BB;&#x3BF;&#x3C2; Creative Agency</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Instrument+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--red:#EE2924;--amber:#F9A11B;--blue:#3957A7;--fs:'Instrument Serif',Georgia,serif;--ss:'Instrument Sans',sans-serif;--ease:cubic-bezier(0.76,0,0.24,1);--eout:cubic-bezier(0.22,1,0.36,1)}
+[data-theme="dark"]{--bg:#111110;--bg2:#161615;--bg3:#1d1d1b;--line:rgba(255,255,255,.07);--line2:rgba(255,255,255,.13);--text:#F7F7F5;--muted:rgba(247,247,245,.45);--faint:rgba(247,247,245,.1);--card:#181817;--nav:rgba(17,17,16,.92);--inv:#F7F7F5;--invt:#111110;--input:#1a1a18;--input-border:rgba(255,255,255,.12)}
+[data-theme="light"]{--bg:#F7F7F5;--bg2:#EEEEEC;--bg3:#E4E4E2;--line:rgba(0,0,0,.07);--line2:rgba(0,0,0,.14);--text:#111110;--muted:rgba(17,17,16,.45);--faint:rgba(17,17,16,.08);--card:#fff;--nav:rgba(247,247,245,.92);--inv:#111110;--invt:#F7F7F5;--input:#F0F0EE;--input-border:rgba(0,0,0,.14)}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--ss);background:var(--bg);color:var(--text);overflow-x:hidden;transition:background .5s,color .5s;-webkit-font-smoothing:antialiased}
+.grain{position:fixed;inset:-50%;z-index:900;width:200%;height:200%;pointer-events:none;opacity:.022;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");animation:grn .5s steps(1) infinite}
+@keyframes grn{0%,100%{transform:translate(0,0)}20%{transform:translate(3%,2%)}40%{transform:translate(-1%,4%)}60%{transform:translate(1%,-4%)}80%{transform:translate(3%,-2%)}}
+.cdot,.cring{position:fixed;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);opacity:0;transition:opacity .3s}
+.cdot{width:6px;height:6px;background:var(--red);border-radius:50%;transition:width .2s,height .2s,background .2s,opacity .3s}
+.cring{z-index:9998;width:34px;height:34px;border:1px solid rgba(238,41,36,.38);border-radius:50%;transition:width .4s var(--eout),height .4s var(--eout),opacity .3s}
+body.cursor-ready .cdot,body.cursor-ready .cring{opacity:1}
+body.chov .cdot{width:10px;height:10px;background:var(--amber)}
+body.chov .cring{width:54px;height:54px;border-color:rgba(238,41,36,.65)}
+
+/* NAV */
+nav{position:fixed;inset:0 0 auto;z-index:500;display:flex;align-items:center;justify-content:space-between;padding:24px 52px;border-bottom:1px solid transparent;transition:padding .4s var(--eout),background .4s,border-color .4s}
+nav.on{background:var(--nav);backdrop-filter:blur(20px) saturate(1.5);border-color:var(--line);padding:15px 52px}
+.nbrand{display:flex;align-items:center;text-decoration:none}
+.nname{font-family:var(--fs);font-size:19px;color:var(--text);letter-spacing:.01em;line-height:1;transition:color .5s}
+.nname sub{font-family:var(--ss);font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);display:block;line-height:1.6;font-style:normal}
+.nlinks{list-style:none;display:flex;gap:36px}
+.nlinks a{font-size:12px;font-weight:400;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);text-decoration:none;transition:color .2s;position:relative}
+.nlinks a::after{content:'';position:absolute;bottom:-2px;left:0;right:0;height:1px;background:var(--red);transform:scaleX(0);transform-origin:left;transition:transform .3s var(--ease)}
+.nlinks a:hover,.nlinks a.act{color:var(--text)}.nlinks a:hover::after,.nlinks a.act::after{transform:scaleX(1)}
+.nright{display:flex;align-items:center;gap:14px}
+.tbtn{width:40px;height:22px;background:var(--bg3);border:1px solid var(--line2);border-radius:11px;position:relative;cursor:pointer;transition:background .3s;flex-shrink:0}
+.tbtn::after{content:'';position:absolute;top:3px;left:3px;width:14px;height:14px;border-radius:50%;background:var(--text);transition:transform .35s var(--eout)}
+[data-theme="light"] .tbtn::after{transform:translateX(18px)}
+.ncta{font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--invt);background:var(--text);padding:11px 22px;text-decoration:none;transition:background .3s,color .3s}
+.ncta:hover{background:var(--red);color:#fff}
+
+/* PAGE LAYOUT */
+.page-wrap{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  min-height:100vh;
+}
+
+/* LEFT PANEL */
+.left-panel{
+  background:var(--inv);color:var(--invt);
+  padding:160px 64px 80px;
+  position:sticky;top:0;height:100vh;
+  display:flex;flex-direction:column;justify-content:space-between;
+  overflow:hidden;transition:background .5s,color .5s;
+}
+.left-bg-glyph{
+  position:absolute;right:-60px;bottom:-40px;
+  font-family:var(--fs);font-style:italic;
+  font-size:320px;color:currentColor;opacity:.05;
+  pointer-events:none;user-select:none;line-height:1;
+}
+.left-label{font-size:10px;font-weight:600;letter-spacing:.24em;text-transform:uppercase;color:var(--red);margin-bottom:20px}
+.left-h{font-family:var(--fs);font-size:clamp(42px,4.5vw,68px);line-height:.95;letter-spacing:-.02em;margin-bottom:28px}
+.left-h em{font-style:italic;color:var(--red)}
+.left-sub{font-size:15px;font-weight:300;line-height:1.8;opacity:.55;max-width:340px;margin-bottom:48px}
+.left-info{display:flex;flex-direction:column;gap:16px}
+.left-info-item{display:flex;align-items:flex-start;gap:12px}
+.li-icon{width:32px;height:32px;border:1px solid rgba(0,0,0,.12);display:flex;align-items:center;justify-content:center;flex-shrink:0;opacity:.5}
+[data-theme="light"] .li-icon{border-color:rgba(255,255,255,.15)}
+.li-text{font-size:12px;font-weight:300;opacity:.55;line-height:1.6}
+.li-text b{font-weight:600;opacity:1;display:block;margin-bottom:2px}
+
+/* RIGHT PANEL - FORM */
+.right-panel{
+  padding:140px 64px 80px;
+  background:var(--bg);
+  transition:background .5s;
+}
+
+/* STEP INDICATOR */
+.steps{display:flex;gap:6px;margin-bottom:48px}
+.step{
+  height:2px;flex:1;background:var(--faint);
+  transition:background .4s;
+  position:relative;overflow:hidden;
+}
+.step.done{background:var(--red)}
+.step.active{background:var(--faint)}
+.step.active::after{
+  content:'';position:absolute;inset:0;
+  background:var(--red);
+  animation:stepFill 0s linear forwards;
+}
+.step-label{font-size:10px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);margin-bottom:32px}
+
+/* FORM SECTIONS */
+.fsection{display:none}
+.fsection.active{display:block}
+
+.frow{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px}
+.frow.solo{grid-template-columns:1fr}
+.frow.trio{grid-template-columns:1fr 1fr 1fr}
+
+.fgroup{display:flex;flex-direction:column;gap:7px}
+.fgroup label{font-size:10px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+.fgroup label span{color:var(--red);margin-left:2px}
+
+.finput{
+  background:var(--input);border:1px solid var(--input-border);
+  color:var(--text);font-family:var(--ss);font-size:14px;
+  padding:12px 14px;outline:none;width:100%;
+  transition:border-color .2s,background .2s;
+  -webkit-appearance:none;border-radius:0;
+}
+.finput:focus{border-color:var(--red)}
+.finput::placeholder{color:var(--muted);opacity:.6}
+select.finput{cursor:pointer}
+textarea.finput{resize:vertical;min-height:100px;line-height:1.65}
+
+/* Phone row */
+.phone-wrap{display:flex;gap:0}
+.phone-code{
+  background:var(--input);border:1px solid var(--input-border);border-right:none;
+  color:var(--text);font-family:var(--ss);font-size:14px;
+  padding:12px 10px;outline:none;cursor:pointer;
+  -webkit-appearance:none;flex-shrink:0;width:90px;
+  transition:border-color .2s;
+}
+.phone-code:focus{border-color:var(--red)}
+.phone-num{flex:1}
+.phone-num.finput{border-radius:0}
+
+/* Services grid */
+.services-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:0}
+.svc-check{position:relative}
+.svc-check input{position:absolute;opacity:0;width:0;height:0}
+.svc-check label{
+  display:flex;align-items:center;justify-content:center;
+  text-align:center;
+  font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;
+  padding:14px 8px;
+  border:1px solid var(--input-border);
+  color:var(--muted);cursor:pointer;
+  transition:border-color .2s,color .2s,background .2s;
+  line-height:1.4;
+}
+.svc-check input:checked + label{border-color:var(--red);color:var(--text);background:rgba(238,41,36,.06)}
+.svc-check label:hover{border-color:var(--line2);color:var(--text)}
+
+/* Budget options */
+.budget-opts{display:flex;flex-direction:column;gap:8px}
+.budget-opt{position:relative}
+.budget-opt input{position:absolute;opacity:0;width:0;height:0}
+.budget-opt label{
+  display:flex;align-items:center;gap:12px;
+  font-size:13px;font-weight:300;
+  padding:13px 16px;
+  border:1px solid var(--input-border);
+  color:var(--muted);cursor:pointer;
+  transition:border-color .2s,color .2s,background .2s;
+}
+.budget-opt input:checked + label{border-color:var(--red);color:var(--text);background:rgba(238,41,36,.06)}
+.budget-opt label:hover{border-color:var(--line2);color:var(--text)}
+.budget-opt label::before{
+  content:'';width:14px;height:14px;border-radius:50%;
+  border:1px solid var(--input-border);flex-shrink:0;
+  transition:background .2s,border-color .2s;
+}
+.budget-opt input:checked + label::before{background:var(--red);border-color:var(--red)}
+
+/* Notice box */
+.notice-box{
+  background:var(--bg2);border:1px solid var(--line);
+  padding:20px 22px;margin:24px 0;
+  transition:background .5s;
+}
+.notice-box p{font-size:13px;font-weight:300;line-height:1.75;color:var(--muted)}
+.notice-box strong{color:var(--text);font-weight:500}
+
+/* Checkbox */
+.check-row{display:flex;gap:12px;align-items:flex-start;margin:16px 0}
+.check-row input[type=checkbox]{
+  width:18px;height:18px;flex-shrink:0;margin-top:1px;
+  accent-color:var(--red);cursor:pointer;
+}
+.check-row label{font-size:13px;font-weight:300;line-height:1.65;color:var(--muted);cursor:pointer}
+.check-row label b{color:var(--text);font-weight:500}
+
+/* Nav buttons */
+.form-nav{display:flex;align-items:center;justify-content:space-between;margin-top:36px;gap:12px}
+.btn-next{
+  display:inline-flex;align-items:center;gap:10px;
+  font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--invt);background:var(--text);
+  padding:14px 28px;border:none;cursor:pointer;
+  transition:background .3s,color .3s,transform .15s;
+  margin-left:auto;
+}
+.btn-next:hover{background:var(--red);color:#fff}
+.btn-next:active{transform:scale(.98)}
+.btn-back{
+  display:inline-flex;align-items:center;gap:8px;
+  font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--muted);background:none;border:none;cursor:pointer;
+  transition:color .2s;padding:0;
+}
+.btn-back:hover{color:var(--text)}
+
+/* Section title */
+.stitle{font-family:var(--fs);font-size:32px;letter-spacing:-.01em;margin-bottom:6px}
+.stitle em{font-style:italic;color:var(--red)}
+.sdesc{font-size:13px;font-weight:300;color:var(--muted);line-height:1.6;margin-bottom:32px}
+
+/* ERROR */
+.ferr{font-size:11px;color:var(--red);margin-top:4px;display:none}
+.fgroup.invalid .finput,.fgroup.invalid .phone-code,.fgroup.invalid .phone-num{border-color:var(--red)}
+.fgroup.invalid .ferr{display:block}
+
+/* SUCCESS */
+.success-screen{
+  display:none;
+  flex-direction:column;align-items:flex-start;justify-content:center;
+  min-height:60vh;
+}
+.success-screen.show{display:flex}
+.success-icon{
+  width:56px;height:56px;background:var(--red);
+  display:flex;align-items:center;justify-content:center;
+  margin-bottom:28px;
+}
+.success-h{font-family:var(--fs);font-size:48px;line-height:.95;letter-spacing:-.02em;margin-bottom:16px}
+.success-h em{font-style:italic;color:var(--red)}
+.success-p{font-size:15px;font-weight:300;line-height:1.75;color:var(--muted);max-width:400px;margin-bottom:32px}
+.btn-home{display:inline-flex;align-items:center;gap:8px;font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--invt);background:var(--text);padding:13px 26px;text-decoration:none;transition:background .3s,color .3s}
+.btn-home:hover{background:var(--red);color:#fff}
+
+/* RESPONSIVE */
+@media(max-width:900px){
+  nav{padding:18px 24px}nav.on{padding:13px 24px}.nlinks{display:none}
+  .page-wrap{grid-template-columns:1fr}
+  .left-panel{position:relative;height:auto;padding:120px 28px 52px}
+  .left-bg-glyph{font-size:200px}
+  .right-panel{padding:48px 28px 80px}
+  .frow{grid-template-columns:1fr}
+  .services-grid{grid-template-columns:1fr 1fr}
+  body{cursor:auto}.cdot,.cring{display:none}
+}
+@media(max-width:480px){
+  .services-grid{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+<div class="grain"></div>
+<div class="cdot" id="cdot"></div>
+<div class="cring" id="cring"></div>
+
+<nav id="nav">
+  <a href="index.html" class="nbrand">
+    <span class="nname">&#x39A;&#x3AC;&#x3BB;&#x3BB;&#x3BF;&#x3C2;<sub>Creative Agency</sub></span>
+  </a>
+  <ul class="nlinks">
+    <li><a href="index.html#services">Services</a></li>
+    <li><a href="portfolio.html">Portfolio</a></li>
+    <li><a href="index.html#team">About</a></li>
+    <li><a href="contact.html" class="act">Contact</a></li>
+  </ul>
+  <div class="nright">
+    <button class="tbtn" id="tbtn" aria-label="Toggle theme"></button>
+  </div>
+</nav>
+
+<div class="page-wrap">
+
+  <!-- LEFT PANEL -->
+  <div class="left-panel">
+    <div class="left-bg-glyph">&#x39A;</div>
+    <div>
+      <div class="left-label">Welcome to Kallos</div>
+      <h1 class="left-h">Let&rsquo;s build<br>something <em>bold</em><br>together.</h1>
+      <p class="left-sub">Hey there &mdash; let&rsquo;s connect for a 30-minute discovery call. We&rsquo;ll walk through the services you&rsquo;re interested in, outline your goals, and answer any questions you have.</p>
+    </div>
+    <div class="left-info">
+      <div class="left-info-item">
+        <div class="li-icon">
+          <svg width="14" height="14" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="1.5"/><path d="M12 6v6l4 2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+        </div>
+        <div class="li-text"><b>30-minute discovery call</b>We&rsquo;ll explore your goals and find the right creative direction.</div>
+      </div>
+      <div class="left-info-item">
+        <div class="li-icon">
+          <svg width="14" height="14" fill="none" viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z" stroke="currentColor" stroke-width="1.5"/><circle cx="12" cy="9" r="2.5" stroke="currentColor" stroke-width="1.5"/></svg>
+        </div>
+        <div class="li-text"><b>Google Meet video call</b>Please log on within 5 minutes or the session will be cancelled.</div>
+      </div>
+      <div class="left-info-item">
+        <div class="li-icon">
+          <svg width="14" height="14" fill="none" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2" stroke="currentColor" stroke-width="1.5"/><path d="M16 2v4M8 2v4M3 10h18" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+        </div>
+        <div class="li-text"><b>Allow 2&ndash;3 months lead time</b>We don&rsquo;t do rushed work. Great design takes time.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- RIGHT PANEL -->
+  <div class="right-panel">
+
+    <!-- STEP PROGRESS -->
+    <div class="steps" id="steps">
+      <div class="step active" id="s1"></div>
+      <div class="step" id="s2"></div>
+      <div class="step" id="s3"></div>
+      <div class="step" id="s4"></div>
+    </div>
+    <div class="step-label" id="step-label">Step 1 of 4 &mdash; Your Details</div>
+
+    <form id="main-form" action="https://formspree.io/f/mvgrawww" method="POST" novalidate>
+
+      <!-- HIDDEN: collect all values -->
+      <input type="hidden" name="_subject" value="New Discovery Call Request &#x2014; Kallos">
+      <input type="hidden" name="_next" value="">
+
+      <!-- ── STEP 1: Personal Info ──────────────────── -->
+      <div class="fsection active" id="step1">
+        <h2 class="stitle">Your <em>Details</em></h2>
+        <p class="sdesc">Let&rsquo;s start with the basics so we know who we&rsquo;re talking to.</p>
+
+        <div class="frow">
+          <div class="fgroup" id="g-fname">
+            <label>First Name <span>*</span></label>
+            <input class="finput" type="text" name="first_name" placeholder="Nifemi" autocomplete="given-name">
+            <span class="ferr">Please enter your first name</span>
+          </div>
+          <div class="fgroup" id="g-lname">
+            <label>Last Name <span>*</span></label>
+            <input class="finput" type="text" name="last_name" placeholder="Adeniran" autocomplete="family-name">
+            <span class="ferr">Please enter your last name</span>
+          </div>
+        </div>
+
+        <div class="frow solo">
+          <div class="fgroup" id="g-email">
+            <label>Email Address <span>*</span></label>
+            <input class="finput" type="email" name="email" placeholder="you@example.com" autocomplete="email">
+            <span class="ferr">Please enter a valid email</span>
+          </div>
+        </div>
+
+        <div class="frow solo" style="margin-bottom:16px">
+          <div class="fgroup" id="g-phone">
+            <label>Phone Number <span>*</span></label>
+            <div class="phone-wrap">
+              <select class="phone-code finput" name="phone_code">
+                <option value="+1">&#x1F1FA;&#x1F1F8; +1</option>
+                <option value="+44">&#x1F1EC;&#x1F1E7; +44</option>
+                <option value="+234" selected>&#x1F1F3;&#x1F1EC; +234</option>
+                <option value="+233">&#x1F1EC;&#x1F1ED; +233</option>
+                <option value="+27">&#x1F1FF;&#x1F1E6; +27</option>
+                <option value="+49">&#x1F1E9;&#x1F1EA; +49</option>
+                <option value="+33">&#x1F1EB;&#x1F1F7; +33</option>
+                <option value="+61">&#x1F1E6;&#x1F1FA; +61</option>
+                <option value="+91">&#x1F1EE;&#x1F1F3; +91</option>
+                <option value="+55">&#x1F1E7;&#x1F1F7; +55</option>
+                <option value="+52">&#x1F1F2;&#x1F1FD; +52</option>
+                <option value="+971">&#x1F1E6;&#x1F1EA; +971</option>
+                <option value="+254">&#x1F1F0;&#x1F1EA; +254</option>
+                <option value="+256">&#x1F1FA;&#x1F1EC; +256</option>
+                <option value="+255">&#x1F1F9;&#x1F1FF; +255</option>
+                <option value="+250">&#x1F1F7;&#x1F1FC; +250</option>
+              </select>
+              <input class="finput phone-num" type="tel" name="phone_number" placeholder="080 0000 0000" autocomplete="tel">
+            </div>
+            <span class="ferr">Please enter your phone number</span>
+          </div>
+        </div>
+
+        <div class="frow">
+          <div class="fgroup">
+            <label>Instagram Handle</label>
+            <input class="finput" type="text" name="instagram" placeholder="@yourhandle">
+          </div>
+          <div class="fgroup" id="g-biz">
+            <label>Business Name <span>*</span></label>
+            <input class="finput" type="text" name="business_name" placeholder="Your Brand Co.">
+            <span class="ferr">Please enter your business name</span>
+          </div>
+        </div>
+
+        <div class="frow solo">
+          <div class="fgroup">
+            <label>Website</label>
+            <input class="finput" type="url" name="website" placeholder="https://yourbrand.com">
+          </div>
+        </div>
+
+        <div class="form-nav">
+          <button type="button" class="btn-next" id="next1">
+            Continue
+            <svg width="14" height="14" fill="none" viewBox="0 0 14 14"><path d="M2 7h10M8 3l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- ── STEP 2: About Your Business ──────────────── -->
+      <div class="fsection" id="step2">
+        <h2 class="stitle">Your <em>Business</em></h2>
+        <p class="sdesc">Help us understand your brand, your audience, and what you&rsquo;re working through.</p>
+
+        <div class="frow solo" style="margin-bottom:16px">
+          <div class="fgroup" id="g-whatyoudo">
+            <label>Tell us about your business. What do you do? <span>*</span></label>
+            <textarea class="finput" name="about_business" placeholder="Describe what your business does, what makes it unique, and the story behind it..."></textarea>
+            <span class="ferr">Please tell us about your business</span>
+          </div>
+        </div>
+
+        <div class="frow solo" style="margin-bottom:16px">
+          <div class="fgroup" id="g-audience">
+            <label>Who is your target audience? <span>*</span></label>
+            <textarea class="finput" name="target_audience" placeholder="Who are your ideal customers? Age, interests, demographics..."></textarea>
+            <span class="ferr">Please describe your target audience</span>
+          </div>
+        </div>
+
+        <div class="frow solo">
+          <div class="fgroup" id="g-challenges">
+            <label>What challenges are you currently facing with your brand? <span>*</span></label>
+            <textarea class="finput" name="brand_challenges" placeholder="What isn't working? What's holding your brand back?"></textarea>
+            <span class="ferr">Please describe your brand challenges</span>
+          </div>
+        </div>
+
+        <div class="form-nav">
+          <button type="button" class="btn-back" id="back2">
+            <svg width="14" height="14" fill="none" viewBox="0 0 14 14"><path d="M12 7H2M6 3L2 7l4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            Back
+          </button>
+          <button type="button" class="btn-next" id="next2">
+            Continue
+            <svg width="14" height="14" fill="none" viewBox="0 0 14 14"><path d="M2 7h10M8 3l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- ── STEP 3: Services & Budget ─────────────────── -->
+      <div class="fsection" id="step3">
+        <h2 class="stitle">Services &amp; <em>Budget</em></h2>
+        <p class="sdesc">Select the services you&rsquo;re interested in and your budget range.</p>
+
+        <div class="fgroup" style="margin-bottom:24px" id="g-services">
+          <label>Which services are you interested in? <span>*</span> <small style="text-transform:none;letter-spacing:0;font-weight:300;color:var(--muted)">(select all that apply)</small></label>
+          <div style="height:8px"></div>
+          <div class="services-grid">
+            <div class="svc-check"><input type="checkbox" id="svc1" name="services" value="Brand Strategy & Design"><label for="svc1">Brand Strategy &amp; Design</label></div>
+            <div class="svc-check"><input type="checkbox" id="svc2" name="services" value="Visual Design"><label for="svc2">Visual Design</label></div>
+            <div class="svc-check"><input type="checkbox" id="svc3" name="services" value="Print & Packaging"><label for="svc3">Print &amp; Packaging</label></div>
+            <div class="svc-check"><input type="checkbox" id="svc4" name="services" value="Design Systems"><label for="svc4">Design Systems</label></div>
+            <div class="svc-check"><input type="checkbox" id="svc5" name="services" value="Brand Identity"><label for="svc5">Brand Identity</label></div>
+            <div class="svc-check"><input type="checkbox" id="svc6" name="services" value="Other"><label for="svc6">Other / Not sure yet</label></div>
+          </div>
+          <span class="ferr" id="svc-err">Please select at least one service</span>
+        </div>
+
+        <div class="fgroup" id="g-budget" style="margin-bottom:0">
+          <label>Project Budget <span>*</span></label>
+          <p style="font-size:12px;font-weight:300;color:var(--muted);margin:6px 0 14px;line-height:1.5">This helps us recommend the most suitable package for your needs.</p>
+          <div class="budget-opts">
+            <div class="budget-opt"><input type="radio" name="budget" id="b1" value="Under $500"><label for="b1">Under $500</label></div>
+            <div class="budget-opt"><input type="radio" name="budget" id="b2" value="$500 - $1,000"><label for="b2">$500 &ndash; $1,000</label></div>
+            <div class="budget-opt"><input type="radio" name="budget" id="b3" value="$1,000 - $2,500"><label for="b3">$1,000 &ndash; $2,500</label></div>
+            <div class="budget-opt"><input type="radio" name="budget" id="b4" value="$2,500 - $5,000"><label for="b4">$2,500 &ndash; $5,000</label></div>
+            <div class="budget-opt"><input type="radio" name="budget" id="b5" value="$5,000+"><label for="b5">$5,000+</label></div>
+            <div class="budget-opt"><input type="radio" name="budget" id="b6" value="Not sure yet"><label for="b6">Not sure yet &mdash; let&rsquo;s discuss</label></div>
+          </div>
+          <span class="ferr" id="budget-err">Please select a budget range</span>
+        </div>
+
+        <div class="form-nav">
+          <button type="button" class="btn-back" id="back3">
+            <svg width="14" height="14" fill="none" viewBox="0 0 14 14"><path d="M12 7H2M6 3L2 7l4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            Back
+          </button>
+          <button type="button" class="btn-next" id="next3">
+            Continue
+            <svg width="14" height="14" fill="none" viewBox="0 0 14 14"><path d="M2 7h10M8 3l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- ── STEP 4: Final Details ───────────────────── -->
+      <div class="fsection" id="step4">
+        <h2 class="stitle">Almost <em>There</em></h2>
+        <p class="sdesc">Last few details and you&rsquo;re done.</p>
+
+        <div class="frow solo" style="margin-bottom:16px">
+          <div class="fgroup" id="g-launch">
+            <label>Ideal Launch Date <span>*</span></label>
+            <input class="finput" type="date" name="launch_date">
+            <span class="ferr">Please select your ideal launch date</span>
+          </div>
+        </div>
+
+        <div class="frow solo" style="margin-bottom:16px">
+          <div class="fgroup" id="g-reason">
+            <label>Why are you booking this discovery call? <span>*</span></label>
+            <textarea class="finput" name="booking_reason" style="min-height:130px" placeholder="Tell us your full story. Are you launching a new business, rebranding, revamping? The more detail you give, the better we can prepare for a productive conversation..."></textarea>
+            <span class="ferr">Please share the reason for your booking</span>
+          </div>
+        </div>
+
+        <div class="notice-box">
+          <p><strong>Important &mdash; Please read before submitting:</strong><br><br>
+          Each of our services follows a thoughtful, structured creative process. Visual identity design typically takes <strong>4 business weeks</strong>, not including revision rounds, weekends, or holidays. We recommend allowing <strong>2&ndash;3 months of lead time</strong>.<br><br>
+          We do not offer rushed services. Great work takes time. Thank you for respecting the creative process.</p>
+        </div>
+
+        <div class="check-row">
+          <input type="checkbox" id="note-confirm" name="note_confirmed" value="yes">
+          <label for="note-confirm">I have read the important note above and <b>fully understand the process</b>.</label>
+        </div>
+
+        <div style="height:8px"></div>
+
+        <div class="notice-box">
+          <p><strong>Cancellation Policy:</strong> To cancel or reschedule, please email us at least <strong>24&ndash;48 hours</strong> before your appointment. If you join a Google Meet call more than <strong>5 minutes late</strong>, the session will be automatically cancelled and you&rsquo;ll need to rebook.</p>
+        </div>
+
+        <div class="check-row">
+          <input type="checkbox" id="policy-confirm" name="policy_confirmed" value="yes">
+          <label for="policy-confirm">I understand the discovery call policies and that this call is solely for <b>addressing concerns about Kallos creative services</b>.</label>
+        </div>
+
+        <div class="form-nav">
+          <button type="button" class="btn-back" id="back4">
+            <svg width="14" height="14" fill="none" viewBox="0 0 14 14"><path d="M12 7H2M6 3L2 7l4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            Back
+          </button>
+          <button type="submit" class="btn-next" id="btn-submit">
+            Submit &amp; Book Call
+            <svg width="14" height="14" fill="none" viewBox="0 0 14 14"><path d="M2 7h10M8 3l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+        </div>
+      </div>
+
+    </form>
+
+    <!-- SUCCESS -->
+    <div class="success-screen" id="success">
+      <div class="success-icon">
+        <svg width="22" height="22" fill="none" viewBox="0 0 22 22"><path d="M4 11l5 5 9-9" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>
+      <h2 class="success-h">You&rsquo;re<br><em>booked in.</em></h2>
+      <p class="success-p">We&rsquo;ve received your request and will be in touch shortly to confirm your discovery call. Looking forward to creating something great together.</p>
+      <a href="index.html" class="btn-home">Back to Home</a>
+    </div>
+
+  </div>
+</div>
+
+<script>
+/* CURSOR */
+const dot=document.getElementById('cdot'),ring=document.getElementById('cring');
+let rx=0,ry=0,mx=-999,my=-999,started=false;
+document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;dot.style.left=mx+'px';dot.style.top=my+'px';if(!started){started=true;document.body.classList.add('cursor-ready');}});
+function addHover(el){el.addEventListener('mouseenter',()=>document.body.classList.add('chov'));el.addEventListener('mouseleave',()=>document.body.classList.remove('chov'));}
+(function raf(){if(started){rx+=(mx-rx)*.12;ry+=(my-ry)*.12;ring.style.left=rx+'px';ring.style.top=ry+'px';}requestAnimationFrame(raf);})();
+
+/* THEME */
+const html=document.documentElement,tbtn=document.getElementById('tbtn');
+html.setAttribute('data-theme',localStorage.getItem('kallos-theme')||'dark');
+tbtn.addEventListener('click',()=>{const n=html.getAttribute('data-theme')==='dark'?'light':'dark';html.setAttribute('data-theme',n);localStorage.setItem('kallos-theme',n);});
+addHover(tbtn);
+
+/* NAV */
+window.addEventListener('scroll',()=>document.getElementById('nav').classList.toggle('on',scrollY>60),{passive:true});
+
+/* MULTI-STEP FORM */
+let currentStep = 1;
+const TOTAL = 4;
+const stepLabels = ['Step 1 of 4 \u2014 Your Details','Step 2 of 4 \u2014 Your Business','Step 3 of 4 \u2014 Services & Budget','Step 4 of 4 \u2014 Final Details'];
+
+function updateSteps() {
+  for (let i = 1; i <= TOTAL; i++) {
+    const el = document.getElementById('s'+i);
+    el.className = 'step' + (i < currentStep ? ' done' : i === currentStep ? ' active' : '');
+  }
+  document.getElementById('step-label').innerHTML = stepLabels[currentStep-1];
+}
+
+function showStep(n) {
+  document.querySelectorAll('.fsection').forEach(s => s.classList.remove('active'));
+  document.getElementById('step'+n).classList.add('active');
+  currentStep = n;
+  updateSteps();
+  window.scrollTo({top: document.querySelector('.right-panel').offsetTop - 80, behavior:'smooth'});
+}
+
+/* VALIDATION */
+function req(id, check) {
+  const g = document.getElementById(id);
+  if (!g) return true;
+  const inp = g.querySelector('input,textarea,select');
+  const ok = check ? check(inp) : (inp && inp.value.trim() !== '');
+  g.classList.toggle('invalid', !ok);
+  return ok;
+}
+
+function validateStep(n) {
+  if (n === 1) {
+    const a = req('g-fname');
+    const b = req('g-lname');
+    const c = req('g-email', i => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(i.value));
+    const d = req('g-phone', () => document.querySelector('[name=phone_number]').value.trim() !== '');
+    const e = req('g-biz');
+    return a && b && c && d && e;
+  }
+  if (n === 2) {
+    const a = req('g-whatyoudo');
+    const b = req('g-audience');
+    const c = req('g-challenges');
+    return a && b && c;
+  }
+  if (n === 3) {
+    const svcChecked = document.querySelectorAll('[name=services]:checked').length > 0;
+    document.getElementById('g-services').classList.toggle('invalid', !svcChecked);
+    document.getElementById('svc-err').style.display = svcChecked ? 'none' : 'block';
+    const budgetChecked = document.querySelector('[name=budget]:checked') !== null;
+    document.getElementById('g-budget').classList.toggle('invalid', !budgetChecked);
+    document.getElementById('budget-err').style.display = budgetChecked ? 'none' : 'block';
+    return svcChecked && budgetChecked;
+  }
+  if (n === 4) {
+    const a = req('g-launch', i => i.value !== '');
+    const b = req('g-reason');
+    const note = document.getElementById('note-confirm').checked;
+    const policy = document.getElementById('policy-confirm').checked;
+    if (!note) document.getElementById('note-confirm').style.outline = '2px solid var(--red)';
+    else document.getElementById('note-confirm').style.outline = '';
+    if (!policy) document.getElementById('policy-confirm').style.outline = '2px solid var(--red)';
+    else document.getElementById('policy-confirm').style.outline = '';
+    return a && b && note && policy;
+  }
+  return true;
+}
+
+/* BUTTONS */
+document.getElementById('next1').addEventListener('click',()=>{ if(validateStep(1)) showStep(2); });
+document.getElementById('next2').addEventListener('click',()=>{ if(validateStep(2)) showStep(3); });
+document.getElementById('next3').addEventListener('click',()=>{ if(validateStep(3)) showStep(4); });
+document.getElementById('back2').addEventListener('click',()=>showStep(1));
+document.getElementById('back3').addEventListener('click',()=>showStep(2));
+document.getElementById('back4').addEventListener('click',()=>showStep(3));
+
+/* SUBMIT via Formspree AJAX */
+document.getElementById('main-form').addEventListener('submit', async e => {
+  e.preventDefault();
+  if (!validateStep(4)) return;
+
+  const btn = document.getElementById('btn-submit');
+  btn.textContent = 'Sending\u2026';
+  btn.disabled = true;
+
+  const form = e.target;
+  const data = new FormData(form);
+
+  try {
+    const res = await fetch(form.action, {
+      method: 'POST', body: data,
+      headers: { 'Accept': 'application/json' }
+    });
+    if (res.ok) {
+      document.getElementById('main-form').style.display = 'none';
+      document.getElementById('steps').style.display = 'none';
+      document.getElementById('step-label').style.display = 'none';
+      document.getElementById('success').classList.add('show');
+      window.scrollTo({top: 0, behavior:'smooth'});
+    } else {
+      btn.textContent = 'Submit & Book Call';
+      btn.disabled = false;
+      alert('Something went wrong. Please try again or email us directly.');
+    }
+  } catch {
+    btn.textContent = 'Submit & Book Call';
+    btn.disabled = false;
+    alert('Network error. Please check your connection and try again.');
+  }
+});
+
+/* Clear invalid on input */
+document.querySelectorAll('.finput').forEach(el => {
+  el.addEventListener('input', () => {
+    const g = el.closest('.fgroup');
+    if (g) g.classList.remove('invalid');
+  });
+});
+
+document.querySelectorAll('a, button').forEach(addHover);
+</script>
+</body>
+</html>
