@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Admin — Κάλλος Portfolio</title>
+<title>Admin &#x2014; K&#x3AC;&#x3BB;&#x3BB;&#x3BF;&#x3C2; Portfolio</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Instrument+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
@@ -12,191 +12,127 @@
 [data-theme="light"]{--bg:#F7F7F5;--bg2:#EEEEEC;--bg3:#E4E4E2;--line:rgba(0,0,0,.08);--line2:rgba(0,0,0,.15);--text:#111110;--muted:rgba(17,17,16,.45);--faint:rgba(17,17,16,.10);--card:#fff;--input:#F0F0EE}
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 body{font-family:var(--ss);background:var(--bg);color:var(--text);min-height:100vh;transition:background .4s,color .4s;-webkit-font-smoothing:antialiased}
-
-/* TOPBAR */
-.topbar{
-  position:sticky;top:0;z-index:100;
-  background:var(--bg2);border-bottom:1px solid var(--line);
-  display:flex;align-items:center;justify-content:space-between;
-  padding:14px 32px;
-}
+.topbar{position:sticky;top:0;z-index:100;background:var(--bg2);border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;padding:14px 32px}
 .topbar-brand{display:flex;align-items:center;gap:10px}
 .topbar-logo{font-family:var(--fs);font-size:18px;font-style:italic;color:var(--text)}
 .topbar-label{font-size:10px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--muted)}
 .topbar-sep{width:1px;height:18px;background:var(--line)}
 .topbar-right{display:flex;align-items:center;gap:12px}
-
 .tbtn{width:38px;height:20px;background:var(--bg3);border:1px solid var(--line2);border-radius:10px;position:relative;cursor:pointer;transition:background .3s}
 .tbtn::after{content:'';position:absolute;top:2px;left:2px;width:14px;height:14px;border-radius:50%;background:var(--text);transition:transform .3s}
 [data-theme="light"] .tbtn::after{transform:translateX(18px)}
-
 .view-link{font-size:11px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);text-decoration:none;display:flex;align-items:center;gap:6px;transition:color .2s}
 .view-link:hover{color:var(--text)}
-
-/* LAYOUT */
-.wrap{display:grid;grid-template-columns:360px 1fr;min-height:calc(100vh - 53px)}
-
-/* SIDEBAR */
+.wrap{display:grid;grid-template-columns:380px 1fr;min-height:calc(100vh - 53px)}
 .sidebar{background:var(--bg2);border-right:1px solid var(--line);padding:28px;overflow-y:auto}
 .sidebar h2{font-size:11px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);margin-bottom:20px}
-
-/* FORM */
 .field{margin-bottom:16px}
 .field label{display:block;font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:7px}
-.field input,.field select,.field textarea{
-  width:100%;background:var(--input);border:1px solid var(--line2);
-  color:var(--text);font-family:var(--ss);font-size:13px;
-  padding:10px 12px;outline:none;transition:border-color .2s;
-  -webkit-appearance:none;
-}
+.field input,.field select,.field textarea{width:100%;background:var(--input);border:1px solid var(--line2);color:var(--text);font-family:var(--ss);font-size:13px;padding:10px 12px;outline:none;transition:border-color .2s;-webkit-appearance:none}
 .field input:focus,.field select:focus,.field textarea:focus{border-color:var(--red)}
-.field textarea{resize:vertical;min-height:80px;line-height:1.6}
-.field select{cursor:pointer}
+.field textarea{resize:vertical;min-height:70px;line-height:1.6}
 
-/* Media upload */
-.upload-zone{
-  border:1px dashed var(--line2);padding:28px 16px;text-align:center;
-  transition:border-color .3s,background .3s;cursor:pointer;position:relative;
+/* MULTI MEDIA */
+.media-slots{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:8px}
+.media-slot{
+  position:relative;border:1px dashed var(--line2);
+  aspect-ratio:4/3;cursor:pointer;overflow:hidden;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  gap:6px;transition:border-color .2s,background .2s;
 }
-.upload-zone:hover,.upload-zone.drag{border-color:var(--red);background:rgba(238,41,36,.04)}
-.upload-zone input[type=file]{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%}
-.uz-icon{font-size:24px;margin-bottom:8px;display:block}
-.uz-label{font-size:12px;color:var(--muted);line-height:1.5}
-.uz-label b{color:var(--text)}
-.uz-preview{
-  width:100%;aspect-ratio:16/10;object-fit:cover;display:block;
-  border:1px solid var(--line);margin-top:12px;
+.media-slot:hover{border-color:var(--red);background:rgba(238,41,36,.04)}
+.media-slot.filled{border-style:solid;border-color:var(--line2)}
+.media-slot input[type=file]{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%}
+.ms-preview{position:absolute;inset:0;object-fit:cover;width:100%;height:100%}
+.ms-overlay{
+  position:absolute;inset:0;background:rgba(0,0,0,.55);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;
+  opacity:0;transition:opacity .2s;
 }
-.uz-preview-vid{width:100%;display:block;border:1px solid var(--line);margin-top:12px}
-.uz-filename{font-size:11px;color:var(--muted);margin-top:8px;word-break:break-all}
-.uz-clear{font-size:10px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--red);background:none;border:none;cursor:pointer;margin-top:6px;display:block}
+.media-slot:hover .ms-overlay{opacity:1}
+.ms-empty-icon{font-size:20px;color:var(--faint)}
+.ms-empty-label{font-size:9px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--faint);text-align:center;line-height:1.4}
+.ms-num{position:absolute;top:6px;left:6px;font-size:9px;font-weight:700;background:var(--bg);color:var(--muted);padding:2px 6px;letter-spacing:.06em}
+.ms-remove{
+  position:absolute;top:4px;right:4px;
+  width:20px;height:20px;background:var(--red);color:#fff;border:none;
+  display:flex;align-items:center;justify-content:center;
+  font-size:11px;cursor:pointer;opacity:0;transition:opacity .2s;z-index:2;
+}
+.media-slot.filled:hover .ms-remove{opacity:1}
+.ms-cover-badge{
+  position:absolute;bottom:4px;left:4px;
+  font-size:8px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;
+  background:var(--red);color:#fff;padding:2px 6px;
+}
+.media-hint{font-size:10px;color:var(--faint);line-height:1.5;margin-top:4px}
 
-/* Toggle feat */
 .toggle-row{display:flex;align-items:center;justify-content:space-between}
 .toggle{width:38px;height:20px;background:var(--bg3);border:1px solid var(--line2);border-radius:10px;position:relative;cursor:pointer;transition:background .3s}
 .toggle.on{background:var(--red);border-color:var(--red)}
 .toggle::after{content:'';position:absolute;top:2px;left:2px;width:14px;height:14px;border-radius:50%;background:#fff;transition:transform .3s}
 .toggle.on::after{transform:translateX(18px)}
-
-/* Buttons */
-.btn-submit{
-  width:100%;padding:13px;
-  font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;
-  color:#fff;background:var(--red);border:none;cursor:pointer;
-  transition:background .2s,transform .15s;margin-top:8px;
-}
-.btn-submit:hover{background:#c71f1c}
-.btn-submit:active{transform:scale(.98)}
-.btn-cancel{
-  width:100%;padding:10px;margin-top:8px;
-  font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;
-  color:var(--muted);background:none;border:1px solid var(--line2);cursor:pointer;
-  transition:border-color .2s,color .2s;
-}
+.btn-submit{width:100%;padding:13px;font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:#fff;background:var(--red);border:none;cursor:pointer;transition:background .2s,transform .15s;margin-top:8px}
+.btn-submit:hover{background:#c71f1c}.btn-submit:active{transform:scale(.98)}
+.btn-cancel{width:100%;padding:10px;margin-top:8px;font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);background:none;border:1px solid var(--line2);cursor:pointer;transition:border-color .2s,color .2s}
 .btn-cancel:hover{border-color:var(--text);color:var(--text)}
-
-/* MAIN PANEL */
 .main{padding:32px;overflow-y:auto}
 .main-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:24px}
 .main-title{font-size:11px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--muted)}
 .count-pill{background:var(--red);color:#fff;font-size:10px;font-weight:700;padding:3px 9px;border-radius:20px}
-
-/* SORT BAR */
 .sortbar{display:flex;align-items:center;gap:8px;margin-bottom:20px}
 .sortbar span{font-size:10px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--faint)}
 .sortbtn{font-size:10px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);background:none;border:1px solid var(--line);padding:5px 12px;cursor:pointer;transition:border-color .2s,color .2s}
 .sortbtn:hover,.sortbtn.on{border-color:var(--text);color:var(--text)}
 .drag-hint{font-size:10px;color:var(--faint);margin-left:auto}
-
-/* PROJECT LIST */
 .proj-list{display:flex;flex-direction:column;gap:10px}
-
-.prow{
-  display:grid;grid-template-columns:auto 64px 1fr auto auto;
-  align-items:center;gap:16px;
-  background:var(--card);border:1px solid var(--line);
-  padding:14px 16px;
-  transition:background .3s,border-color .3s;
-  position:relative;
-}
-.prow:hover{border-color:var(--line2)}
-.prow.dragging{opacity:.4}
-.prow.drag-over{border-color:var(--red);background:rgba(238,41,36,.04)}
-.prow.editing{border-color:var(--amber)}
-
-.drag-handle{
-  cursor:grab;color:var(--faint);display:flex;flex-direction:column;gap:3px;padding:2px 0;
-}
+.prow{display:grid;grid-template-columns:auto 80px 1fr auto auto;align-items:center;gap:16px;background:var(--card);border:1px solid var(--line);padding:14px 16px;transition:background .3s,border-color .3s;position:relative}
+.prow:hover{border-color:var(--line2)}.prow.dragging{opacity:.4}.prow.drag-over{border-color:var(--red);background:rgba(238,41,36,.04)}.prow.editing{border-color:var(--amber)}
+.drag-handle{cursor:grab;color:var(--faint);display:flex;flex-direction:column;gap:3px;padding:2px 0}
 .drag-handle:active{cursor:grabbing}
 .drag-handle span{display:block;width:14px;height:1px;background:currentColor}
-
-.pthumb{
-  width:64px;height:42px;background:var(--bg3);
-  overflow:hidden;flex-shrink:0;display:flex;align-items:center;justify-content:center;
-}
-.pthumb img,.pthumb video{width:100%;height:100%;object-fit:cover;display:block}
-.pthumb-ph{font-family:var(--fs);font-style:italic;font-size:18px;color:var(--faint)}
-
+/* Thumb strip for multiple images */
+.pthumb-strip{display:flex;gap:3px;width:80px;overflow:hidden}
+.pthumb-strip .pt{width:24px;flex-shrink:0;height:42px;background:var(--bg3);overflow:hidden;display:flex;align-items:center;justify-content:center}
+.pthumb-strip .pt:first-child{width:42px}
+.pthumb-strip .pt img,.pthumb-strip .pt video{width:100%;height:100%;object-fit:cover;display:block}
+.pthumb-ph{font-family:var(--fs);font-style:italic;font-size:14px;color:var(--faint)}
+.pthumb-more{font-size:8px;font-weight:700;color:var(--muted)}
 .pmeta{}
 .pmeta-title{font-size:14px;font-weight:500;margin-bottom:3px}
-.pmeta-sub{display:flex;align-items:center;gap:8px}
+.pmeta-sub{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
 .pcat-badge{font-size:9px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--red);border:1px solid var(--faint);padding:2px 7px}
 .pyear-badge{font-size:10px;color:var(--muted)}
 .pfeat-badge{font-size:9px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--amber);border:1px solid rgba(249,161,27,.25);padding:2px 7px}
-
+.pmedia-count{font-size:9px;color:var(--faint);border:1px solid var(--faint);padding:2px 7px}
 .prow-actions{display:flex;gap:6px}
-.pbtn{
-  width:28px;height:28px;border:1px solid var(--line);background:none;
-  display:flex;align-items:center;justify-content:center;
-  color:var(--muted);cursor:pointer;transition:border-color .2s,color .2s,background .2s;
-}
+.pbtn{width:28px;height:28px;border:1px solid var(--line);background:none;display:flex;align-items:center;justify-content:center;color:var(--muted);cursor:pointer;transition:border-color .2s,color .2s,background .2s}
 .pbtn:hover{border-color:var(--line2);color:var(--text)}
 .pbtn.del:hover{border-color:var(--red);color:var(--red);background:rgba(238,41,36,.06)}
 .pbtn.edit:hover{border-color:var(--amber);color:var(--amber)}
-
 .prow-vis{display:flex;align-items:center}
 .vis-toggle{width:32px;height:17px;background:var(--bg3);border:1px solid var(--line2);border-radius:9px;position:relative;cursor:pointer;transition:background .3s}
 .vis-toggle.on{background:rgba(57,87,167,.5);border-color:var(--blue)}
 .vis-toggle::after{content:'';position:absolute;top:1px;left:1px;width:13px;height:13px;border-radius:50%;background:var(--muted);transition:transform .3s,background .3s}
 .vis-toggle.on::after{transform:translateX(15px);background:var(--blue)}
-
-/* EMPTY */
 .empty-state{text-align:center;padding:80px 0}
 .empty-state .eg{font-family:var(--fs);font-style:italic;font-size:52px;color:var(--faint);margin-bottom:12px}
 .empty-state p{font-size:13px;color:var(--muted)}
-
-/* TOAST */
-.toast{
-  position:fixed;bottom:24px;right:24px;z-index:9999;
-  background:var(--text);color:var(--bg);
-  font-size:12px;font-weight:600;letter-spacing:.06em;
-  padding:12px 20px;
-  transform:translateY(80px);opacity:0;
-  transition:transform .35s cubic-bezier(0.22,1,0.36,1),opacity .35s;
-}
-.toast.show{transform:translateY(0);opacity:1}
-.toast.err{background:var(--red);color:#fff}
-
-/* EXPORT */
-.export-bar{
-  margin-top:28px;padding-top:20px;border-top:1px solid var(--line);
-}
+.toast{position:fixed;bottom:24px;right:24px;z-index:9999;background:var(--text);color:var(--bg);font-size:12px;font-weight:600;letter-spacing:.06em;padding:12px 20px;transform:translateY(80px);opacity:0;transition:transform .35s cubic-bezier(0.22,1,0.36,1),opacity .35s}
+.toast.show{transform:translateY(0);opacity:1}.toast.err{background:var(--red);color:#fff}
+.export-bar{margin-top:28px;padding-top:20px;border-top:1px solid var(--line)}
 .export-bar h3{font-size:10px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);margin-bottom:10px}
 .export-actions{display:flex;gap:8px;flex-wrap:wrap}
-.exp-btn{
-  font-size:10px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;
-  padding:8px 14px;border:1px solid var(--line2);background:none;
-  color:var(--muted);cursor:pointer;transition:border-color .2s,color .2s;
-}
+.exp-btn{font-size:10px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;padding:8px 14px;border:1px solid var(--line2);background:none;color:var(--muted);cursor:pointer;transition:border-color .2s,color .2s}
 .exp-btn:hover{border-color:var(--text);color:var(--text)}
+@keyframes shake{0%,100%{transform:translateX(0)}20%,60%{transform:translateX(-5px)}40%,80%{transform:translateX(5px)}}
 </style>
 </head>
 <body>
 
-<!-- TOPBAR -->
 <div class="topbar">
   <div class="topbar-brand">
-    <span class="topbar-logo">Κάλλος</span>
+    <span class="topbar-logo">&#x39A;&#x3AC;&#x3BB;&#x3BB;&#x3BF;&#x3C2;</span>
     <div class="topbar-sep"></div>
     <span class="topbar-label">Portfolio Admin</span>
   </div>
@@ -210,8 +146,6 @@ body{font-family:var(--ss);background:var(--bg);color:var(--text);min-height:100
 </div>
 
 <div class="wrap">
-
-  <!-- SIDEBAR: ADD / EDIT FORM -->
   <aside class="sidebar">
     <h2 id="form-heading">Add Project</h2>
 
@@ -219,32 +153,28 @@ body{font-family:var(--ss);background:var(--bg);color:var(--text);min-height:100
       <label>Project Title *</label>
       <input type="text" id="f-title" placeholder="e.g. Fuse Conference">
     </div>
-
     <div class="field">
       <label>Category *</label>
       <select id="f-cat">
-        <option value="">— Select —</option>
+        <option value="">&#x2014; Select &#x2014;</option>
         <option value="brand">Brand Identity</option>
         <option value="visual">Visual Design</option>
-        <option value="print">Print & Packaging</option>
+        <option value="print">Print &amp; Packaging</option>
         <option value="event">Events</option>
       </select>
     </div>
-
     <div class="field">
       <label>Year</label>
       <input type="number" id="f-year" placeholder="2024" min="2015" max="2030" value="2024">
     </div>
-
     <div class="field">
       <label>Short Description (optional)</label>
       <textarea id="f-desc" placeholder="Brief description of the project..."></textarea>
     </div>
-
     <div class="field">
       <label>Aspect Ratio</label>
       <select id="f-ratio">
-        <option value="16/10">Wide (16:10) — Featured</option>
+        <option value="16/10">Wide (16:10) &#x2014; Featured</option>
         <option value="3/4">Portrait (3:4)</option>
         <option value="4/3">Landscape (4:3)</option>
         <option value="1/1">Square (1:1)</option>
@@ -252,14 +182,11 @@ body{font-family:var(--ss);background:var(--bg);color:var(--text);min-height:100
     </div>
 
     <div class="field">
-      <label>Image or Video</label>
-      <div class="upload-zone" id="dropzone">
-        <input type="file" id="f-media" accept="image/*,video/*">
-        <span class="uz-icon">📎</span>
-        <div class="uz-label"><b>Click to upload</b> or drag & drop<br>JPG, PNG, WEBP, GIF, MP4, WEBM</div>
-        <div id="preview-wrap"></div>
+      <label>Media (up to 5 images or videos)</label>
+      <div class="media-slots" id="media-slots">
+        <!-- slots injected by JS -->
       </div>
-      <button class="uz-clear" id="clear-media" style="display:none">✕ Remove media</button>
+      <div class="media-hint">First image is the cover. Click any slot to upload. Drag &amp; drop supported.</div>
     </div>
 
     <div class="field">
@@ -268,7 +195,6 @@ body{font-family:var(--ss);background:var(--bg);color:var(--text);min-height:100
         <button class="toggle" id="f-feat" role="switch" aria-checked="false"></button>
       </div>
     </div>
-
     <div class="field">
       <div class="toggle-row">
         <label style="margin-bottom:0">Visible on portfolio</label>
@@ -290,26 +216,22 @@ body{font-family:var(--ss);background:var(--bg);color:var(--text);min-height:100
     </div>
   </aside>
 
-  <!-- MAIN: PROJECT LIST -->
   <main class="main">
     <div class="main-header">
       <span class="main-title">Projects</span>
       <span class="count-pill" id="proj-count">0</span>
     </div>
-
     <div class="sortbar">
       <span>Sort:</span>
       <button class="sortbtn on" data-sort="custom">Custom</button>
-      <button class="sortbtn" data-sort="year-desc">Year ↓</button>
-      <button class="sortbtn" data-sort="year-asc">Year ↑</button>
-      <button class="sortbtn" data-sort="alpha">A–Z</button>
-      <span class="drag-hint">↕ Drag to reorder</span>
+      <button class="sortbtn" data-sort="year-desc">Year &#x2193;</button>
+      <button class="sortbtn" data-sort="year-asc">Year &#x2191;</button>
+      <button class="sortbtn" data-sort="alpha">A&#x2013;Z</button>
+      <span class="drag-hint">&#x2195; Drag to reorder</span>
     </div>
-
     <div class="proj-list" id="proj-list"></div>
-
     <div class="empty-state" id="empty-state">
-      <div class="eg">Κ</div>
+      <div class="eg">&#x39A;</div>
       <p>No projects yet. Add your first one using the form.</p>
     </div>
   </main>
@@ -318,22 +240,18 @@ body{font-family:var(--ss);background:var(--bg);color:var(--text);min-height:100
 <div class="toast" id="toast"></div>
 
 <script>
-// ─── STATE ──────────────────────────────────────────────
 const STORE_KEY = 'kallos_portfolio_v1';
+const MAX_MEDIA = 5;
 let projects = [];
 let editingId = null;
-let mediaData = null; // {type:'image'|'video', dataUrl, filename}
+let mediaItems = [null, null, null, null, null]; // up to 5 slots
 let dragSrc = null;
 
-function load() {
-  try { projects = JSON.parse(localStorage.getItem(STORE_KEY)) || []; } catch { projects = []; }
-}
-function save() {
-  localStorage.setItem(STORE_KEY, JSON.stringify(projects));
-}
+function load() { try { projects = JSON.parse(localStorage.getItem(STORE_KEY)) || []; } catch { projects = []; } }
+function save() { localStorage.setItem(STORE_KEY, JSON.stringify(projects)); }
 function uid() { return Date.now().toString(36) + Math.random().toString(36).slice(2,6); }
 
-// ─── THEME ──────────────────────────────────────────────
+/* THEME */
 const html = document.documentElement;
 const tbtn = document.getElementById('tbtn');
 html.setAttribute('data-theme', localStorage.getItem('kallos-theme') || 'dark');
@@ -342,7 +260,80 @@ tbtn.addEventListener('click', () => {
   html.setAttribute('data-theme', n); localStorage.setItem('kallos-theme', n);
 });
 
-// ─── FORM HELPERS ────────────────────────────────────────
+/* BUILD MEDIA SLOTS */
+function buildSlots() {
+  const wrap = document.getElementById('media-slots');
+  wrap.innerHTML = '';
+  for (let i = 0; i < MAX_MEDIA; i++) {
+    const slot = document.createElement('div');
+    slot.className = 'media-slot' + (mediaItems[i] ? ' filled' : '');
+    slot.dataset.idx = i;
+
+    const inp = document.createElement('input');
+    inp.type = 'file'; inp.accept = 'image/*,video/*';
+    inp.addEventListener('change', e => handleFile(e.target.files[0], i));
+    slot.appendChild(inp);
+
+    if (mediaItems[i]) {
+      const m = mediaItems[i];
+      if (m.type === 'image') {
+        const img = document.createElement('img');
+        img.src = m.dataUrl; img.className = 'ms-preview';
+        slot.appendChild(img);
+      } else {
+        const vid = document.createElement('video');
+        vid.src = m.dataUrl; vid.className = 'ms-preview'; vid.muted = true;
+        slot.appendChild(vid);
+      }
+      // overlay with remove
+      const ovl = document.createElement('div');
+      ovl.className = 'ms-overlay';
+      ovl.innerHTML = '<svg width="16" height="16" fill="none" viewBox="0 0 16 16"><path d="M3 5h10M6 5V4h4v1M5 5l.5 8h5L11 5" stroke="#fff" stroke-width="1.2" stroke-linecap="round"/></svg><span style="font-size:9px;color:#fff;letter-spacing:.08em">Remove</span>';
+      slot.appendChild(ovl);
+
+      const rmv = document.createElement('button');
+      rmv.className = 'ms-remove'; rmv.innerHTML = '&#x2715;';
+      rmv.addEventListener('click', e => { e.preventDefault(); e.stopPropagation(); mediaItems[i] = null; buildSlots(); });
+      slot.appendChild(rmv);
+
+      if (i === 0) {
+        const badge = document.createElement('div');
+        badge.className = 'ms-cover-badge'; badge.textContent = 'Cover';
+        slot.appendChild(badge);
+      }
+    } else {
+      slot.innerHTML += '<span class="ms-empty-icon">+</span><span class="ms-empty-label">Slot ' + (i+1) + '</span>';
+    }
+
+    const num = document.createElement('span');
+    num.className = 'ms-num'; num.textContent = i + 1;
+    slot.appendChild(num);
+
+    // drag & drop onto slot
+    slot.addEventListener('dragover', e => { e.preventDefault(); slot.style.borderColor = 'var(--red)'; });
+    slot.addEventListener('dragleave', () => { slot.style.borderColor = ''; });
+    slot.addEventListener('drop', e => {
+      e.preventDefault(); slot.style.borderColor = '';
+      const f = e.dataTransfer.files[0];
+      if (f) handleFile(f, i);
+    });
+
+    wrap.appendChild(slot);
+  }
+}
+
+function handleFile(file, idx) {
+  if (!file) return;
+  const isVideo = file.type.startsWith('video/');
+  const reader = new FileReader();
+  reader.onload = ev => {
+    mediaItems[idx] = { type: isVideo ? 'video' : 'image', dataUrl: ev.target.result, filename: file.name };
+    buildSlots();
+  };
+  reader.readAsDataURL(file);
+}
+
+/* FORM */
 const fTitle = document.getElementById('f-title');
 const fCat   = document.getElementById('f-cat');
 const fYear  = document.getElementById('f-year');
@@ -350,14 +341,9 @@ const fDesc  = document.getElementById('f-desc');
 const fRatio = document.getElementById('f-ratio');
 const fFeat  = document.getElementById('f-feat');
 const fVis   = document.getElementById('f-vis');
-const fMedia = document.getElementById('f-media');
-const dropzone = document.getElementById('dropzone');
-const previewWrap = document.getElementById('preview-wrap');
-const clearMediaBtn = document.getElementById('clear-media');
 const btnSubmit = document.getElementById('btn-submit');
 const btnCancel = document.getElementById('btn-cancel');
 
-// Toggle buttons
 [fFeat, fVis].forEach(t => {
   t.addEventListener('click', () => {
     const on = t.classList.toggle('on');
@@ -365,67 +351,36 @@ const btnCancel = document.getElementById('btn-cancel');
   });
 });
 
-// Media upload
-fMedia.addEventListener('change', e => handleFile(e.target.files[0]));
-dropzone.addEventListener('dragover', e => { e.preventDefault(); dropzone.classList.add('drag'); });
-dropzone.addEventListener('dragleave', () => dropzone.classList.remove('drag'));
-dropzone.addEventListener('drop', e => { e.preventDefault(); dropzone.classList.remove('drag'); handleFile(e.dataTransfer.files[0]); });
-
-function handleFile(file) {
-  if (!file) return;
-  const isVideo = file.type.startsWith('video/');
-  const reader = new FileReader();
-  reader.onload = ev => {
-    mediaData = { type: isVideo ? 'video' : 'image', dataUrl: ev.target.result, filename: file.name };
-    showPreview();
-  };
-  reader.readAsDataURL(file);
-}
-
-function showPreview() {
-  if (!mediaData) { previewWrap.innerHTML = ''; clearMediaBtn.style.display = 'none'; return; }
-  clearMediaBtn.style.display = 'block';
-  if (mediaData.type === 'image') {
-    previewWrap.innerHTML = `<img class="uz-preview" src="${mediaData.dataUrl}"><div class="uz-filename">${mediaData.filename||''}</div>`;
-  } else {
-    previewWrap.innerHTML = `<video class="uz-preview-vid" src="${mediaData.dataUrl}" controls muted></video><div class="uz-filename">${mediaData.filename||''}</div>`;
-  }
-}
-
-clearMediaBtn.addEventListener('click', () => { mediaData = null; fMedia.value = ''; showPreview(); });
-
 function resetForm() {
   fTitle.value = ''; fCat.value = ''; fYear.value = new Date().getFullYear();
   fDesc.value = ''; fRatio.value = '16/10';
   fFeat.classList.remove('on'); fFeat.setAttribute('aria-checked','false');
   fVis.classList.add('on'); fVis.setAttribute('aria-checked','true');
-  mediaData = null; fMedia.value = ''; showPreview();
+  mediaItems = [null,null,null,null,null];
+  buildSlots();
   editingId = null;
   document.getElementById('form-heading').textContent = 'Add Project';
   btnSubmit.textContent = 'Add Project';
   btnCancel.style.display = 'none';
   document.querySelectorAll('.prow').forEach(r => r.classList.remove('editing'));
 }
-
 btnCancel.addEventListener('click', resetForm);
 
-// ─── SUBMIT ──────────────────────────────────────────────
 btnSubmit.addEventListener('click', () => {
   const title = fTitle.value.trim();
   const cat   = fCat.value;
   if (!title) { shake(fTitle); return; }
-  if (!cat)   { shake(fCat);   return; }
+  if (!cat)   { shake(fCat); return; }
 
   const proj = {
     id:       editingId || uid(),
-    title,
-    cat,
+    title, cat,
     year:     fYear.value || new Date().getFullYear(),
     desc:     fDesc.value.trim(),
     ratio:    fRatio.value,
     featured: fFeat.classList.contains('on'),
     visible:  fVis.classList.contains('on'),
-    media:    mediaData || null,
+    media:    mediaItems.filter(Boolean),
   };
 
   if (editingId) {
@@ -436,31 +391,33 @@ btnSubmit.addEventListener('click', () => {
     projects.unshift(proj);
     toast('Project added');
   }
-
   save(); resetForm(); render();
 });
 
 function shake(el) {
   el.style.borderColor = 'var(--red)';
-  el.style.animation = 'none';
-  void el.offsetWidth;
   el.style.animation = 'shake .3s';
   setTimeout(() => { el.style.borderColor = ''; el.style.animation = ''; }, 600);
 }
 
-// ─── RENDER ──────────────────────────────────────────────
+/* RENDER LIST */
 const list = document.getElementById('proj-list');
 const emptyState = document.getElementById('empty-state');
 const countPill = document.getElementById('proj-count');
+function catLabel(v) { return {brand:'Brand Identity',visual:'Visual Design',print:'Print & Packaging',event:'Events'}[v]||v; }
 
-function catLabel(v) {
-  return {brand:'Brand Identity',visual:'Visual Design',print:'Print & Packaging',event:'Events'}[v] || v;
-}
-
-function thumbHtml(p) {
-  if (!p.media) return `<div class="pthumb-ph">${(p.title||'?')[0]}</div>`;
-  if (p.media.type === 'image') return `<img src="${p.media.dataUrl}" alt="${p.title}">`;
-  return `<video src="${p.media.dataUrl}" muted></video>`;
+function thumbStripHtml(p) {
+  const items = p.media && p.media.length ? p.media : [];
+  if (!items.length) return '<div class="pthumb-strip"><div class="pt"><span class="pthumb-ph">' + (p.title||'?')[0] + '</span></div></div>';
+  let html = '<div class="pthumb-strip">';
+  items.slice(0, 3).forEach((m, i) => {
+    html += '<div class="pt">';
+    if (m.type === 'image') html += '<img src="' + m.dataUrl + '">';
+    else html += '<video src="' + m.dataUrl + '" muted></video>';
+    html += '</div>';
+  });
+  if (items.length > 3) html += '<div class="pt" style="align-items:center;justify-content:center;display:flex"><span class="pthumb-more">+' + (items.length-3) + '</span></div>';
+  return html + '</div>';
 }
 
 function render(sortedList) {
@@ -468,168 +425,122 @@ function render(sortedList) {
   countPill.textContent = arr.length;
   emptyState.style.display = arr.length ? 'none' : 'block';
   list.innerHTML = '';
-  arr.forEach((p, i) => {
+  arr.forEach(p => {
     const row = document.createElement('div');
     row.className = 'prow' + (p.id === editingId ? ' editing' : '');
-    row.dataset.id = p.id;
-    row.draggable = true;
-    row.innerHTML = `
-      <div class="drag-handle"><span></span><span></span><span></span></div>
-      <div class="pthumb">${thumbHtml(p)}</div>
-      <div class="pmeta">
-        <div class="pmeta-title">${p.title}</div>
-        <div class="pmeta-sub">
-          <span class="pcat-badge">${catLabel(p.cat)}</span>
-          <span class="pyear-badge">${p.year}</span>
-          ${p.featured ? '<span class="pfeat-badge">Featured</span>' : ''}
-        </div>
-      </div>
-      <div class="prow-vis">
-        <div class="vis-toggle ${p.visible ? 'on' : ''}" title="${p.visible ? 'Visible' : 'Hidden'}" data-id="${p.id}"></div>
-      </div>
-      <div class="prow-actions">
-        <button class="pbtn edit" title="Edit" data-id="${p.id}">
-          <svg width="12" height="12" fill="none" viewBox="0 0 12 12"><path d="M8.5 1.5l2 2L3 11H1V9l7.5-7.5Z" stroke="currentColor" stroke-width="1.1"/></svg>
-        </button>
-        <button class="pbtn del" title="Delete" data-id="${p.id}">
-          <svg width="12" height="12" fill="none" viewBox="0 0 12 12"><path d="M2 3h8M5 3V2h2v1M4.5 5v4M7.5 5v4M3 3l.5 6.5h5L9 3" stroke="currentColor" stroke-width="1.1" stroke-linecap="round"/></svg>
-        </button>
-      </div>
-    `;
-    // drag events
+    row.dataset.id = p.id; row.draggable = true;
+    const mediaCount = (p.media||[]).length;
+    row.innerHTML =
+      '<div class="drag-handle"><span></span><span></span><span></span></div>' +
+      thumbStripHtml(p) +
+      '<div class="pmeta">' +
+        '<div class="pmeta-title">' + p.title + '</div>' +
+        '<div class="pmeta-sub">' +
+          '<span class="pcat-badge">' + catLabel(p.cat) + '</span>' +
+          '<span class="pyear-badge">' + p.year + '</span>' +
+          (p.featured ? '<span class="pfeat-badge">Featured</span>' : '') +
+          (mediaCount ? '<span class="pmedia-count">' + mediaCount + ' file' + (mediaCount>1?'s':'') + '</span>' : '') +
+        '</div>' +
+      '</div>' +
+      '<div class="prow-vis"><div class="vis-toggle ' + (p.visible?'on':'') + '" data-id="' + p.id + '"></div></div>' +
+      '<div class="prow-actions">' +
+        '<button class="pbtn edit" data-id="' + p.id + '"><svg width="12" height="12" fill="none" viewBox="0 0 12 12"><path d="M8.5 1.5l2 2L3 11H1V9l7.5-7.5Z" stroke="currentColor" stroke-width="1.1"/></svg></button>' +
+        '<button class="pbtn del" data-id="' + p.id + '"><svg width="12" height="12" fill="none" viewBox="0 0 12 12"><path d="M2 3h8M5 3V2h2v1M4.5 5v4M7.5 5v4M3 3l.5 6.5h5L9 3" stroke="currentColor" stroke-width="1.1" stroke-linecap="round"/></svg></button>' +
+      '</div>';
+
     row.addEventListener('dragstart', () => { dragSrc = p.id; row.classList.add('dragging'); });
-    row.addEventListener('dragend',   () => { row.classList.remove('dragging'); document.querySelectorAll('.drag-over').forEach(r=>r.classList.remove('drag-over')); });
-    row.addEventListener('dragover',  e => { e.preventDefault(); row.classList.add('drag-over'); });
+    row.addEventListener('dragend', () => { row.classList.remove('dragging'); document.querySelectorAll('.drag-over').forEach(r=>r.classList.remove('drag-over')); });
+    row.addEventListener('dragover', e => { e.preventDefault(); row.classList.add('drag-over'); });
     row.addEventListener('dragleave', () => row.classList.remove('drag-over'));
     row.addEventListener('drop', e => {
       e.preventDefault(); row.classList.remove('drag-over');
       if (dragSrc && dragSrc !== p.id) {
-        const from = projects.findIndex(x => x.id === dragSrc);
-        const to   = projects.findIndex(x => x.id === p.id);
-        if (from > -1 && to > -1) {
-          const [moved] = projects.splice(from, 1);
-          projects.splice(to, 0, moved);
-          save(); render();
-        }
+        const from = projects.findIndex(x=>x.id===dragSrc), to = projects.findIndex(x=>x.id===p.id);
+        if (from>-1&&to>-1) { const [m]=projects.splice(from,1); projects.splice(to,0,m); save(); render(); }
       }
     });
-    // visibility toggle
     row.querySelector('.vis-toggle').addEventListener('click', () => {
-      const proj = projects.find(x => x.id === p.id);
-      if (proj) { proj.visible = !proj.visible; save(); render(); toast(proj.visible ? 'Shown on portfolio' : 'Hidden from portfolio'); }
+      const proj = projects.find(x=>x.id===p.id);
+      if (proj) { proj.visible=!proj.visible; save(); render(); toast(proj.visible?'Shown on portfolio':'Hidden from portfolio'); }
     });
-    // edit
     row.querySelector('.pbtn.edit').addEventListener('click', () => startEdit(p.id));
-    // delete
     row.querySelector('.pbtn.del').addEventListener('click', () => deleteProj(p.id));
     list.appendChild(row);
   });
 }
 
 function startEdit(id) {
-  const p = projects.find(x => x.id === id);
-  if (!p) return;
+  const p = projects.find(x=>x.id===id); if (!p) return;
   editingId = id;
-  fTitle.value = p.title;
-  fCat.value = p.cat;
-  fYear.value = p.year;
-  fDesc.value = p.desc || '';
-  fRatio.value = p.ratio || '16/10';
-  if (p.featured) { fFeat.classList.add('on'); fFeat.setAttribute('aria-checked','true'); }
-  else            { fFeat.classList.remove('on'); fFeat.setAttribute('aria-checked','false'); }
-  if (p.visible)  { fVis.classList.add('on'); fVis.setAttribute('aria-checked','true'); }
-  else            { fVis.classList.remove('on'); fVis.setAttribute('aria-checked','false'); }
-  mediaData = p.media || null;
-  showPreview();
+  fTitle.value = p.title; fCat.value = p.cat; fYear.value = p.year;
+  fDesc.value = p.desc||''; fRatio.value = p.ratio||'16/10';
+  if (p.featured){fFeat.classList.add('on');fFeat.setAttribute('aria-checked','true');}
+  else{fFeat.classList.remove('on');fFeat.setAttribute('aria-checked','false');}
+  if (p.visible){fVis.classList.add('on');fVis.setAttribute('aria-checked','true');}
+  else{fVis.classList.remove('on');fVis.setAttribute('aria-checked','false');}
+  // restore media slots
+  mediaItems = [null,null,null,null,null];
+  (p.media||[]).forEach((m,i)=>{ if(i<MAX_MEDIA) mediaItems[i]=m; });
+  buildSlots();
   document.getElementById('form-heading').textContent = 'Edit Project';
-  btnSubmit.textContent = 'Save Changes';
-  btnCancel.style.display = 'block';
-  render(); // highlight row
-  document.querySelector('.sidebar').scrollTo({ top: 0, behavior: 'smooth' });
+  btnSubmit.textContent = 'Save Changes'; btnCancel.style.display = 'block';
+  render();
+  document.querySelector('.sidebar').scrollTo({top:0,behavior:'smooth'});
 }
 
 function deleteProj(id) {
   if (!confirm('Delete this project?')) return;
-  projects = projects.filter(p => p.id !== id);
-  if (editingId === id) resetForm();
-  save(); render();
-  toast('Project deleted');
+  projects = projects.filter(p=>p.id!==id);
+  if (editingId===id) resetForm();
+  save(); render(); toast('Project deleted');
 }
 
-// ─── SORT ────────────────────────────────────────────────
+/* SORT */
 document.querySelectorAll('.sortbtn').forEach(btn => {
   btn.addEventListener('click', () => {
-    document.querySelectorAll('.sortbtn').forEach(b => b.classList.remove('on'));
+    document.querySelectorAll('.sortbtn').forEach(b=>b.classList.remove('on'));
     btn.classList.add('on');
     const s = btn.dataset.sort;
     let sorted = [...projects];
-    if (s === 'year-desc') sorted.sort((a,b) => b.year - a.year);
-    if (s === 'year-asc')  sorted.sort((a,b) => a.year - b.year);
-    if (s === 'alpha')     sorted.sort((a,b) => a.title.localeCompare(b.title));
-    render(s === 'custom' ? undefined : sorted);
+    if (s==='year-desc') sorted.sort((a,b)=>b.year-a.year);
+    if (s==='year-asc')  sorted.sort((a,b)=>a.year-b.year);
+    if (s==='alpha')     sorted.sort((a,b)=>a.title.localeCompare(b.title));
+    render(s==='custom' ? undefined : sorted);
   });
 });
 
-// ─── EXPORT / IMPORT ────────────────────────────────────
+/* EXPORT / IMPORT */
 document.getElementById('btn-export').addEventListener('click', () => {
-  // Export meta only (no dataURLs for file size)
-  const out = projects.map(p => ({...p, media: p.media ? {type:p.media.type,filename:p.media.filename} : null}));
-  const blob = new Blob([JSON.stringify(out, null, 2)], {type:'application/json'});
-  const a = document.createElement('a'); a.href = URL.createObjectURL(blob);
-  a.download = 'kallos-portfolio.json'; a.click();
-  toast('Exported JSON');
+  const out = projects.map(p=>({...p, media:(p.media||[]).map(m=>({type:m.type,filename:m.filename}))}));
+  const blob = new Blob([JSON.stringify(out,null,2)],{type:'application/json'});
+  const a = document.createElement('a'); a.href=URL.createObjectURL(blob);
+  a.download='kallos-portfolio.json'; a.click(); toast('Exported JSON');
 });
-
-document.getElementById('btn-import-trigger').addEventListener('click', () => document.getElementById('import-input').click());
-document.getElementById('import-input').addEventListener('change', e => {
-  const f = e.target.files[0]; if (!f) return;
-  const r = new FileReader();
-  r.onload = ev => {
-    try {
-      const data = JSON.parse(ev.target.result);
-      if (!Array.isArray(data)) throw new Error('Invalid');
-      projects = data; save(); render();
-      toast(`Imported ${data.length} projects`);
-    } catch { toast('Invalid JSON file', true); }
+document.getElementById('btn-import-trigger').addEventListener('click', ()=>document.getElementById('import-input').click());
+document.getElementById('import-input').addEventListener('change', e=>{
+  const f=e.target.files[0]; if(!f) return;
+  const r=new FileReader();
+  r.onload=ev=>{
+    try{const data=JSON.parse(ev.target.result);if(!Array.isArray(data))throw new Error('bad');projects=data;save();render();toast('Imported '+data.length+' projects');}
+    catch{toast('Invalid JSON',true);}
   };
-  r.readAsText(f);
-  e.target.value = '';
+  r.readAsText(f); e.target.value='';
+});
+document.getElementById('btn-clear-all').addEventListener('click', ()=>{
+  if(!confirm('Clear ALL projects?')) return;
+  projects=[];save();resetForm();render();toast('Cleared');
 });
 
-document.getElementById('btn-clear-all').addEventListener('click', () => {
-  if (!confirm('Clear ALL projects? This cannot be undone.')) return;
-  projects = []; save(); resetForm(); render();
-  toast('All projects cleared');
-});
-
-// ─── TOAST ───────────────────────────────────────────────
+/* TOAST */
 let toastTimer;
-function toast(msg, err = false) {
-  const el = document.getElementById('toast');
-  el.textContent = msg;
-  el.className = 'toast show' + (err ? ' err' : '');
-  clearTimeout(toastTimer);
-  toastTimer = setTimeout(() => el.classList.remove('show'), 2800);
+function toast(msg,err=false){
+  const el=document.getElementById('toast');
+  el.textContent=msg; el.className='toast show'+(err?' err':'');
+  clearTimeout(toastTimer); toastTimer=setTimeout(()=>el.classList.remove('show'),2800);
 }
 
-// ─── SHAKE KEYFRAME ──────────────────────────────────────
-const style = document.createElement('style');
-style.textContent = '@keyframes shake{0%,100%{transform:translateX(0)}20%,60%{transform:translateX(-5px)}40%,80%{transform:translateX(5px)}}';
-document.head.appendChild(style);
-
-// ─── PORTFOLIO PAGE SYNC ─────────────────────────────────
-// Write a shared key that portfolio.html will read
-function syncPortfolio() {
-  localStorage.setItem('kallos_portfolio_v1', JSON.stringify(projects));
-}
-// Override save to also sync
-const origSave = save;
-window.addEventListener('storage', e => {
-  if (e.key === STORE_KEY) { load(); render(); }
-});
-
-// ─── INIT ────────────────────────────────────────────────
-load(); render();
+/* INIT */
+load(); buildSlots(); render();
 </script>
 </body>
 </html>
