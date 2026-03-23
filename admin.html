@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Admin &#x2014; K&#x3AC;&#x3BB;&#x3BB;&#x3BF;&#x3C2; Portfolio</title>
+<title>Admin — Κάλλος Portfolio</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Instrument+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
@@ -31,83 +31,59 @@ body{font-family:var(--ss);background:var(--bg);color:var(--text);min-height:100
 .field input,.field select,.field textarea{width:100%;background:var(--input);border:1px solid var(--line2);color:var(--text);font-family:var(--ss);font-size:13px;padding:10px 12px;outline:none;transition:border-color .2s;-webkit-appearance:none}
 .field input:focus,.field select:focus,.field textarea:focus{border-color:var(--red)}
 .field textarea{resize:vertical;min-height:70px;line-height:1.6}
-
-/* MULTI MEDIA */
 .media-slots{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:8px}
-.media-slot{
-  position:relative;border:1px dashed var(--line2);
-  aspect-ratio:4/3;cursor:pointer;overflow:hidden;
-  display:flex;flex-direction:column;align-items:center;justify-content:center;
-  gap:6px;transition:border-color .2s,background .2s;
-}
+.media-slot{position:relative;border:1px dashed var(--line2);aspect-ratio:4/3;cursor:pointer;overflow:hidden;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;transition:border-color .2s,background .2s;background:var(--input)}
 .media-slot:hover{border-color:var(--red);background:rgba(238,41,36,.04)}
 .media-slot.filled{border-style:solid;border-color:var(--line2)}
 .media-slot input[type=file]{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%}
-.ms-preview{position:absolute;inset:0;object-fit:cover;width:100%;height:100%}
-.ms-overlay{
-  position:absolute;inset:0;background:rgba(0,0,0,.55);
-  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;
-  opacity:0;transition:opacity .2s;
-}
+.ms-preview{position:absolute;inset:0;object-fit:cover;width:100%;height:100%;display:block}
+.ms-overlay{position:absolute;inset:0;background:rgba(0,0,0,.55);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;opacity:0;transition:opacity .2s}
 .media-slot:hover .ms-overlay{opacity:1}
-.ms-empty-icon{font-size:20px;color:var(--faint)}
+.ms-empty-icon{font-size:22px;color:var(--faint)}
 .ms-empty-label{font-size:9px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--faint);text-align:center;line-height:1.4}
-.ms-num{position:absolute;top:6px;left:6px;font-size:9px;font-weight:700;background:var(--bg);color:var(--muted);padding:2px 6px;letter-spacing:.06em}
-.ms-remove{
-  position:absolute;top:4px;right:4px;
-  width:20px;height:20px;background:var(--red);color:#fff;border:none;
-  display:flex;align-items:center;justify-content:center;
-  font-size:11px;cursor:pointer;opacity:0;transition:opacity .2s;z-index:2;
-}
+.ms-num{position:absolute;top:5px;left:5px;font-size:9px;font-weight:700;background:var(--bg);color:var(--muted);padding:2px 6px;z-index:2}
+.ms-remove{position:absolute;top:4px;right:4px;width:20px;height:20px;background:var(--red);color:#fff;border:none;display:flex;align-items:center;justify-content:center;font-size:11px;cursor:pointer;opacity:0;transition:opacity .2s;z-index:3}
 .media-slot.filled:hover .ms-remove{opacity:1}
-.ms-cover-badge{
-  position:absolute;bottom:4px;left:4px;
-  font-size:8px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;
-  background:var(--red);color:#fff;padding:2px 6px;
-}
+.ms-cover-badge{position:absolute;bottom:4px;left:4px;font-size:8px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;background:var(--red);color:#fff;padding:2px 6px;z-index:2}
 .media-hint{font-size:10px;color:var(--faint);line-height:1.5;margin-top:4px}
-
+.ms-type-badge{position:absolute;bottom:4px;right:4px;font-size:8px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;background:rgba(0,0,0,.6);color:#fff;padding:2px 6px;z-index:2}
 .toggle-row{display:flex;align-items:center;justify-content:space-between}
 .toggle{width:38px;height:20px;background:var(--bg3);border:1px solid var(--line2);border-radius:10px;position:relative;cursor:pointer;transition:background .3s}
 .toggle.on{background:var(--red);border-color:var(--red)}
 .toggle::after{content:'';position:absolute;top:2px;left:2px;width:14px;height:14px;border-radius:50%;background:#fff;transition:transform .3s}
 .toggle.on::after{transform:translateX(18px)}
-.btn-submit{width:100%;padding:13px;font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:#fff;background:var(--red);border:none;cursor:pointer;transition:background .2s,transform .15s;margin-top:8px}
-.btn-submit:hover{background:#c71f1c}.btn-submit:active{transform:scale(.98)}
+.btn-submit{width:100%;padding:13px;font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:#fff;background:var(--red);border:none;cursor:pointer;transition:background .2s;margin-top:8px}
+.btn-submit:hover{background:#c71f1c}
 .btn-cancel{width:100%;padding:10px;margin-top:8px;font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);background:none;border:1px solid var(--line2);cursor:pointer;transition:border-color .2s,color .2s}
 .btn-cancel:hover{border-color:var(--text);color:var(--text)}
 .main{padding:32px;overflow-y:auto}
 .main-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:24px}
 .main-title{font-size:11px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--muted)}
 .count-pill{background:var(--red);color:#fff;font-size:10px;font-weight:700;padding:3px 9px;border-radius:20px}
-.sortbar{display:flex;align-items:center;gap:8px;margin-bottom:20px}
+.sortbar{display:flex;align-items:center;gap:8px;margin-bottom:20px;flex-wrap:wrap}
 .sortbar span{font-size:10px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--faint)}
 .sortbtn{font-size:10px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);background:none;border:1px solid var(--line);padding:5px 12px;cursor:pointer;transition:border-color .2s,color .2s}
 .sortbtn:hover,.sortbtn.on{border-color:var(--text);color:var(--text)}
 .drag-hint{font-size:10px;color:var(--faint);margin-left:auto}
 .proj-list{display:flex;flex-direction:column;gap:10px}
-.prow{display:grid;grid-template-columns:auto 80px 1fr auto auto;align-items:center;gap:16px;background:var(--card);border:1px solid var(--line);padding:14px 16px;transition:background .3s,border-color .3s;position:relative}
+.prow{display:grid;grid-template-columns:auto 90px 1fr auto auto;align-items:center;gap:16px;background:var(--card);border:1px solid var(--line);padding:14px 16px;transition:background .3s,border-color .3s}
 .prow:hover{border-color:var(--line2)}.prow.dragging{opacity:.4}.prow.drag-over{border-color:var(--red);background:rgba(238,41,36,.04)}.prow.editing{border-color:var(--amber)}
 .drag-handle{cursor:grab;color:var(--faint);display:flex;flex-direction:column;gap:3px;padding:2px 0}
-.drag-handle:active{cursor:grabbing}
 .drag-handle span{display:block;width:14px;height:1px;background:currentColor}
-/* Thumb strip for multiple images */
-.pthumb-strip{display:flex;gap:3px;width:80px;overflow:hidden}
-.pthumb-strip .pt{width:24px;flex-shrink:0;height:42px;background:var(--bg3);overflow:hidden;display:flex;align-items:center;justify-content:center}
-.pthumb-strip .pt:first-child{width:42px}
+.pthumb-strip{display:flex;gap:2px;width:90px;height:48px;overflow:hidden;flex-shrink:0}
+.pthumb-strip .pt{flex-shrink:0;background:var(--bg3);overflow:hidden;display:flex;align-items:center;justify-content:center;height:48px}
+.pthumb-strip .pt:first-child{width:48px}.pthumb-strip .pt:not(:first-child){width:20px}
 .pthumb-strip .pt img,.pthumb-strip .pt video{width:100%;height:100%;object-fit:cover;display:block}
-.pthumb-ph{font-family:var(--fs);font-style:italic;font-size:14px;color:var(--faint)}
+.pthumb-ph{font-family:var(--fs);font-style:italic;font-size:16px;color:var(--faint)}
 .pthumb-more{font-size:8px;font-weight:700;color:var(--muted)}
-.pmeta{}
-.pmeta-title{font-size:14px;font-weight:500;margin-bottom:3px}
+.pmeta-title{font-size:14px;font-weight:500;margin-bottom:4px}
 .pmeta-sub{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
 .pcat-badge{font-size:9px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--red);border:1px solid var(--faint);padding:2px 7px}
 .pyear-badge{font-size:10px;color:var(--muted)}
-.pfeat-badge{font-size:9px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--amber);border:1px solid rgba(249,161,27,.25);padding:2px 7px}
+.pfeat-badge{font-size:9px;font-weight:600;color:var(--amber);border:1px solid rgba(249,161,27,.25);padding:2px 7px}
 .pmedia-count{font-size:9px;color:var(--faint);border:1px solid var(--faint);padding:2px 7px}
 .prow-actions{display:flex;gap:6px}
 .pbtn{width:28px;height:28px;border:1px solid var(--line);background:none;display:flex;align-items:center;justify-content:center;color:var(--muted);cursor:pointer;transition:border-color .2s,color .2s,background .2s}
-.pbtn:hover{border-color:var(--line2);color:var(--text)}
 .pbtn.del:hover{border-color:var(--red);color:var(--red);background:rgba(238,41,36,.06)}
 .pbtn.edit:hover{border-color:var(--amber);color:var(--amber)}
 .prow-vis{display:flex;align-items:center}
@@ -118,18 +94,17 @@ body{font-family:var(--ss);background:var(--bg);color:var(--text);min-height:100
 .empty-state{text-align:center;padding:80px 0}
 .empty-state .eg{font-family:var(--fs);font-style:italic;font-size:52px;color:var(--faint);margin-bottom:12px}
 .empty-state p{font-size:13px;color:var(--muted)}
-.toast{position:fixed;bottom:24px;right:24px;z-index:9999;background:var(--text);color:var(--bg);font-size:12px;font-weight:600;letter-spacing:.06em;padding:12px 20px;transform:translateY(80px);opacity:0;transition:transform .35s cubic-bezier(0.22,1,0.36,1),opacity .35s}
+.toast{position:fixed;bottom:24px;right:24px;z-index:9999;background:var(--text);color:var(--bg);font-size:12px;font-weight:600;padding:12px 20px;transform:translateY(80px);opacity:0;transition:transform .35s cubic-bezier(0.22,1,0.36,1),opacity .35s}
 .toast.show{transform:translateY(0);opacity:1}.toast.err{background:var(--red);color:#fff}
 .export-bar{margin-top:28px;padding-top:20px;border-top:1px solid var(--line)}
 .export-bar h3{font-size:10px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);margin-bottom:10px}
 .export-actions{display:flex;gap:8px;flex-wrap:wrap}
 .exp-btn{font-size:10px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;padding:8px 14px;border:1px solid var(--line2);background:none;color:var(--muted);cursor:pointer;transition:border-color .2s,color .2s}
 .exp-btn:hover{border-color:var(--text);color:var(--text)}
-@keyframes shake{0%,100%{transform:translateX(0)}20%,60%{transform:translateX(-5px)}40%,80%{transform:translateX(5px)}}
+.db-status{font-size:10px;color:var(--faint);margin-top:8px}
 </style>
 </head>
 <body>
-
 <div class="topbar">
   <div class="topbar-brand">
     <span class="topbar-logo">&#x39A;&#x3AC;&#x3BB;&#x3BB;&#x3BF;&#x3C2;</span>
@@ -148,11 +123,7 @@ body{font-family:var(--ss);background:var(--bg);color:var(--text);min-height:100
 <div class="wrap">
   <aside class="sidebar">
     <h2 id="form-heading">Add Project</h2>
-
-    <div class="field">
-      <label>Project Title *</label>
-      <input type="text" id="f-title" placeholder="e.g. Fuse Conference">
-    </div>
+    <div class="field"><label>Project Title *</label><input type="text" id="f-title" placeholder="e.g. Fuse Conference"></div>
     <div class="field">
       <label>Category *</label>
       <select id="f-cat">
@@ -163,14 +134,8 @@ body{font-family:var(--ss);background:var(--bg);color:var(--text);min-height:100
         <option value="event">Events</option>
       </select>
     </div>
-    <div class="field">
-      <label>Year</label>
-      <input type="number" id="f-year" placeholder="2024" min="2015" max="2030" value="2024">
-    </div>
-    <div class="field">
-      <label>Short Description (optional)</label>
-      <textarea id="f-desc" placeholder="Brief description of the project..."></textarea>
-    </div>
+    <div class="field"><label>Year</label><input type="number" id="f-year" value="2025" min="2015" max="2035"></div>
+    <div class="field"><label>Short Description (optional)</label><textarea id="f-desc" placeholder="Brief description..."></textarea></div>
     <div class="field">
       <label>Aspect Ratio</label>
       <select id="f-ratio">
@@ -180,15 +145,12 @@ body{font-family:var(--ss);background:var(--bg);color:var(--text);min-height:100
         <option value="1/1">Square (1:1)</option>
       </select>
     </div>
-
     <div class="field">
       <label>Media (up to 5 images or videos)</label>
-      <div class="media-slots" id="media-slots">
-        <!-- slots injected by JS -->
-      </div>
-      <div class="media-hint">First image is the cover. Click any slot to upload. Drag &amp; drop supported.</div>
+      <div class="media-slots" id="media-slots"></div>
+      <div class="media-hint">Slot 1 = cover image shown in grid. Click any slot to upload.</div>
+      <div class="db-status" id="db-status"></div>
     </div>
-
     <div class="field">
       <div class="toggle-row">
         <label style="margin-bottom:0">Featured (spans 2 columns)</label>
@@ -201,17 +163,12 @@ body{font-family:var(--ss);background:var(--bg);color:var(--text);min-height:100
         <button class="toggle on" id="f-vis" role="switch" aria-checked="true"></button>
       </div>
     </div>
-
     <button class="btn-submit" id="btn-submit">Add Project</button>
     <button class="btn-cancel" id="btn-cancel" style="display:none">Cancel Edit</button>
-
     <div class="export-bar">
-      <h3>Export / Manage</h3>
+      <h3>Manage</h3>
       <div class="export-actions">
-        <button class="exp-btn" id="btn-export">Export JSON</button>
-        <button class="exp-btn" id="btn-import-trigger">Import JSON</button>
-        <button class="exp-btn" id="btn-clear-all">Clear All</button>
-        <input type="file" id="import-input" accept=".json" style="display:none">
+        <button class="exp-btn" id="btn-clear-all">Clear All Projects</button>
       </div>
     </div>
   </aside>
@@ -232,108 +189,152 @@ body{font-family:var(--ss);background:var(--bg);color:var(--text);min-height:100
     <div class="proj-list" id="proj-list"></div>
     <div class="empty-state" id="empty-state">
       <div class="eg">&#x39A;</div>
-      <p>No projects yet. Add your first one using the form.</p>
+      <p>No projects yet. Add your first one.</p>
     </div>
   </main>
 </div>
-
 <div class="toast" id="toast"></div>
 
 <script>
-const STORE_KEY = 'kallos_portfolio_v1';
-const MAX_MEDIA = 5;
-let projects = [];
-let editingId = null;
-let mediaItems = [null, null, null, null, null]; // up to 5 slots
-let dragSrc = null;
+// ── IndexedDB setup ─────────────────────────────────────
+const DB_NAME = 'kallos_db', DB_VER = 1;
+const META_STORE = 'projects_meta';   // project info (no blobs)
+const MEDIA_STORE = 'media_files';    // actual file blobs, keyed by mediaId
 
-function load() { try { projects = JSON.parse(localStorage.getItem(STORE_KEY)) || []; } catch { projects = []; } }
-function save() { localStorage.setItem(STORE_KEY, JSON.stringify(projects)); }
+let db;
+function openDB() {
+  return new Promise((res, rej) => {
+    const req = indexedDB.open(DB_NAME, DB_VER);
+    req.onupgradeneeded = e => {
+      const d = e.target.result;
+      if (!d.objectStoreNames.contains(META_STORE))  d.createObjectStore(META_STORE, {keyPath:'id'});
+      if (!d.objectStoreNames.contains(MEDIA_STORE)) d.createObjectStore(MEDIA_STORE, {keyPath:'id'});
+    };
+    req.onsuccess = e => { db = e.target.result; res(db); };
+    req.onerror   = e => rej(e.target.error);
+  });
+}
+
+function dbGet(store, key) {
+  return new Promise((res, rej) => {
+    const tx = db.transaction(store, 'readonly');
+    const req = tx.objectStore(store).get(key);
+    req.onsuccess = () => res(req.result);
+    req.onerror   = () => rej(req.error);
+  });
+}
+function dbPut(store, val) {
+  return new Promise((res, rej) => {
+    const tx = db.transaction(store, 'readwrite');
+    const req = tx.objectStore(store).put(val);
+    req.onsuccess = () => res();
+    req.onerror   = () => rej(req.error);
+  });
+}
+function dbDelete(store, key) {
+  return new Promise((res, rej) => {
+    const tx = db.transaction(store, 'readwrite');
+    const req = tx.objectStore(store).delete(key);
+    req.onsuccess = () => res();
+    req.onerror   = () => rej(req.error);
+  });
+}
+function dbGetAll(store) {
+  return new Promise((res, rej) => {
+    const tx = db.transaction(store, 'readonly');
+    const req = tx.objectStore(store).getAll();
+    req.onsuccess = () => res(req.result);
+    req.onerror   = () => rej(req.error);
+  });
+}
+function dbClear(store) {
+  return new Promise((res, rej) => {
+    const tx = db.transaction(store, 'readwrite');
+    const req = tx.objectStore(store).clear();
+    req.onsuccess = () => res();
+    req.onerror   = () => rej(req.error);
+  });
+}
+
+// ── State ────────────────────────────────────────────────
+const MAX_MEDIA = 5;
+let projects = [];      // array of project meta objects
+let editingId = null;
+let dragSrc = null;
+// mediaSlots[i] = {file, blobUrl, type, filename, mediaId} | null
+let mediaSlots = Array(MAX_MEDIA).fill(null);
+
 function uid() { return Date.now().toString(36) + Math.random().toString(36).slice(2,6); }
 
-/* THEME */
+// ── Theme ────────────────────────────────────────────────
 const html = document.documentElement;
-const tbtn = document.getElementById('tbtn');
-html.setAttribute('data-theme', localStorage.getItem('kallos-theme') || 'dark');
-tbtn.addEventListener('click', () => {
+document.getElementById('tbtn').addEventListener('click', () => {
   const n = html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
   html.setAttribute('data-theme', n); localStorage.setItem('kallos-theme', n);
 });
+html.setAttribute('data-theme', localStorage.getItem('kallos-theme') || 'dark');
 
-/* BUILD MEDIA SLOTS */
+// ── Media slot UI ────────────────────────────────────────
 function buildSlots() {
   const wrap = document.getElementById('media-slots');
   wrap.innerHTML = '';
   for (let i = 0; i < MAX_MEDIA; i++) {
     const slot = document.createElement('div');
-    slot.className = 'media-slot' + (mediaItems[i] ? ' filled' : '');
-    slot.dataset.idx = i;
+    slot.className = 'media-slot' + (mediaSlots[i] ? ' filled' : '');
 
     const inp = document.createElement('input');
     inp.type = 'file'; inp.accept = 'image/*,video/*';
-    inp.addEventListener('change', e => handleFile(e.target.files[0], i));
+    inp.addEventListener('change', e => { if (e.target.files[0]) loadFile(e.target.files[0], i); });
     slot.appendChild(inp);
 
-    if (mediaItems[i]) {
-      const m = mediaItems[i];
-      if (m.type === 'image') {
-        const img = document.createElement('img');
-        img.src = m.dataUrl; img.className = 'ms-preview';
-        slot.appendChild(img);
-      } else {
-        const vid = document.createElement('video');
-        vid.src = m.dataUrl; vid.className = 'ms-preview'; vid.muted = true;
-        slot.appendChild(vid);
-      }
-      // overlay with remove
-      const ovl = document.createElement('div');
-      ovl.className = 'ms-overlay';
-      ovl.innerHTML = '<svg width="16" height="16" fill="none" viewBox="0 0 16 16"><path d="M3 5h10M6 5V4h4v1M5 5l.5 8h5L11 5" stroke="#fff" stroke-width="1.2" stroke-linecap="round"/></svg><span style="font-size:9px;color:#fff;letter-spacing:.08em">Remove</span>';
+    if (mediaSlots[i]) {
+      const m = mediaSlots[i];
+      const el = m.type === 'video' ? document.createElement('video') : document.createElement('img');
+      el.src = m.blobUrl; el.className = 'ms-preview';
+      if (m.type === 'video') { el.muted = true; el.loop = true; el.autoplay = true; el.playsInline = true; }
+      slot.appendChild(el);
+
+      const ovl = document.createElement('div'); ovl.className = 'ms-overlay';
+      ovl.innerHTML = '<span style="font-size:11px;color:#fff">Change</span>';
       slot.appendChild(ovl);
 
-      const rmv = document.createElement('button');
-      rmv.className = 'ms-remove'; rmv.innerHTML = '&#x2715;';
-      rmv.addEventListener('click', e => { e.preventDefault(); e.stopPropagation(); mediaItems[i] = null; buildSlots(); });
+      const rmv = document.createElement('button'); rmv.className = 'ms-remove'; rmv.textContent = '✕';
+      rmv.addEventListener('click', e => { e.preventDefault(); e.stopPropagation(); removeSlot(i); });
       slot.appendChild(rmv);
 
-      if (i === 0) {
-        const badge = document.createElement('div');
-        badge.className = 'ms-cover-badge'; badge.textContent = 'Cover';
-        slot.appendChild(badge);
-      }
+      if (i === 0) { const b = document.createElement('div'); b.className = 'ms-cover-badge'; b.textContent = 'Cover'; slot.appendChild(b); }
+      const tb = document.createElement('div'); tb.className = 'ms-type-badge'; tb.textContent = m.type.toUpperCase();
+      slot.appendChild(tb);
     } else {
-      slot.innerHTML += '<span class="ms-empty-icon">+</span><span class="ms-empty-label">Slot ' + (i+1) + '</span>';
+      slot.innerHTML += '<span class="ms-empty-icon">+</span><span class="ms-empty-label">Add file</span>';
     }
 
-    const num = document.createElement('span');
-    num.className = 'ms-num'; num.textContent = i + 1;
+    const num = document.createElement('span'); num.className = 'ms-num'; num.textContent = i + 1;
     slot.appendChild(num);
 
-    // drag & drop onto slot
     slot.addEventListener('dragover', e => { e.preventDefault(); slot.style.borderColor = 'var(--red)'; });
     slot.addEventListener('dragleave', () => { slot.style.borderColor = ''; });
-    slot.addEventListener('drop', e => {
-      e.preventDefault(); slot.style.borderColor = '';
-      const f = e.dataTransfer.files[0];
-      if (f) handleFile(f, i);
-    });
+    slot.addEventListener('drop', e => { e.preventDefault(); slot.style.borderColor = ''; const f = e.dataTransfer.files[0]; if (f) loadFile(f, i); });
 
     wrap.appendChild(slot);
   }
 }
 
-function handleFile(file, idx) {
-  if (!file) return;
-  const isVideo = file.type.startsWith('video/');
-  const reader = new FileReader();
-  reader.onload = ev => {
-    mediaItems[idx] = { type: isVideo ? 'video' : 'image', dataUrl: ev.target.result, filename: file.name };
-    buildSlots();
-  };
-  reader.readAsDataURL(file);
+function loadFile(file, idx) {
+  const blobUrl = URL.createObjectURL(file);
+  const type = file.type.startsWith('video/') ? 'video' : 'image';
+  if (mediaSlots[idx] && mediaSlots[idx].blobUrl) URL.revokeObjectURL(mediaSlots[idx].blobUrl);
+  mediaSlots[idx] = { file, blobUrl, type, filename: file.name, mediaId: uid() };
+  buildSlots();
 }
 
-/* FORM */
+function removeSlot(idx) {
+  if (mediaSlots[idx] && mediaSlots[idx].blobUrl) URL.revokeObjectURL(mediaSlots[idx].blobUrl);
+  mediaSlots[idx] = null;
+  buildSlots();
+}
+
+// ── Form ─────────────────────────────────────────────────
 const fTitle = document.getElementById('f-title');
 const fCat   = document.getElementById('f-cat');
 const fYear  = document.getElementById('f-year');
@@ -344,19 +345,15 @@ const fVis   = document.getElementById('f-vis');
 const btnSubmit = document.getElementById('btn-submit');
 const btnCancel = document.getElementById('btn-cancel');
 
-[fFeat, fVis].forEach(t => {
-  t.addEventListener('click', () => {
-    const on = t.classList.toggle('on');
-    t.setAttribute('aria-checked', on);
-  });
-});
+[fFeat, fVis].forEach(t => t.addEventListener('click', () => {
+  const on = t.classList.toggle('on'); t.setAttribute('aria-checked', on);
+}));
 
 function resetForm() {
-  fTitle.value = ''; fCat.value = ''; fYear.value = new Date().getFullYear();
-  fDesc.value = ''; fRatio.value = '16/10';
+  fTitle.value = ''; fCat.value = ''; fYear.value = 2025; fDesc.value = ''; fRatio.value = '16/10';
   fFeat.classList.remove('on'); fFeat.setAttribute('aria-checked','false');
   fVis.classList.add('on'); fVis.setAttribute('aria-checked','true');
-  mediaItems = [null,null,null,null,null];
+  mediaSlots = Array(MAX_MEDIA).fill(null);
   buildSlots();
   editingId = null;
   document.getElementById('form-heading').textContent = 'Add Project';
@@ -366,181 +363,239 @@ function resetForm() {
 }
 btnCancel.addEventListener('click', resetForm);
 
-btnSubmit.addEventListener('click', () => {
-  const title = fTitle.value.trim();
-  const cat   = fCat.value;
-  if (!title) { shake(fTitle); return; }
-  if (!cat)   { shake(fCat); return; }
+// ── Save project (with media blobs to IndexedDB) ─────────
+btnSubmit.addEventListener('click', async () => {
+  const title = fTitle.value.trim(), cat = fCat.value;
+  if (!title) { fTitle.style.borderColor='var(--red)'; fTitle.focus(); return; }
+  if (!cat)   { fCat.style.borderColor='var(--red)'; return; }
+
+  btnSubmit.textContent = 'Saving…'; btnSubmit.disabled = true;
+
+  const projId = editingId || uid();
+
+  // Save each media blob to IndexedDB
+  const mediaMeta = [];
+  for (let i = 0; i < MAX_MEDIA; i++) {
+    const s = mediaSlots[i];
+    if (!s) continue;
+    const mediaId = s.mediaId || uid();
+    if (s.file) { // new file to save
+      await dbPut(MEDIA_STORE, { id: mediaId, blob: s.file, type: s.type, filename: s.filename });
+    }
+    mediaMeta.push({ mediaId, type: s.type, filename: s.filename });
+  }
 
   const proj = {
-    id:       editingId || uid(),
-    title, cat,
-    year:     fYear.value || new Date().getFullYear(),
-    desc:     fDesc.value.trim(),
-    ratio:    fRatio.value,
+    id: projId, title, cat,
+    year: fYear.value, desc: fDesc.value.trim(),
+    ratio: fRatio.value,
     featured: fFeat.classList.contains('on'),
     visible:  fVis.classList.contains('on'),
-    media:    mediaItems.filter(Boolean),
+    media: mediaMeta,
+    order: editingId ? (projects.find(p=>p.id===editingId)||{}).order : Date.now(),
   };
 
+  // If editing, delete old media that was removed
   if (editingId) {
+    const old = projects.find(p => p.id === editingId);
+    if (old && old.media) {
+      for (const om of old.media) {
+        if (!mediaMeta.find(m => m.mediaId === om.mediaId)) {
+          await dbDelete(MEDIA_STORE, om.mediaId);
+        }
+      }
+    }
     const idx = projects.findIndex(p => p.id === editingId);
-    if (idx > -1) projects[idx] = proj;
-    toast('Project updated');
+    if (idx > -1) projects[idx] = proj; else projects.unshift(proj);
   } else {
     projects.unshift(proj);
-    toast('Project added');
   }
-  save(); resetForm(); render();
+
+  await dbPut(META_STORE, { id: '_list', projects });
+  btnSubmit.textContent = editingId ? 'Save Changes' : 'Add Project';
+  btnSubmit.disabled = false;
+  toast(editingId ? 'Project updated' : 'Project added');
+  resetForm();
+  await renderList();
 });
 
-function shake(el) {
-  el.style.borderColor = 'var(--red)';
-  el.style.animation = 'shake .3s';
-  setTimeout(() => { el.style.borderColor = ''; el.style.animation = ''; }, 600);
+// ── Load & render ────────────────────────────────────────
+async function loadProjects() {
+  const rec = await dbGet(META_STORE, '_list');
+  projects = (rec && rec.projects) || [];
 }
 
-/* RENDER LIST */
-const list = document.getElementById('proj-list');
-const emptyState = document.getElementById('empty-state');
-const countPill = document.getElementById('proj-count');
+async function getBlobUrl(mediaId) {
+  const rec = await dbGet(MEDIA_STORE, mediaId);
+  if (!rec) return null;
+  return URL.createObjectURL(rec.blob);
+}
+
 function catLabel(v) { return {brand:'Brand Identity',visual:'Visual Design',print:'Print & Packaging',event:'Events'}[v]||v; }
 
-function thumbStripHtml(p) {
-  const items = p.media && p.media.length ? p.media : [];
-  if (!items.length) return '<div class="pthumb-strip"><div class="pt"><span class="pthumb-ph">' + (p.title||'?')[0] + '</span></div></div>';
-  let html = '<div class="pthumb-strip">';
-  items.slice(0, 3).forEach((m, i) => {
-    html += '<div class="pt">';
-    if (m.type === 'image') html += '<img src="' + m.dataUrl + '">';
-    else html += '<video src="' + m.dataUrl + '" muted></video>';
-    html += '</div>';
-  });
-  if (items.length > 3) html += '<div class="pt" style="align-items:center;justify-content:center;display:flex"><span class="pthumb-more">+' + (items.length-3) + '</span></div>';
-  return html + '</div>';
-}
-
-function render(sortedList) {
+async function renderList(sortedList) {
   const arr = sortedList || projects;
-  countPill.textContent = arr.length;
-  emptyState.style.display = arr.length ? 'none' : 'block';
+  document.getElementById('proj-count').textContent = arr.length;
+  document.getElementById('empty-state').style.display = arr.length ? 'none' : 'block';
+  const list = document.getElementById('proj-list');
   list.innerHTML = '';
-  arr.forEach(p => {
+
+  for (const p of arr) {
     const row = document.createElement('div');
     row.className = 'prow' + (p.id === editingId ? ' editing' : '');
     row.dataset.id = p.id; row.draggable = true;
-    const mediaCount = (p.media||[]).length;
+    const mc = (p.media||[]).length;
+
+    // Build thumbnail strip
+    const strip = document.createElement('div'); strip.className = 'pthumb-strip';
+    const thumbMedia = (p.media||[]).slice(0,3);
+    if (thumbMedia.length === 0) {
+      strip.innerHTML = '<div class="pt" style="width:48px"><span class="pthumb-ph">' + (p.title[0]||'?') + '</span></div>';
+    } else {
+      for (let ti = 0; ti < thumbMedia.length; ti++) {
+        const pt = document.createElement('div');
+        pt.className = 'pt'; pt.style.width = ti === 0 ? '48px' : '20px';
+        const burl = await getBlobUrl(thumbMedia[ti].mediaId);
+        if (burl) {
+          if (thumbMedia[ti].type === 'video') {
+            pt.innerHTML = '<video src="'+burl+'" muted style="width:100%;height:100%;object-fit:cover"></video>';
+          } else {
+            pt.innerHTML = '<img src="'+burl+'" style="width:100%;height:100%;object-fit:cover">';
+          }
+        } else {
+          pt.innerHTML = '<span class="pthumb-ph">' + (p.title[0]||'?') + '</span>';
+        }
+        strip.appendChild(pt);
+      }
+      if (mc > 3) {
+        const pt = document.createElement('div'); pt.className = 'pt'; pt.style.cssText = 'width:20px;align-items:center;justify-content:center;display:flex';
+        pt.innerHTML = '<span class="pthumb-more">+' + (mc-3) + '</span>';
+        strip.appendChild(pt);
+      }
+    }
+
     row.innerHTML =
       '<div class="drag-handle"><span></span><span></span><span></span></div>' +
-      thumbStripHtml(p) +
+      '<div></div>' + // thumb placeholder replaced below
       '<div class="pmeta">' +
-        '<div class="pmeta-title">' + p.title + '</div>' +
+        '<div class="pmeta-title">'+p.title+'</div>' +
         '<div class="pmeta-sub">' +
-          '<span class="pcat-badge">' + catLabel(p.cat) + '</span>' +
-          '<span class="pyear-badge">' + p.year + '</span>' +
-          (p.featured ? '<span class="pfeat-badge">Featured</span>' : '') +
-          (mediaCount ? '<span class="pmedia-count">' + mediaCount + ' file' + (mediaCount>1?'s':'') + '</span>' : '') +
+          '<span class="pcat-badge">'+catLabel(p.cat)+'</span>' +
+          '<span class="pyear-badge">'+p.year+'</span>' +
+          (p.featured?'<span class="pfeat-badge">Featured</span>':'') +
+          (mc?'<span class="pmedia-count">'+mc+' file'+(mc>1?'s':'')+'</span>':'') +
         '</div>' +
       '</div>' +
-      '<div class="prow-vis"><div class="vis-toggle ' + (p.visible?'on':'') + '" data-id="' + p.id + '"></div></div>' +
+      '<div class="prow-vis"><div class="vis-toggle '+(p.visible?'on':'')+'" data-id="'+p.id+'"></div></div>' +
       '<div class="prow-actions">' +
-        '<button class="pbtn edit" data-id="' + p.id + '"><svg width="12" height="12" fill="none" viewBox="0 0 12 12"><path d="M8.5 1.5l2 2L3 11H1V9l7.5-7.5Z" stroke="currentColor" stroke-width="1.1"/></svg></button>' +
-        '<button class="pbtn del" data-id="' + p.id + '"><svg width="12" height="12" fill="none" viewBox="0 0 12 12"><path d="M2 3h8M5 3V2h2v1M4.5 5v4M7.5 5v4M3 3l.5 6.5h5L9 3" stroke="currentColor" stroke-width="1.1" stroke-linecap="round"/></svg></button>' +
+        '<button class="pbtn edit" data-id="'+p.id+'"><svg width="12" height="12" fill="none" viewBox="0 0 12 12"><path d="M8.5 1.5l2 2L3 11H1V9l7.5-7.5Z" stroke="currentColor" stroke-width="1.1"/></svg></button>' +
+        '<button class="pbtn del" data-id="'+p.id+'"><svg width="12" height="12" fill="none" viewBox="0 0 12 12"><path d="M2 3h8M5 3V2h2v1M4.5 5v4M7.5 5v4M3 3l.5 6.5h5L9 3" stroke="currentColor" stroke-width="1.1" stroke-linecap="round"/></svg></button>' +
       '</div>';
 
+    // Replace the thumb placeholder
+    row.children[1].replaceWith(strip);
+
+    // Drag
     row.addEventListener('dragstart', () => { dragSrc = p.id; row.classList.add('dragging'); });
-    row.addEventListener('dragend', () => { row.classList.remove('dragging'); document.querySelectorAll('.drag-over').forEach(r=>r.classList.remove('drag-over')); });
-    row.addEventListener('dragover', e => { e.preventDefault(); row.classList.add('drag-over'); });
+    row.addEventListener('dragend',   () => { row.classList.remove('dragging'); document.querySelectorAll('.drag-over').forEach(r=>r.classList.remove('drag-over')); });
+    row.addEventListener('dragover',  e => { e.preventDefault(); row.classList.add('drag-over'); });
     row.addEventListener('dragleave', () => row.classList.remove('drag-over'));
-    row.addEventListener('drop', e => {
+    row.addEventListener('drop', async e => {
       e.preventDefault(); row.classList.remove('drag-over');
       if (dragSrc && dragSrc !== p.id) {
         const from = projects.findIndex(x=>x.id===dragSrc), to = projects.findIndex(x=>x.id===p.id);
-        if (from>-1&&to>-1) { const [m]=projects.splice(from,1); projects.splice(to,0,m); save(); render(); }
+        if (from>-1&&to>-1) { const [m]=projects.splice(from,1); projects.splice(to,0,m); }
+        await dbPut(META_STORE, {id:'_list', projects});
+        await renderList();
       }
     });
-    row.querySelector('.vis-toggle').addEventListener('click', () => {
+
+    // Visibility
+    row.querySelector('.vis-toggle').addEventListener('click', async () => {
       const proj = projects.find(x=>x.id===p.id);
-      if (proj) { proj.visible=!proj.visible; save(); render(); toast(proj.visible?'Shown on portfolio':'Hidden from portfolio'); }
+      if (proj) { proj.visible=!proj.visible; await dbPut(META_STORE,{id:'_list',projects}); await renderList(); toast(proj.visible?'Shown':'Hidden'); }
     });
+
+    // Edit
     row.querySelector('.pbtn.edit').addEventListener('click', () => startEdit(p.id));
-    row.querySelector('.pbtn.del').addEventListener('click', () => deleteProj(p.id));
+
+    // Delete
+    row.querySelector('.pbtn.del').addEventListener('click', async () => {
+      if (!confirm('Delete "'+p.title+'"?')) return;
+      for (const m of (p.media||[])) await dbDelete(MEDIA_STORE, m.mediaId);
+      projects = projects.filter(x=>x.id!==p.id);
+      await dbPut(META_STORE,{id:'_list',projects});
+      if (editingId===p.id) resetForm();
+      await renderList(); toast('Deleted');
+    });
+
     list.appendChild(row);
-  });
+  }
 }
 
-function startEdit(id) {
+async function startEdit(id) {
   const p = projects.find(x=>x.id===id); if (!p) return;
   editingId = id;
-  fTitle.value = p.title; fCat.value = p.cat; fYear.value = p.year;
-  fDesc.value = p.desc||''; fRatio.value = p.ratio||'16/10';
-  if (p.featured){fFeat.classList.add('on');fFeat.setAttribute('aria-checked','true');}
+  fTitle.value=p.title; fCat.value=p.cat; fYear.value=p.year;
+  fDesc.value=p.desc||''; fRatio.value=p.ratio||'16/10';
+  if(p.featured){fFeat.classList.add('on');fFeat.setAttribute('aria-checked','true');}
   else{fFeat.classList.remove('on');fFeat.setAttribute('aria-checked','false');}
-  if (p.visible){fVis.classList.add('on');fVis.setAttribute('aria-checked','true');}
+  if(p.visible){fVis.classList.add('on');fVis.setAttribute('aria-checked','true');}
   else{fVis.classList.remove('on');fVis.setAttribute('aria-checked','false');}
-  // restore media slots
-  mediaItems = [null,null,null,null,null];
-  (p.media||[]).forEach((m,i)=>{ if(i<MAX_MEDIA) mediaItems[i]=m; });
+
+  // Restore media slots with blob URLs
+  mediaSlots = Array(MAX_MEDIA).fill(null);
+  for (let i = 0; i < (p.media||[]).length && i < MAX_MEDIA; i++) {
+    const m = p.media[i];
+    const rec = await dbGet(MEDIA_STORE, m.mediaId);
+    if (rec) {
+      const blobUrl = URL.createObjectURL(rec.blob);
+      mediaSlots[i] = { file: null, blobUrl, type: m.type, filename: m.filename, mediaId: m.mediaId };
+    }
+  }
   buildSlots();
   document.getElementById('form-heading').textContent = 'Edit Project';
   btnSubmit.textContent = 'Save Changes'; btnCancel.style.display = 'block';
-  render();
+  await renderList();
   document.querySelector('.sidebar').scrollTo({top:0,behavior:'smooth'});
 }
 
-function deleteProj(id) {
-  if (!confirm('Delete this project?')) return;
-  projects = projects.filter(p=>p.id!==id);
-  if (editingId===id) resetForm();
-  save(); render(); toast('Project deleted');
-}
-
-/* SORT */
+// Sort
 document.querySelectorAll('.sortbtn').forEach(btn => {
-  btn.addEventListener('click', () => {
-    document.querySelectorAll('.sortbtn').forEach(b=>b.classList.remove('on'));
-    btn.classList.add('on');
+  btn.addEventListener('click', async () => {
+    document.querySelectorAll('.sortbtn').forEach(b=>b.classList.remove('on')); btn.classList.add('on');
     const s = btn.dataset.sort;
     let sorted = [...projects];
     if (s==='year-desc') sorted.sort((a,b)=>b.year-a.year);
     if (s==='year-asc')  sorted.sort((a,b)=>a.year-b.year);
     if (s==='alpha')     sorted.sort((a,b)=>a.title.localeCompare(b.title));
-    render(s==='custom' ? undefined : sorted);
+    await renderList(s==='custom' ? undefined : sorted);
   });
 });
 
-/* EXPORT / IMPORT */
-document.getElementById('btn-export').addEventListener('click', () => {
-  const out = projects.map(p=>({...p, media:(p.media||[]).map(m=>({type:m.type,filename:m.filename}))}));
-  const blob = new Blob([JSON.stringify(out,null,2)],{type:'application/json'});
-  const a = document.createElement('a'); a.href=URL.createObjectURL(blob);
-  a.download='kallos-portfolio.json'; a.click(); toast('Exported JSON');
-});
-document.getElementById('btn-import-trigger').addEventListener('click', ()=>document.getElementById('import-input').click());
-document.getElementById('import-input').addEventListener('change', e=>{
-  const f=e.target.files[0]; if(!f) return;
-  const r=new FileReader();
-  r.onload=ev=>{
-    try{const data=JSON.parse(ev.target.result);if(!Array.isArray(data))throw new Error('bad');projects=data;save();render();toast('Imported '+data.length+' projects');}
-    catch{toast('Invalid JSON',true);}
-  };
-  r.readAsText(f); e.target.value='';
-});
-document.getElementById('btn-clear-all').addEventListener('click', ()=>{
-  if(!confirm('Clear ALL projects?')) return;
-  projects=[];save();resetForm();render();toast('Cleared');
+// Clear all
+document.getElementById('btn-clear-all').addEventListener('click', async () => {
+  if (!confirm('Delete ALL projects and media? This cannot be undone.')) return;
+  await dbClear(META_STORE); await dbClear(MEDIA_STORE);
+  projects = []; resetForm(); await renderList(); toast('All cleared');
 });
 
-/* TOAST */
+// Toast
 let toastTimer;
-function toast(msg,err=false){
-  const el=document.getElementById('toast');
-  el.textContent=msg; el.className='toast show'+(err?' err':'');
-  clearTimeout(toastTimer); toastTimer=setTimeout(()=>el.classList.remove('show'),2800);
+function toast(msg, err=false) {
+  const el = document.getElementById('toast');
+  el.textContent = msg; el.className = 'toast show' + (err?' err':'');
+  clearTimeout(toastTimer); toastTimer = setTimeout(()=>el.classList.remove('show'), 2800);
 }
 
-/* INIT */
-load(); buildSlots(); render();
+// Init
+(async () => {
+  await openDB();
+  document.getElementById('db-status').textContent = 'Storage ready — no file size limits';
+  await loadProjects();
+  buildSlots();
+  await renderList();
+})();
 </script>
 </body>
 </html>
