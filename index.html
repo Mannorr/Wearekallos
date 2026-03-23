@@ -65,7 +65,7 @@ nav.on{background:var(--nav);backdrop-filter:blur(20px) saturate(1.5);border-col
 .hrules{position:absolute;inset:0;pointer-events:none;overflow:hidden}
 .hrules::before,.hrules::after{content:'';position:absolute;top:0;bottom:0;width:1px;background:var(--line)}
 .hrules::before{left:calc(52px + (100% - 104px) * .33)}.hrules::after{right:calc(52px + (100% - 104px) * .33)}
-.hmain{display:flex;flex-direction:column;justify-content:flex-end;padding-bottom:48px;padding-top:140px;position:relative;z-index:3}
+.hmain{display:flex;flex-direction:column;justify-content:flex-end;padding-bottom:48px;padding-top:140px;position:relative;z-index:3;max-width:60%}
 .heyelabel{font-size:10px;font-weight:600;letter-spacing:.24em;text-transform:uppercase;color:var(--muted);display:flex;align-items:center;gap:12px;margin-bottom:32px;opacity:0;animation:fadeup .8s var(--eout) .1s forwards}
 .heyelabel::before{content:'';width:22px;height:1px;background:var(--red);flex-shrink:0}
 .hh1{font-family:var(--fs);font-size:clamp(38px,5.5vw,82px);line-height:1.05;letter-spacing:-.02em}
@@ -75,7 +75,7 @@ nav.on{background:var(--nav);backdrop-filter:blur(20px) saturate(1.5);border-col
 @keyframes sup{to{transform:translateY(0)}}
 @keyframes fadeup{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
 .hred{font-style:italic;color:var(--red)}.hdim{color:var(--muted);font-size:1em;font-weight:400;font-style:normal}
-.hfoot{display:flex;align-items:flex-end;justify-content:space-between;gap:32px;padding:28px 0 56px;border-top:1px solid var(--line);position:relative;z-index:3;opacity:0;animation:fadeup .9s var(--eout) .7s forwards}
+.hfoot{display:flex;align-items:flex-end;justify-content:space-between;gap:32px;padding:28px 0 56px;border-top:1px solid var(--line);position:relative;z-index:3;opacity:0;animation:fadeup .9s var(--eout) .7s forwards;max-width:60%}
 .hsub{max-width:340px;font-size:15px;font-weight:300;line-height:1.8;color:var(--muted)}.hsub b{color:var(--text);font-weight:500}
 .hbtns{display:flex;gap:12px;align-items:center}
 .bprimary{display:inline-flex;align-items:center;gap:8px;font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--invt);background:var(--text);padding:13px 26px;text-decoration:none;transition:background .3s,color .3s}
@@ -260,37 +260,46 @@ footer{background:var(--bg);padding:76px 52px 44px;border-top:1px solid var(--li
 
 /* HERO FLOATING PORTFOLIO IMAGES */
 .hero-imgs{
-  position:absolute;inset:0;pointer-events:none;z-index:1;overflow:hidden;
+  position:absolute;
+  top:0;bottom:0;right:52px;
+  width:clamp(280px,32vw,460px);
+  pointer-events:none;z-index:1;
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  grid-template-rows:repeat(4,1fr);
+  gap:8px;
+  padding:100px 0 80px;
+  align-items:stretch;
 }
 .himg{
-  position:absolute;
   overflow:hidden;
   opacity:0;
   transition:opacity 1.2s ease;
-  box-shadow:0 8px 40px rgba(0,0,0,.35);
+  box-shadow:0 4px 20px rgba(0,0,0,.3);
+  border-radius:2px;
 }
 .himg.loaded{opacity:1}
 .himg img,.himg video{
   width:100%;height:100%;object-fit:cover;display:block;
   filter:brightness(.75) saturate(.85);
-  transition:transform 8s ease-in-out;
+  transition:transform .7s ease;
 }
 .himg:hover img,.himg:hover video{transform:scale(1.04)}
 
-/* Positions — each one fixed, slightly rotated */
-.himg-1{width:clamp(90px,10vw,150px);aspect-ratio:3/4;top:18%;left:3%;transform:rotate(-4deg)}
-.himg-2{width:clamp(100px,11vw,165px);aspect-ratio:4/3;top:12%;left:13%;transform:rotate(2.5deg)}
-.himg-3{width:clamp(80px,9vw,130px);aspect-ratio:1/1;top:55%;left:5%;transform:rotate(-2deg)}
-.himg-4{width:clamp(110px,12vw,180px);aspect-ratio:3/4;top:60%;left:15%;transform:rotate(3deg)}
-.himg-5{width:clamp(90px,10vw,150px);aspect-ratio:4/3;top:20%;right:3%;transform:rotate(3.5deg)}
-.himg-6{width:clamp(100px,11vw,165px);aspect-ratio:3/4;top:10%;right:13%;transform:rotate(-2deg)}
-.himg-7{width:clamp(80px,9vw,130px);aspect-ratio:1/1;top:58%;right:5%;transform:rotate(2deg)}
-.himg-8{width:clamp(110px,12vw,180px);aspect-ratio:4/3;top:65%;right:14%;transform:rotate(-3.5deg)}
+/* Neat right-side grid — staggered spans for visual rhythm */
+.himg-1{grid-column:1;grid-row:1/3}
+.himg-2{grid-column:2;grid-row:1/2}
+.himg-3{grid-column:2;grid-row:2/4}
+.himg-4{grid-column:1;grid-row:3/4}
+.himg-5{grid-column:1;grid-row:4/5}
+.himg-6{grid-column:2;grid-row:4/5}
+.himg-7{display:none}
+.himg-8{display:none}
 
-/* Overlay to keep text readable */
+/* Fade overlay on the left edge so images blend into the text area */
 .hero::after{
-  content:'';position:absolute;inset:0;z-index:1;pointer-events:none;
-  background:radial-gradient(ellipse 60% 70% at 50% 50%, var(--bg) 30%, transparent 100%);
+  content:'';position:absolute;inset:0;z-index:2;pointer-events:none;
+  background:linear-gradient(to right, var(--bg) 35%, rgba(0,0,0,0) 70%);
 }
 </style>
 </head>
