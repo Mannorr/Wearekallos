@@ -208,40 +208,47 @@ footer{background:var(--bg);padding:52px;border-top:1px solid var(--line);transi
 </footer>
 
 <script>
-const STORE_KEY = 'kallos_portfolio_v1';
+const DB_NAME = 'kallos_db', DB_VER = 1;
+const META_STORE = 'projects_meta';
+const MEDIA_STORE = 'media_files';
+let db;
+
+function openDB() {
+  return new Promise((res, rej) => {
+    const req = indexedDB.open(DB_NAME, DB_VER);
+    req.onupgradeneeded = e => {
+      const d = e.target.result;
+      if (!d.objectStoreNames.contains(META_STORE))  d.createObjectStore(META_STORE, {keyPath:'id'});
+      if (!d.objectStoreNames.contains(MEDIA_STORE)) d.createObjectStore(MEDIA_STORE, {keyPath:'id'});
+    };
+    req.onsuccess = e => { db = e.target.result; res(db); };
+    req.onerror   = e => rej(e.target.error);
+  });
+}
+function dbGet(store, key) {
+  return new Promise((res,rej) => { const r=db.transaction(store,'readonly').objectStore(store).get(key); r.onsuccess=()=>res(r.result); r.onerror=()=>rej(r.error); });
+}
+
 const CAT_LABELS = {brand:'Brand Identity',visual:'Visual Design',print:'Print & Packaging',event:'Events'};
 const ARROW = '<svg width="12" height="12" fill="none" viewBox="0 0 12 12"><path d="M2.5 9.5l7-7M3 2.5h6.5V9" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>';
 const PREV_SVG = '<svg width="8" height="14" fill="none" viewBox="0 0 8 14"><path d="M7 1L1 7l6 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>';
 const NEXT_SVG = '<svg width="8" height="14" fill="none" viewBox="0 0 8 14"><path d="M1 1l6 6-6 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>';
 
 /* CURSOR */
-const dot = document.getElementById('cdot'), ring = document.getElementById('cring');
+const dot=document.getElementById('cdot'),ring=document.getElementById('cring');
 let rx=0,ry=0,mx=-999,my=-999,started=false;
-document.addEventListener('mousemove', e=>{
-  mx=e.clientX;my=e.clientY;
-  dot.style.left=mx+'px';dot.style.top=my+'px';
-  if(!started){started=true;document.body.classList.add('cursor-ready');}
-});
-function addHover(el){
-  el.addEventListener('mouseenter',()=>document.body.classList.add('chov'));
-  el.addEventListener('mouseleave',()=>document.body.classList.remove('chov'));
-}
-(function raf(){if(started){rx+=(mx-rx)*.12;ry+=(my-ry)*.12;ring.style.left=rx+'px';ring.style.top=ry+'px';}requestAnimationFrame(raf)})();
+document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;dot.style.left=mx+'px';dot.style.top=my+'px';if(!started){started=true;document.body.classList.add('cursor-ready');}});
+function addHover(el){el.addEventListener('mouseenter',()=>document.body.classList.add('chov'));el.addEventListener('mouseleave',()=>document.body.classList.remove('chov'));}
+(function raf(){if(started){rx+=(mx-rx)*.12;ry+=(my-ry)*.12;ring.style.left=rx+'px';ring.style.top=ry+'px';}requestAnimationFrame(raf);})();
 
 /* THEME */
 const html=document.documentElement,tbtn=document.getElementById('tbtn');
 html.setAttribute('data-theme',localStorage.getItem('kallos-theme')||'dark');
-tbtn.addEventListener('click',()=>{
-  const n=html.getAttribute('data-theme')==='dark'?'light':'dark';
-  html.setAttribute('data-theme',n);localStorage.setItem('kallos-theme',n);
-});
+tbtn.addEventListener('click',()=>{const n=html.getAttribute('data-theme')==='dark'?'light':'dark';html.setAttribute('data-theme',n);localStorage.setItem('kallos-theme',n);});
 addHover(tbtn);
 
 /* NAV */
 window.addEventListener('scroll',()=>document.getElementById('nav').classList.toggle('on',scrollY>60),{passive:true});
-
-/* LOAD PROJECTS */
-function getProjects(){try{return JSON.parse(localStorage.getItem(STORE_KEY))||[];}catch{return [];}}
 
 const grid=document.getElementById('pgrid');
 const noProjects=document.getElementById('noProjects');
@@ -249,157 +256,130 @@ const cntEl=document.getElementById('cnt');
 let activeFilter='all';
 let allCards=[];
 
-/* BUILD A CARD WITH CAROUSEL */
-function buildCard(p) {
-  const media = p.media && p.media.length ? p.media : [];
-  const hasMultiple = media.length > 1;
+async function getProjects() {
+  try {
+    const rec = await dbGet(META_STORE, '_list');
+    return (rec && rec.projects) ? rec.projects.filter(p=>p.visible!==false) : [];
+  } catch { return []; }
+}
 
+async function getBlobUrl(mediaId) {
+  try {
+    const rec = await dbGet(MEDIA_STORE, mediaId);
+    if (!rec) return null;
+    return URL.createObjectURL(rec.blob);
+  } catch { return null; }
+}
+
+async function buildCard(p) {
+  const media = p.media || [];
+  const hasMultiple = media.length > 1;
   const card = document.createElement('div');
   card.className = 'pcard' + (p.featured ? ' feat' : '');
   card.dataset.cat = p.cat;
 
-  // Media area
   const mediaDiv = document.createElement('div');
   mediaDiv.className = 'pmedia';
   mediaDiv.style.aspectRatio = p.ratio || '4/3';
 
-  // Carousel track
   const carousel = document.createElement('div');
   carousel.className = 'pcarousel';
   let currentSlide = 0;
 
   if (media.length === 0) {
-    // Placeholder
-    const slide = document.createElement('div');
-    slide.className = 'pslide';
+    const slide = document.createElement('div'); slide.className = 'pslide';
     slide.innerHTML = '<span class="pph-l">' + (p.title||'?').slice(0,2).toUpperCase() + '</span>';
     carousel.appendChild(slide);
   } else {
-    media.forEach(m => {
-      const slide = document.createElement('div');
-      slide.className = 'pslide';
-      if (m.type === 'image') {
-        const img = document.createElement('img');
-        img.src = m.dataUrl; img.alt = p.title; img.loading = 'lazy';
-        slide.appendChild(img);
+    for (const m of media) {
+      const slide = document.createElement('div'); slide.className = 'pslide';
+      const blobUrl = await getBlobUrl(m.mediaId);
+      if (blobUrl) {
+        if (m.type === 'video') {
+          const vid = document.createElement('video');
+          vid.src = blobUrl; vid.autoplay = true; vid.muted = true; vid.loop = true; vid.playsInline = true;
+          slide.appendChild(vid);
+        } else {
+          const img = document.createElement('img');
+          img.src = blobUrl; img.alt = p.title; img.loading = 'lazy';
+          slide.appendChild(img);
+        }
       } else {
-        const vid = document.createElement('video');
-        vid.src = m.dataUrl; vid.autoplay = true; vid.muted = true; vid.loop = true; vid.playsInline = true;
-        slide.appendChild(vid);
+        slide.innerHTML = '<span class="pph-l">' + (p.title||'?').slice(0,2).toUpperCase() + '</span>';
       }
       carousel.appendChild(slide);
-    });
+    }
   }
   mediaDiv.appendChild(carousel);
 
-  // Overlay gradient
-  const ovl = document.createElement('div'); ovl.className = 'povl';
-  mediaDiv.appendChild(ovl);
+  const ovl = document.createElement('div'); ovl.className = 'povl'; mediaDiv.appendChild(ovl);
+  const yr = document.createElement('span'); yr.className = 'pyear'; yr.textContent = p.year||''; mediaDiv.appendChild(yr);
 
-  // Year badge
-  const yr = document.createElement('span'); yr.className = 'pyear'; yr.textContent = p.year || '';
-  mediaDiv.appendChild(yr);
-
-  // Carousel controls (only if multiple)
   if (hasMultiple) {
-    const prevBtn = document.createElement('button');
-    prevBtn.className = 'pcarousel-prev'; prevBtn.innerHTML = PREV_SVG;
-    const nextBtn = document.createElement('button');
-    nextBtn.className = 'pcarousel-next'; nextBtn.innerHTML = NEXT_SVG;
-
-    // Dot indicators
+    const prevBtn = document.createElement('button'); prevBtn.className = 'pcarousel-prev'; prevBtn.innerHTML = PREV_SVG;
+    const nextBtn = document.createElement('button'); nextBtn.className = 'pcarousel-next'; nextBtn.innerHTML = NEXT_SVG;
     const dotsWrap = document.createElement('div'); dotsWrap.className = 'pdots';
     const dots = [];
-    media.forEach((_, i) => {
-      const d = document.createElement('button');
-      d.className = 'pdot' + (i===0?' on':'');
-      d.addEventListener('click', e => { e.stopPropagation(); goTo(i); });
+    media.forEach((_,i) => {
+      const d = document.createElement('button'); d.className='pdot'+(i===0?' on':'');
+      d.addEventListener('click', e=>{e.stopPropagation();goTo(i);});
       dotsWrap.appendChild(d); dots.push(d);
     });
-
-    // Count badge
-    const badge = document.createElement('div');
-    badge.className = 'pcount-badge';
-    badge.textContent = '1 / ' + media.length;
-
+    const badge = document.createElement('div'); badge.className='pcount-badge'; badge.textContent='1 / '+media.length;
     function goTo(idx) {
-      currentSlide = (idx + media.length) % media.length;
-      carousel.style.transform = 'translateX(-' + (currentSlide * 100) + '%)';
-      dots.forEach((d,i) => d.classList.toggle('on', i===currentSlide));
-      badge.textContent = (currentSlide+1) + ' / ' + media.length;
+      currentSlide=(idx+media.length)%media.length;
+      carousel.style.transform='translateX(-'+(currentSlide*100)+'%)';
+      dots.forEach((d,i)=>d.classList.toggle('on',i===currentSlide));
+      badge.textContent=(currentSlide+1)+' / '+media.length;
     }
-
-    prevBtn.addEventListener('click', e => { e.stopPropagation(); goTo(currentSlide - 1); });
-    nextBtn.addEventListener('click', e => { e.stopPropagation(); goTo(currentSlide + 1); });
-
-    // Swipe support
-    let touchStartX = 0;
-    mediaDiv.addEventListener('touchstart', e => { touchStartX = e.touches[0].clientX; }, {passive:true});
-    mediaDiv.addEventListener('touchend', e => {
-      const diff = touchStartX - e.changedTouches[0].clientX;
-      if (Math.abs(diff) > 40) goTo(diff > 0 ? currentSlide+1 : currentSlide-1);
-    });
-
-    mediaDiv.appendChild(prevBtn);
-    mediaDiv.appendChild(nextBtn);
-    mediaDiv.appendChild(dotsWrap);
-    mediaDiv.appendChild(badge);
+    prevBtn.addEventListener('click',e=>{e.stopPropagation();goTo(currentSlide-1);});
+    nextBtn.addEventListener('click',e=>{e.stopPropagation();goTo(currentSlide+1);});
+    let touchStartX=0;
+    mediaDiv.addEventListener('touchstart',e=>{touchStartX=e.touches[0].clientX;},{passive:true});
+    mediaDiv.addEventListener('touchend',e=>{const d=touchStartX-e.changedTouches[0].clientX;if(Math.abs(d)>40)goTo(d>0?currentSlide+1:currentSlide-1);});
+    mediaDiv.appendChild(prevBtn); mediaDiv.appendChild(nextBtn); mediaDiv.appendChild(dotsWrap); mediaDiv.appendChild(badge);
     addHover(prevBtn); addHover(nextBtn);
   }
 
   card.appendChild(mediaDiv);
-
-  // Info bar
-  const info = document.createElement('div'); info.className = 'pcinfo';
-  info.innerHTML =
-    '<div>' +
-      '<div class="pcat">' + (CAT_LABELS[p.cat]||p.cat) + '</div>' +
-      '<div class="ptitle">' + p.title + '</div>' +
-    '</div>' +
-    '<div class="parr">' + ARROW + '</div>';
+  const info = document.createElement('div'); info.className='pcinfo';
+  info.innerHTML='<div><div class="pcat">'+(CAT_LABELS[p.cat]||p.cat)+'</div><div class="ptitle">'+p.title+'</div></div><div class="parr">'+ARROW+'</div>';
   card.appendChild(info);
-
   addHover(card);
   return card;
 }
 
-function renderGrid() {
-  const projects = getProjects().filter(p => p.visible !== false);
-  grid.innerHTML = ''; allCards = [];
-  cntEl.textContent = projects.length;
+async function renderGrid() {
+  const projects = await getProjects();
+  grid.innerHTML=''; allCards=[];
+  cntEl.textContent=projects.length;
   noProjects.classList.toggle('show', projects.length===0);
-  grid.style.display = projects.length===0 ? 'none' : '';
+  grid.style.display=projects.length===0?'none':'';
 
-  const visible = projects.filter(p => activeFilter==='all' || p.cat===activeFilter);
-  visible.forEach((p, i) => {
-    const card = buildCard(p);
+  const visible=projects.filter(p=>activeFilter==='all'||p.cat===activeFilter);
+  for (let i=0; i<visible.length; i++) {
+    const card = await buildCard(visible[i]);
     grid.appendChild(card);
     allCards.push(card);
-    setTimeout(() => card.classList.add('in'), 60 + i*60);
-  });
+    setTimeout(()=>card.classList.add('in'), 60+i*60);
+  }
 }
 
 /* FILTER */
-const tabs = [...document.querySelectorAll('.ftab')];
-tabs.forEach(tab => {
-  tab.addEventListener('click', () => {
+const tabs=[...document.querySelectorAll('.ftab')];
+tabs.forEach(tab=>{
+  tab.addEventListener('click',()=>{
     tabs.forEach(t=>t.classList.remove('on')); tab.classList.add('on');
-    activeFilter = tab.dataset.f;
-    allCards.forEach(c => c.classList.toggle('hide', activeFilter!=='all' && c.dataset.cat!==activeFilter));
-    allCards.filter(c=>!c.classList.contains('hide')).forEach((c,i)=>{
-      c.classList.remove('in'); void c.offsetWidth;
-      setTimeout(()=>c.classList.add('in'), i*50);
-    });
+    activeFilter=tab.dataset.f;
+    allCards.forEach(c=>c.classList.toggle('hide',activeFilter!=='all'&&c.dataset.cat!==activeFilter));
+    allCards.filter(c=>!c.classList.contains('hide')).forEach((c,i)=>{c.classList.remove('in');void c.offsetWidth;setTimeout(()=>c.classList.add('in'),i*50);});
   });
   addHover(tab);
 });
 
 /* REVEAL */
-const obs = new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('in')});},{threshold:.08});
+const obs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('in')});},{threshold:.08});
 document.querySelectorAll('.rv').forEach(el=>obs.observe(el));
-
-/* LIVE SYNC */
-window.addEventListener('storage', e=>{ if(e.key===STORE_KEY) renderGrid(); });
 
 /* MAGNETIC */
 document.querySelectorAll('.bprimary,.ncta').forEach(b=>{
@@ -411,12 +391,13 @@ document.querySelectorAll('a').forEach(addHover);
 
 /* EMAIL */
 const EMAIL=['kallos','creative','agency','@','gmail','.','com'].join('');
-document.querySelectorAll('[data-mail]').forEach(a=>{
-  a.addEventListener('click',e=>{e.preventDefault();window.location.href='mailto:'+EMAIL;});
-});
+document.querySelectorAll('[data-mail]').forEach(a=>{a.addEventListener('click',e=>{e.preventDefault();window.location.href='mailto:'+EMAIL;});});
 
 /* INIT */
-renderGrid();
+(async () => {
+  await openDB();
+  await renderGrid();
+})();
 </script>
 </body>
 </html>
