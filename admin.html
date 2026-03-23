@@ -194,6 +194,11 @@ textarea.inp{resize:vertical;min-height:80px;line-height:1.6}
       </select>
     </div>
 
+    <div class="f" id="f-url-wrap">
+      <label>Website URL <span style="font-weight:300;text-transform:none;letter-spacing:0;font-size:9px;color:var(--muted)">(for Website Design projects)</span></label>
+      <input class="inp" id="f-url" type="url" placeholder="https://clientsite.com">
+    </div>
+
     <div class="f">
       <label>Images &amp; Videos <span style="font-weight:300;text-transform:none;letter-spacing:0;font-size:9px;color:var(--muted)">(up to 5, slot 1 = cover)</span></label>
       <div class="dz" id="dz">
@@ -243,7 +248,7 @@ const CLOUD  = 'dhn7puiqc';
 const PRESET = 'kallos';
 const CURL   = 'https://api.cloudinary.com/v1_1/' + CLOUD + '/upload';
 const JBAPI  = 'https://api.jsonbin.io/v3/b';
-const CATS   = {brand:'Brand Identity',visual:'Visual Design',print:'Print & Packaging',event:'Events'};
+const CATS   = {brand:'Brand Identity',visual:'Visual Design',print:'Print & Packaging',event:'Events',web:'Website Design'};
 const MAX    = 5;
 
 // ── JSONBin helpers ─────────────────────────────────────
@@ -413,6 +418,7 @@ btnSave.addEventListener('click', async () => {
     year:     parseInt(document.getElementById('f-year').value) || 2025,
     desc:     document.getElementById('f-desc').value.trim(),
     ratio:    document.getElementById('f-ratio').value,
+    siteUrl:  document.getElementById('f-url').value.trim() || null,
     featured: document.getElementById('f-feat').classList.contains('on'),
     visible:  document.getElementById('f-vis').classList.contains('on'),
     media,
@@ -445,9 +451,16 @@ function resetForm() {
   btnSave.textContent='Add Project'; document.getElementById('btn-cancel').style.display='none';
   document.querySelectorAll('.prow.active').forEach(r=>r.classList.remove('active'));
   document.getElementById('f-files').value='';
+  document.getElementById('f-url').value='';
 }
 document.getElementById('btn-cancel').addEventListener('click', resetForm);
 [document.getElementById('f-feat'), document.getElementById('f-vis')].forEach(t=>t.addEventListener('click',()=>t.classList.toggle('on')));
+
+// Show website URL field only for web category
+document.getElementById('f-cat').addEventListener('change', function() {
+  document.getElementById('f-url-wrap').style.display = this.value === 'web' ? 'block' : 'none';
+});
+document.getElementById('f-url-wrap').style.display = 'none';
 
 // ── Load & render list ───────────────────────────────────
 async function loadProjects() {
@@ -526,6 +539,7 @@ function renderList(arr) {
       document.getElementById('f-year').value=pr.year;
       document.getElementById('f-desc').value=pr.desc||'';
       document.getElementById('f-ratio').value=pr.ratio||'16/10';
+      document.getElementById('f-url').value=pr.siteUrl||'';
       if(pr.featured)document.getElementById('f-feat').classList.add('on');else document.getElementById('f-feat').classList.remove('on');
       if(pr.visible)document.getElementById('f-vis').classList.add('on');else document.getElementById('f-vis').classList.remove('on');
       // Restore existing media as already-uploaded
