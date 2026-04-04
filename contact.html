@@ -14,8 +14,8 @@
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
 body{font-family:var(--ss);background:var(--bg);color:var(--text);overflow-x:hidden;transition:background .5s,color .5s;-webkit-font-smoothing:antialiased}
-.grain{position:fixed;inset:-50%;z-index:900;width:200%;height:200%;pointer-events:none;opacity:.022;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");animation:grn .5s steps(1) infinite}
-@keyframes grn{0%,100%{transform:translate(0,0)}20%{transform:translate(3%,2%)}40%{transform:translate(-1%,4%)}60%{transform:translate(1%,-4%)}80%{transform:translate(3%,-2%)}}
+/* grain effect removed for performance */
+20%{transform:translate(3%,2%)}40%{transform:translate(-1%,4%)}60%{transform:translate(1%,-4%)}80%{transform:translate(3%,-2%)}}
 .cdot,.cring{position:fixed;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);opacity:0;transition:opacity .3s}
 .cdot{width:6px;height:6px;background:var(--red);border-radius:50%;transition:width .2s,height .2s,background .2s,opacity .3s}
 .cring{z-index:9998;width:34px;height:34px;border:1px solid rgba(238,41,36,.38);border-radius:50%;transition:width .4s var(--eout),height .4s var(--eout),opacity .3s}
@@ -253,7 +253,7 @@ textarea.finput{resize:vertical;min-height:100px;line-height:1.65}
 </style>
 </head>
 <body>
-<div class="grain"></div>
+
 <div class="cdot" id="cdot"></div>
 <div class="cring" id="cring"></div>
 
