@@ -14,7 +14,7 @@
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
 body{font-family:var(--ss);background:var(--bg);color:var(--text);overflow-x:hidden;transition:background .5s,color .5s;-webkit-font-smoothing:antialiased}
-/* grain effect removed for performance */
+
 20%{transform:translate(3%,2%)}40%{transform:translate(-1%,4%)}60%{transform:translate(1%,-4%)}80%{transform:translate(3%,-2%)}}
 .cdot,.cring{position:fixed;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);opacity:0;transition:opacity .3s}
 .cdot{width:6px;height:6px;background:var(--red);border-radius:50%;transition:width .2s,height .2s,background .2s,opacity .3s}
@@ -253,7 +253,6 @@ textarea.finput{resize:vertical;min-height:100px;line-height:1.65}
 </style>
 </head>
 <body>
-
 <div class="cdot" id="cdot"></div>
 <div class="cring" id="cring"></div>
 
